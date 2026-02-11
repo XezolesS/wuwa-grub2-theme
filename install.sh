@@ -8,12 +8,21 @@ readonly Project_Name="GRUB2::THEMES"
 readonly MAX_DELAY=20                               # max delay for user to enter root password
 tui_root_login=
 
-THEME_NAME=Wuthering
+THEME_NAME=wuwa
 GRUB_DIR="/usr/share/grub/themes"
 REO_DIR="$(cd $(dirname $0) && pwd)"
+BG_DIR="$REO_DIR/backgrounds"
 
 SCREEN_VARIANTS=('1080p' '2k' '4k')
-THEME_VARIANTS=('changli' 'jinxi' 'jiyan' 'yinlin' 'anke' 'weilinai' 'kakaluo' 'jianxin')
+THEME_VARIANTS=('none')                             # index 0 will be the placeholder to make an index starts from 1
+
+# Load themes from ./backgrounds
+for file in "$BG_DIR"/*; do
+  if [[ -f "$file" ]] && [[ $file == *.png ]]; then
+    filename=$(basename $file)
+    THEME_VARIANTS+=(${filename%.png})
+  fi
+done
 
 screens=()
 themes=()
@@ -60,21 +69,56 @@ function has_command() {
 }
 
 usage() {
+  default_theme="${THEME_VARIANTS[1]}"
+
+  if (( "${#THEME_VARIANTS[@]}" == 1 )); then
+    theme_options="no option available"
+  else
+    theme_options=""
+    for theme in "${THEME_VARIANTS[@]:1}"; do
+      theme_options+="$theme|"
+    done
+    theme_options="${theme_options::-1}"
+  fi
+
 cat << EOF
 
 Usage: $0 [OPTION]...
 
 OPTIONS:
-  -t, --theme     Background theme variant(s) [changli|jinxi|jiyan|yinlin|anke|weilinai|kakaluo|jianxin] (default is changli)
+  -t, --theme     Background theme variant(s) [$theme_options] (default is $default_theme)
   -s, --screen    Screen display variant(s)   [1080p|2k|4k] (default is 1080p)
-  -r, --remove    Remove/Uninstall theme      [changli|jinxi|jiyan|yinlin|anke|weilinai|kakaluo|jianxin] (must add theme name option, default is changli)
+  -r, --remove    Remove/Uninstall theme      [$theme_options] (must add theme name option, default is $default_theme)
   -b, --boot      Install theme into '/boot/grub' or '/boot/grub2'
   -h, --help      Show this help
 
 EOF
 }
 
+verify_themes() {
+  # Exit if no background is found
+  if (( "${#THEME_VARIANTS[@]}" == 1 )); then
+    prompt -e No theme is found!
+    exit 1
+  fi
+}
+
+get_theme_index() {
+  local input=$1
+
+  for index in "${!THEME_VARIANTS[@]}"; do
+    if [[ "$input" == "${THEME_VARIANTS[index]}" ]]; then
+      echo "$index"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 install() {
+  verify_themes
+
   local theme="${1}"
   local screen="${2}"
 
@@ -89,24 +133,24 @@ install() {
     mkdir -p "${THEME_DIR}"
 
     # Copy theme
-    prompt -i "\n Installing Wuthering-${theme} ${screen} ..."
+    prompt -i "\n Installing ${THEME_NAME}-${theme} ${screen} ..."
 
     # Don't preserve ownership because the owner will be root, and that causes the script to crash if it is ran from terminal by sudo
     cp -a --no-preserve=ownership "${REO_DIR}/common/"*.pf2 "${THEME_DIR}"
     cp -a --no-preserve=ownership "${REO_DIR}/config/theme-${screen}.txt" "${THEME_DIR}/theme.txt"
-    cp -a --no-preserve=ownership "${REO_DIR}/backgrounds/background-${theme}.jpg" "${THEME_DIR}/background.jpg"
+    cp -a --no-preserve=ownership "${REO_DIR}/backgrounds/${theme}.png" "${THEME_DIR}/background.png"
     cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-icons/icons-${screen}" "${THEME_DIR}/icons"
     cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-other/other-${screen}/"*.png "${THEME_DIR}"
 
-    # Use custom background.jpg as grub background image
-    if [[ -f "${REO_DIR}/background.jpg" ]]; then
-      prompt -w "\n Using custom background.jpg as grub background image..."
-      cp -a --no-preserve=ownership "${REO_DIR}/background.jpg" "${THEME_DIR}/background.jpg"
-      convert -auto-orient "${THEME_DIR}/background.jpg" "${THEME_DIR}/background.jpg"
+    # Use custom background.png as grub background image
+    if [[ -f "${REO_DIR}/background.png" ]]; then
+      prompt -w "\n Using custom background.png as grub background image..."
+      cp -a --no-preserve=ownership "${REO_DIR}/background.png" "${THEME_DIR}/background.png"
+      convert -auto-orient "${THEME_DIR}/background.png" "${THEME_DIR}/background.png"
     fi
 
     # Set theme
-    prompt -i "\n Setting Wuthering as default..."
+    prompt -i "\n Setting ${THEME_NAME} as default..."
 
     # Backup grub config
     if [[ -f /etc/default/grub.bak ]]; then
@@ -147,10 +191,10 @@ install() {
 
     if grep "GRUB_BACKGROUND=" /etc/default/grub 2>&1 >/dev/null; then
       #Replace GRUB_BACKGROUND
-      sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${THEME_DIR}/background.jpg\"|" /etc/default/grub
+      sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${THEME_DIR}/background.png\"|" /etc/default/grub
     else
       #Append GRUB_BACKGROUND
-      echo "GRUB_BACKGROUND=\"${THEME_DIR}/background.jpg\"" >> /etc/default/grub
+      echo "GRUB_BACKGROUND=\"${THEME_DIR}/background.png\"" >> /etc/default/grub
     fi
 
     # Make sure the right resolution for grub is set
@@ -190,7 +234,7 @@ install() {
     # Update grub config
     prompt -i "\n Updating grub config... \n"
     updating_grub
-    prompt -w "\n * At the next restart of your computer you will see your new Grub theme: 'Wuthering-${theme}' \n"
+    prompt -w "\n * At the next restart of your computer you will see your new Grub theme: '${THEME_NAME}-${theme}' \n"
 
   #Check if password is cached (if cache timestamp has not expired yet)
   elif sudo -n true 2> /dev/null && echo; then
@@ -230,6 +274,8 @@ install() {
 }
 
 run_dialog() {
+  verify_themes
+
   if [[ -x /usr/bin/dialog ]]; then
     if [[ "$UID" -ne "$ROOT_UID"  ]]; then
       #Check if password is cached (if cache timestamp not expired yet)
@@ -257,34 +303,35 @@ run_dialog() {
       fi
     fi
 
+    # Build options
+    options=()
+    for i in "${!THEME_VARIANTS[@]}"; do
+      if (( i == 0 )); then
+        continue
+      fi
+
+      if (( i == 1 )); then
+        options+=("$i" "${THEME_VARIANTS[i]^} Theme" "on")
+      else
+        options+=("$i" "${THEME_VARIANTS[i]^} Theme" "off")
+      fi
+    done
+
     tui=$(dialog --backtitle ${Project_Name} \
-    --radiolist "Choose your Grub theme background picture : " 15 40 5 \
-      1 "Changli Theme" on  \
-      2 "Jinxi Theme" off \
-      3 "Jiyan Theme" off  \
-      4 "Yinlin Theme" off  \
-      5 "Anke Theme" off \
-      6 "Weilinai Theme" off  \
-      7 "Kakaluo Theme" off  \
-      8 "Jianxin Theme" off --output-fd 1 )
-      case "$tui" in
-        1) theme="changli"    ;;
-        2) theme="jinxi"      ;;
-        3) theme="jiyan"      ;;
-        4) theme="yinlin"     ;;
-        5) theme="anke"       ;;
-        6) theme="weilinai"   ;;
-        7) theme="kakaluo"    ;;
-        8) theme="jianxin"    ;;
-        *) operation_canceled ;;
-     esac
+      --radiolist "Choose your Grub theme background picture : " 15 40 5 \
+      "${options[@]}" --output-fd 1 )
+    if (( "$tui" < "${#THEME_VARIANTS[@]}" )); then
+      theme="${THEME_VARIANTS[tui]}"
+    else 
+      operation_canceled
+    fi
 
     tui=$(dialog --backtitle ${Project_Name} \
     --radiolist "Choose your Display Resolution : " 15 40 5 \
       1 "1080p (1920x1080)" on  \
       2 "2k (2560x1440)" off \
       3 "4k (3840x2160)" off --output-fd 1 )
-      case "$tui" in
+    case "$tui" in
         1) screen="1080p"       ;;
         2) screen="2k"          ;;
         3) screen="4k"          ;;
@@ -348,7 +395,14 @@ install_dialog() {
 }
 
 remove() {
+  verify_themes
+
   local theme=${1}
+
+  # Ignore placeholder
+  if [[ "${theme}" == "${THEME_VARIANTS[0]}" ]]; then
+    return
+  fi
 
   THEME_DIR="${GRUB_DIR}/${THEME_NAME}-${theme}"
 
@@ -472,48 +526,20 @@ while [[ $# -gt 0 ]]; do
       remove='true'
       shift
       for theme in "${@}"; do
-        case "${theme}" in
-          changli)
-            themes+=("${THEME_VARIANTS[0]}")
-            shift
-            ;;
-          jinxi)
-            themes+=("${THEME_VARIANTS[1]}")
-            shift
-            ;;
-          jiyan)
-            themes+=("${THEME_VARIANTS[2]}")
-            shift
-            ;;
-          yinlin)
-            themes+=("${THEME_VARIANTS[3]}")
-            shift
-            ;;
-          anke)
-            themes+=("${THEME_VARIANTS[4]}")
-            shift
-            ;;
-          weilinai)
-            themes+=("${THEME_VARIANTS[5]}")
-            shift
-            ;;
-          kakaluo)
-            themes+=("${THEME_VARIANTS[6]}")
-            shift
-            ;;
-          jianxin)
-            themes+=("${THEME_VARIANTS[7]}")
-            shift
-            ;;
-          -*)
-            break
-            ;;
-          *)
-            prompt -e "ERROR: Unrecognized theme variant '$1'."
-            prompt -i "Try '$0 --help' for more information."
-            exit 1
-            ;;
-        esac
+        if [[ "${theme}" == -* ]]; then
+          break;
+        fi
+
+        selected_theme=$(get_theme_index "$theme")
+
+        if [[ -n $selected_theme ]]; then
+          themes+=("${THEME_VARIANTS[selected_theme]}")
+          shift
+        else
+          prompt -e "ERROR: Unrecognized theme variant '$1'."
+          prompt -i "Try '$0 --help' for more information."
+          exit 1
+        fi
       done
       ;;
     -b|--boot)
@@ -528,48 +554,19 @@ while [[ $# -gt 0 ]]; do
     -t|--theme)
       shift
       for theme in "${@}"; do
-        case "${theme}" in
-          changli)
-            themes+=("${THEME_VARIANTS[0]}")
-            shift
-            ;;
-          jinxi)
-            themes+=("${THEME_VARIANTS[1]}")
-            shift
-            ;;
-          jiyan)
-            themes+=("${THEME_VARIANTS[2]}")
-            shift
-            ;;
-          yinlin)
-            themes+=("${THEME_VARIANTS[3]}")
-            shift
-            ;;
-          anke)
-            themes+=("${THEME_VARIANTS[4]}")
-            shift
-            ;;
-          weilinai)
-            themes+=("${THEME_VARIANTS[5]}")
-            shift
-            ;;
-          kakaluo)
-            themes+=("${THEME_VARIANTS[6]}")
-            shift
-            ;;
-          jianxin)
-            themes+=("${THEME_VARIANTS[7]}")
-            shift
-            ;;
-          -*)
-            break
-            ;;
-          *)
-            prompt -e "ERROR: Unrecognized theme variant '$1'."
-            prompt -i "Try '$0 --help' for more information."
-            exit 1
-            ;;
-        esac
+        if [[ "${theme}" == -* ]]; then
+          break;
+        fi
+
+        selected_theme=$(get_theme_index "$theme")
+        if [[ $selected_theme != 255 ]]; then
+          themes+=("${THEME_VARIANTS[selected_theme]}")
+          shift
+        else
+          prompt -e "ERROR: Unrecognized theme variant '$1'."
+          prompt -i "Try '$0 --help' for more information."
+          exit 1
+        fi
       done
       ;;
     -s|--screen)
@@ -612,11 +609,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "${#screens[@]}" -eq 0 ]] ; then
-  screens=("${SCREEN_VARIANTS[0]}")
+  screens=("${SCREEN_VARIANTS[1]}")
 fi
 
 if [[ "${#themes[@]}" -eq 0 ]] ; then
-  themes=("${THEME_VARIANTS[0]}")
+  themes=("${THEME_VARIANTS[1]}")
 fi
 
 #############################
