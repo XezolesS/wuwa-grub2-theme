@@ -303,6 +303,29 @@ run_dialog() {
       fi
     fi
 
+    # INSTALLATION PATH OPTION
+    tui=$(dialog --backtitle ${Project_Name} \
+    --radiolist "Choose a path where you want to install the theme : " 15 40 5 \
+      1 "System (/usr/share/grub/themes)" on  \
+      2 "Boot partition (/boot/grub/theme)" off --output-fd 1 )
+    case "$tui" in
+      1) 
+      install_boot='false' 
+      ;;
+      2)
+      install_boot='true' 
+      if [[ -d "/boot/grub" ]]; then
+        GRUB_DIR="/boot/grub/themes"
+      elif [[ -d "/boot/grub2" ]]; then
+        GRUB_DIR="/boot/grub2/themes"
+      fi
+      ;;
+      *) 
+      operation_canceled   
+      ;;
+    esac
+
+    # THEME SELECTION OPTION
     # Build options
     options=()
     for i in "${!THEME_VARIANTS[@]}"; do
@@ -326,17 +349,18 @@ run_dialog() {
       operation_canceled
     fi
 
+    # SCREEN RESOLUTION OPTION
     tui=$(dialog --backtitle ${Project_Name} \
     --radiolist "Choose your Display Resolution : " 15 40 5 \
       1 "1080p (1920x1080)" on  \
       2 "2k (2560x1440)" off \
       3 "4k (3840x2160)" off --output-fd 1 )
     case "$tui" in
-        1) screen="1080p"       ;;
-        2) screen="2k"          ;;
-        3) screen="4k"          ;;
-        *) operation_canceled   ;;
-     esac
+      1) screen="1080p"       ;;
+      2) screen="2k"          ;;
+      3) screen="4k"          ;;
+      *) operation_canceled   ;;
+    esac
 
      # clear
      echo -e '\0033\0143'
