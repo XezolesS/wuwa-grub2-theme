@@ -1,11 +1,20 @@
 #! /bin/bash
 
+BG_DIR=$(cd $(dirname $0) && cd .. && pwd)"/backgrounds"
 OPEN_DIR=$(cd $(dirname $0) && pwd)
 
-THEME_NAME=Wuthering
+THEME_NAME=wuwa
 
 SCREEN_VARIANTS=('1080p' '2k' '4k')
-THEME_VARIANTS=('changli' 'jinxi' 'jiyan' 'yinlin' 'anke' 'weilinai' 'kakaluo' 'jianxin')
+THEME_VARIANTS=() 
+
+# Load themes from ./backgrounds
+for file in "$BG_DIR"/*; do
+  if [[ -f "$file" ]] && [[ $file == *.png ]]; then
+    filename=$(basename $file)
+    THEME_VARIANTS+=(${filename%.png})
+  fi
+done
 
 screens=()
 themes=()
@@ -35,7 +44,7 @@ Clear_theme() {
   done
 }
 
-cd ..
+cd $OPEN_DIR"/.."
 for theme in "${themes[@]}"; do
   for screen in "${screens[@]}"; do
     ./generate.sh -d "$OPEN_DIR/${THEME_NAME}-${theme}-grub-theme/${screen}" -t "${theme}" -s "${screen}"
