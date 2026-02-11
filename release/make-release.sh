@@ -6,7 +6,7 @@ OPEN_DIR=$(cd $(dirname $0) && pwd)
 THEME_NAME=wuwa
 
 SCREEN_VARIANTS=('1080p' '2k' '4k')
-THEME_VARIANTS=() 
+THEME_VARIANTS=()
 
 # Load themes from ./backgrounds
 for file in "$BG_DIR"/*; do
@@ -19,11 +19,11 @@ done
 screens=()
 themes=()
 
-if [[ "${#screens[@]}" -eq 0 ]] ; then
+if [[ "${#screens[@]}" -eq 0 ]]; then
   screens=("${SCREEN_VARIANTS[@]}")
 fi
 
-if [[ "${#themes[@]}" -eq 0 ]] ; then
+if [[ "${#themes[@]}" -eq 0 ]]; then
   themes=("${THEME_VARIANTS[@]}")
 fi
 
@@ -54,4 +54,3 @@ for theme in "${themes[@]}"; do
 done
 
 cd $OPEN_DIR && Tar_themes && Clear_theme
-
