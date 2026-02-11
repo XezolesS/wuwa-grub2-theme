@@ -1,5 +1,8 @@
 ![banner](banner.png?raw=true)
 
+**This repository is a fork of [vinceliuice/
+Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)**
+
 ## Installation:
 
 Usage:  `sudo ./install.sh [OPTIONS...]`
