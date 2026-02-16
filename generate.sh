@@ -89,8 +89,7 @@ Usage: $0 [OPTION]...
 OPTIONS:
   -t, --theme     Background theme variant(s) [$theme_options] (default is $default_theme)
   -s, --screen    Screen display variant(s)   [1080p|2k|4k] (default is 1080p)
-  -r, --remove    Remove/Uninstall theme      [$theme_options] (must add theme name option, default is $default_theme)
-  -b, --boot      Install theme into '/boot/grub' or '/boot/grub2'
+  -d, --dest      Output directory of a generated theme (default is current working directory)
   -h, --help      Show this help
 
 EOF
