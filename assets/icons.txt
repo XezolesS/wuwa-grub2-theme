@@ -49,6 +49,7 @@ archcraft
 chimera
 brunch
 cachyos
+bazzite
 
 recovery
 restart
