@@ -48,6 +48,7 @@ ubuntuDDE
 archcraft
 chimera
 brunch
+cachyos
 
 recovery
 restart
