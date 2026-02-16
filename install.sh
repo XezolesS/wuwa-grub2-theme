@@ -146,13 +146,6 @@ install() {
     cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-icons/icons-${screen}" "${THEME_DIR}/icons"
     cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-other/other-${screen}/"*.png "${THEME_DIR}"
 
-    # Use custom background.png as grub background image
-    if [[ -f "${REO_DIR}/background.png" ]]; then
-      prompt -w "\n Using custom background.png as grub background image..."
-      cp -a --no-preserve=ownership "${REO_DIR}/background.png" "${THEME_DIR}/background.png"
-      convert -auto-orient "${THEME_DIR}/background.png" "${THEME_DIR}/background.png"
-    fi
-
     # Set theme
     prompt -i "\n Setting ${THEME_NAME} as default..."
 
