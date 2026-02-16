@@ -219,7 +219,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "${#screens[@]}" -eq 0 ]]; then
-  screens=("${SCREEN_VARIANTS[1]}")
+  screens=("${SCREEN_VARIANTS[0]}")
 fi
 
 if [[ "${#themes[@]}" -eq 0 ]]; then
