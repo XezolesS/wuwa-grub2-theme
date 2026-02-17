@@ -36,7 +36,7 @@ sudo ./install.sh -r -t yinlin
 ```
 
 ### Available Themes
-  [*Preview available below*](https://github.com/XezolesS/wuwa-grub2-theme?tab=readme-ov-file)
+  [*Preview available below*](#previews)
 
   - **Rover**
     - Rover (Female): `rover-female`
