@@ -36,69 +36,96 @@ sudo ./install.sh -r -t yinlin
 ```
 
 ### Available Themes
-  [*Preview available below*](#previews)
+[*Preview available below*](#previews)
 
-  - **Rover**
-    - Rover (Female): `rover-female`
-    - Rover (Male): `rover-male`
+<details>
+<summary><b>Rover</b></summary>
 
-  - **Huang Long**
-    - Baizhi: `baizhi`
-    - Changli: `changli`
-    - Chixia: `chixia`
-    - Danjin: `danjin`
-    - Jianxin: `jianxin`
-    - Jinhsi: `jinhsi`
-    - Lingyang: `lingyang`
-    - Lumi: `lumi`
-    - Mortefi: `mortefi`
-    - Qiuyuan: `qiuyuan`
-    - Sanhua: `sanhua`
-    - Taoqi: `taoqi`
-    - Verina: `verina`
-    - Xiangli Yao: `xiangli_yao`
-    - Yangyang: `yangyang`
-    - Yinlin: `yinlin`
-    - Youhu: `youhu`
-    - Yuanwu: `yuanwu`
-    - Zhezhi: `zhezhi`
+  - Rover (Female): `rover-female`
+  - Rover (Male): `rover-male`
+</details>
 
-  - **Black Shores**
-    - Aalto: `aalto`
-    - Buling: `buling`
-    - Camellya: `camellya`
-    - Encore: `encore`
-    - Galbrena: `galbrena`
-    - The Shorekeeper: `shorekeeper`
+<details>
+<summary><b>Huang Long</b></summary>
+
+  - Baizhi: `baizhi`
+  - Changli: `changli`
+  - Chixia: `chixia`
+  - Danjin: `danjin`
+  - Jianxin: `jianxin`
+  - Jinhsi: `jinhsi`
+  - Lingyang: `lingyang`
+  - Lumi: `lumi`
+  - Mortefi: `mortefi`
+  - Qiuyuan: `qiuyuan`
+  - Sanhua: `sanhua`
+  - Taoqi: `taoqi`
+  - Verina: `verina`
+  - Xiangli Yao: `xiangli_yao`
+  - Yangyang: `yangyang`
+  - Yinlin: `yinlin`
+  - Youhu: `youhu`
+  - Yuanwu: `yuanwu`
+  - Zhezhi: `zhezhi`
+</details>
+
+<details>
+<summary><b>Black Shores</b></summary>
+
+  - Aalto: `aalto`
+  - Buling: `buling`
+  - Camellya: `camellya`
+  - Encore: `encore`
+  - Galbrena: `galbrena`
+  - The Shorekeeper: `shorekeeper`
+</details>
   
-  - **Ragunna**
-    - Brant: `brant`
-    - Cantarella: `cantarella`
-    - Carlotta: `carlotta`
-    - Cartethyia: `cartethyia`
-    - Ciaccona: `ciaccona`
-    - Phoebe: `phoebe`
-    - Roccia: `roccia`
-    - Zani: `zani`
+<details>
+<summary><b>Ragunna</b></summary>
 
-  - **Septimont**
-    - Augusta: `augusta`
-    - Luno: `luno`
-    - Lupa: `lupa`
+  - Brant: `brant`
+  - Cantarella: `cantarella`
+  - Carlotta: `carlotta`
+  - Cartethyia: `cartethyia`
+  - Ciaccona: `ciaccona`
+  - Phoebe: `phoebe`
+  - Roccia: `roccia`
+  - Zani: `zani`
+</details>
 
-  - **Startorch Academy**
-    - Aemeath: `aemeath`
-    - Chisa: `chisa`
-    - Lynae: `lynae`
+<details>
+<summary><b>Septimont</b></summary>
 
-  - **Spacetrek Collective**
-    - Mornye: `mornye`
+  - Augusta: `augusta`
+  - Luno: `luno`
+  - Lupa: `lupa`
+</details>
 
-  - **The Fractsidus**
-    - Phlorova: `phlorova`
+<details>
+<summary><b>Startorch Academy</b></summary>
 
-  - **Unknown**
-    - Calcharo: `calcharo`
+  - Aemeath: `aemeath`
+  - Chisa: `chisa`
+  - Lynae: `lynae`
+</details>
+
+<details>
+<summary><b>Spacetrek Collective</b></summary>
+
+  - Mornye: `mornye`
+</details>
+
+<details>
+<summary><b>The Fractsidus</b></summary>
+
+  - Phlorova: `phlorova`
+</details>
+
+<details>
+<summary><b>Unknown</b></summary>
+
+  - Calcharo: `calcharo`
+</details>
 
 ## Issues / Tweaks:
 
@@ -125,277 +152,376 @@ Just make sure your image is:
 
 ## Previews:
 
-### Rover
 <details>
-<summary><b>Rover (Female)</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/rover.png" alt="Rover" height=100>
+  </p>
+</summary>
 
-![Rover (Female)](./previews/rover-female.jpg)
+  <blockquote>
+
+  <details>
+  <summary><b>Rover (Female)</b></summary>
+
+  ![Rover (Female)](./previews/rover-female.jpg)
+  </details>
+
+  <details>
+  <summary><b>Rover (Male)</b></summary>
+
+  ![Rover (Male)](./previews/rover-male.jpg)
+  </details>
+
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Rover (Male)</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/huanglong.png" alt="Huang Long" height=100>
+  </p>
+</summary>
 
-![Rover (Male)](./previews/rover-male.jpg)
-</details>
+  <blockquote>
 
-### Huang Long
-<details>
-<summary><b>Baizhi</b></summary>
+  <details>
+  <summary><b>Baizhi</b></summary>
 
-![Baizhi](./previews/baizhi.jpg)
-</details>
+  ![Baizhi](./previews/baizhi.jpg)
+  </details>
 
-<details>
-<summary><b>Changli</b></summary>
+  <details>
+  <summary><b>Changli</b></summary>
 
-![Changli](./previews/changli.jpg)
-</details>
+  ![Changli](./previews/changli.jpg)
+  </details>
 
-<details>
-<summary><b>Chixia</b></summary>
+  <details>
+  <summary><b>Chixia</b></summary>
 
-![Chixia](./previews/chixia.jpg)
-</details>
+  ![Chixia](./previews/chixia.jpg)
+  </details>
 
-<details>
-<summary><b>Danjin</b></summary>
+  <details>
+  <summary><b>Danjin</b></summary>
 
-![Danjin](./previews/danjin.jpg)
-</details>
+  ![Danjin](./previews/danjin.jpg)
+  </details>
 
-<details>
-<summary><b>Jianxin</b></summary>
+  <details>
+  <summary><b>Jianxin</b></summary>
 
-![Jianxin](./previews/jianxin.jpg)
-</details>
+  ![Jianxin](./previews/jianxin.jpg)
+  </details>
 
-<details>
-<summary><b>Jinhsi</b></summary>
+  <details>
+  <summary><b>Jinhsi</b></summary>
 
-![Jinhsi](./previews/jinhsi.jpg)
-</details>
+  ![Jinhsi](./previews/jinhsi.jpg)
+  </details>
 
-<details>
-<summary><b>Lingyang</b></summary>
+  <details>
+  <summary><b>Lingyang</b></summary>
 
-![Lingyang](./previews/lingyang.jpg)
-</details>
+  ![Lingyang](./previews/lingyang.jpg)
+  </details>
 
-<details>
-<summary><b>Lumi</b></summary>
+  <details>
+  <summary><b>Lumi</b></summary>
 
-![Lumi](./previews/lumi.jpg)
-</details>
+  ![Lumi](./previews/lumi.jpg)
+  </details>
 
-<details>
-<summary><b>Mortefi</b></summary>
+  <details>
+  <summary><b>Mortefi</b></summary>
 
-![Mortefi](./previews/mortefi.jpg)
-</details>
+  ![Mortefi](./previews/mortefi.jpg)
+  </details>
 
-<details>
-<summary><b>Qiuyuan</b></summary>
+  <details>
+  <summary><b>Qiuyuan</b></summary>
 
-![Qiuyuan](./previews/qiuyuan.jpg)
-</details>
+  ![Qiuyuan](./previews/qiuyuan.jpg)
+  </details>
 
-<details>
-<summary><b>Sanhua</b></summary>
+  <details>
+  <summary><b>Sanhua</b></summary>
 
-![Sanhua](./previews/sanhua.jpg)
-</details>
+  ![Sanhua](./previews/sanhua.jpg)
+  </details>
 
-<details>
-<summary><b>Taoqi</b></summary>
+  <details>
+  <summary><b>Taoqi</b></summary>
 
-![Taoqi](./previews/taoqi.jpg)
-</details>
+  ![Taoqi](./previews/taoqi.jpg)
+  </details>
 
-<details>
-<summary><b>Verina</b></summary>
+  <details>
+  <summary><b>Verina</b></summary>
 
-![Verina](./previews/verina.jpg)
-</details>
+  ![Verina](./previews/verina.jpg)
+  </details>
 
-<details>
-<summary><b>Xiangli Yao</b></summary>
+  <details>
+  <summary><b>Xiangli Yao</b></summary>
 
-![Xiangli Yao](./previews/xiangli_yao.jpg)
-</details>
+  ![Xiangli Yao](./previews/xiangli_yao.jpg)
+  </details>
 
-<details>
-<summary><b>Yangyang</b></summary>
+  <details>
+  <summary><b>Yangyang</b></summary>
 
-![Yangyang](./previews/yangyang.jpg)
-</details>
+  ![Yangyang](./previews/yangyang.jpg)
+  </details>
 
-<details>
-<summary><b>Yinlin</b></summary>
+  <details>
+  <summary><b>Yinlin</b></summary>
 
-![Yinlin](./previews/yinlin.jpg)
-</details>
+  ![Yinlin](./previews/yinlin.jpg)
+  </details>
 
-<details>
-<summary><b>Youhu</b></summary>
+  <details>
+  <summary><b>Youhu</b></summary>
 
-![Youhu](./previews/youhu.jpg)
-</details>
+  ![Youhu](./previews/youhu.jpg)
+  </details>
 
-<details>
-<summary><b>Yuanwu</b></summary>
+  <details>
+  <summary><b>Yuanwu</b></summary>
 
-![Yuanwu](./previews/yuanwu.jpg)
-</details>
+  ![Yuanwu](./previews/yuanwu.jpg)
+  </details>
 
-<details>
-<summary><b>Zhezhi</b></summary>
+  <details>
+  <summary><b>Zhezhi</b></summary>
 
-![Zhezhi](./previews/zhezhi.jpg)
-</details>
+  ![Zhezhi](./previews/zhezhi.jpg)
+  </details>
 
-### Black Shores
-<details>
-<summary><b>Aalto</b></summary>
-
-![Aalto](./previews/aalto.jpg)
-</details>
-
-<details>
-<summary><b>Buling</b></summary>
-
-![Buling](./previews/buling.jpg)
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Camellya</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/black_shores.png" alt="Black Shores" height=100>
+  </p>
+</summary>
 
-![Camellya](./previews/camellya.jpg)
+  <blockquote>
+
+  <details>
+  <summary><b>Aalto</b></summary>
+
+  ![Aalto](./previews/aalto.jpg)
+  </details>
+
+  <details>
+  <summary><b>Buling</b></summary>
+
+  ![Buling](./previews/buling.jpg)
+  </details>
+
+  <details>
+  <summary><b>Camellya</b></summary>
+
+  ![Camellya](./previews/camellya.jpg)
+  </details>
+
+  <details>
+  <summary><b>Encore</b></summary>
+
+  ![Encore](./previews/encore.jpg)
+  </details>
+
+  <details>
+  <summary><b>Galbrena</b></summary>
+
+  ![Galbrena](./previews/galbrena.jpg)
+  </details>
+
+  <details>
+  <summary><b>The Shorekeeper</b></summary>
+
+  ![The Shorekeeper](./previews/shorekeeper.jpg)
+  </details>
+
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Encore</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/ragunna.png" alt="Ragunna" height=100>
+  </p>
+</summary>
 
-![Encore](./previews/encore.jpg)
+  <blockquote>
+
+  <details>
+  <summary><b>Brant</b></summary>
+
+  ![Brant](./previews/brant.jpg)
+  </details>
+
+  <details>
+  <summary><b>Cantarella</b></summary>
+
+  ![Cantarella](./previews/cantarella.jpg)
+  </details>
+
+  <details>
+  <summary><b>Carlotta</b></summary>
+
+  ![Carlotta](./previews/carlotta.jpg)
+  </details>
+
+  <details>
+  <summary><b>Cartethyia</b></summary>
+
+  ![Cartethyia](./previews/cartethyia.jpg)
+  </details>
+
+  <details>
+  <summary><b>Ciaccona</b></summary>
+
+  ![Ciaccona](./previews/ciaccona.jpg)
+  </details>
+
+  <details>
+  <summary><b>Phoebe</b></summary>
+
+  ![Phoebe](./previews/phoebe.jpg)
+  </details>
+
+  <details>
+  <summary><b>Roccia</b></summary>
+
+  ![Roccia](./previews/roccia.jpg)
+  </details>
+
+  <details>
+  <summary><b>Zani</b></summary>
+
+  ![Zani](./previews/zani.jpg)
+  </details>
+
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Galbrena</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/septimont.webp" alt="Septimont" height=100>
+  </p>
+</summary>
 
-![Galbrena](./previews/galbrena.jpg)
+  <blockquote>
+
+  <details>
+  <summary><b>Augusta</b></summary>
+
+  ![Augusta](./previews/augusta.jpg)
+  </details>
+
+  <details>
+  <summary><b>Luno</b></summary>
+
+  ![Luno](./previews/luno.jpg)
+  </details>
+
+  <details>
+  <summary><b>Lupa</b></summary>
+
+  ![Lupa](./previews/lupa.jpg)
+  </details>
+
+  </blockquote>
 </details>
 
 <details>
-<summary><b>The Shorekeeper</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/startorch_academy.webp" alt="Startorch Academy" height=100>
+  </p>
+</summary>
 
-![The Shorekeeper](./previews/shorekeeper.jpg)
-</details>
+  <blockquote>
 
-### Ragunna
-<details>
-<summary><b>Brant</b></summary>
+  <details>
+  <summary><b>Aemeath</b></summary>
 
-![Brant](./previews/brant.jpg)
-</details>
+  ![Aemeath](./previews/aemeath.jpg)
+  </details>
 
-<details>
-<summary><b>Cantarella</b></summary>
+  <details>
+  <summary><b>Chisa</b></summary>
 
-![Cantarella](./previews/cantarella.jpg)
-</details>
+  ![Chisa](./previews/chisa.jpg)
+  </details>
 
-<details>
-<summary><b>Carlotta</b></summary>
+  <details>
+  <summary><b>Lynae</b></summary>
 
-![Carlotta](./previews/carlotta.jpg)
-</details>
+  ![Lynae](./previews/lynae.jpg)
+  </details>
 
-<details>
-<summary><b>Cartethyia</b></summary>
-
-![Cartethyia](./previews/cartethyia.jpg)
-</details>
-
-<details>
-<summary><b>Ciaccona</b></summary>
-
-![Ciaccona](./previews/ciaccona.jpg)
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Phoebe</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/spacetrek_collective.webp" alt="Spacetrek Collective" height=100>
+  </p>
+</summary>
 
-![Phoebe](./previews/phoebe.jpg)
+  <blockquote>
+
+  <details>
+  <summary><b>Mornye</b></summary>
+
+  ![Mornye](./previews/mornye.jpg)
+  </details>
+  
+  </blockquote>
 </details>
 
 <details>
-<summary><b>Roccia</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/the_fractsidus.webp" alt="The Fractsidus" height=100>
+  </p>
+</summary>
 
-![Roccia](./previews/roccia.jpg)
-</details>
+  <blockquote>
 
-<details>
-<summary><b>Zani</b></summary>
+  <details>
+  <summary><b>Phlorova</b></summary>
 
-![Zani](./previews/zani.jpg)
-</details>
+  ![Phlorova](./previews/phlorova.jpg)
+  </details>
 
-### Septimont
-<details>
-<summary><b>Augusta</b></summary>
-
-![Augusta](./previews/augusta.jpg)
-</details>
-
-<details>
-<summary><b>Luno</b></summary>
-
-![Luno](./previews/luno.jpg)
-</details>
+  </blockquote>
+</summary>
 
 <details>
-<summary><b>Lupa</b></summary>
+<summary>
+  <p align="center">
+    <img src="./previews/affiliation_icons/unknown.png" alt="Unknown" height=100>
+  </p>
+</summary>
 
-![Lupa](./previews/lupa.jpg)
-</details>
+  <blockquote>
 
-### Startorch Academy
-<details>
-<summary><b>Aemeath</b></summary>
+  <details>
+  <summary><b>Calcharo</b></summary>
 
-![Aemeath](./previews/aemeath.jpg)
-</details>
+  ![Calcharo](./previews/calcharo.jpg)
+  </details>
 
-<details>
-<summary><b>Chisa</b></summary>
-
-![Chisa](./previews/chisa.jpg)
-</details>
-
-<details>
-<summary><b>Lynae</b></summary>
-
-![Lynae](./previews/lynae.jpg)
-</details>
-
-### Spacetrek Collective
-<details>
-<summary><b>Mornye</b></summary>
-
-![Mornye](./previews/mornye.jpg)
-</details>
-
-### The Fractsidus
-<details>
-<summary><b>Phlorova</b></summary>
-
-![Phlorova](./previews/phlorova.jpg)
-</details>
-
-### Unknown
-<details>
-<summary><b>Calcharo</b></summary>
-
-![Calcharo](./previews/calcharo.jpg)
+  </blockquote>
 </details>
 
 ## Documents
