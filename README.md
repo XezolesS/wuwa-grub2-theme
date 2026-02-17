@@ -545,7 +545,7 @@ Just make sure your image is:
   </details>
 
   </blockquote>
-</summary>
+</details>
 
 <details>
 <summary>
