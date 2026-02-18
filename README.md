@@ -23,10 +23,10 @@ _If no options are used, a user interface `dialog` will show up instead_
 sudo ./install.sh -t yinlin -s 2k
 ```
 
- - Install jinxi theme into /boot/grub/themes:
+ - Install jinhsi theme into /boot/grub/themes:
 
 ```sh
-sudo ./install.sh -b -t jinxi
+sudo ./install.sh -b -t jinhsi
 ```
 
  - Uninstall yinlin theme:
