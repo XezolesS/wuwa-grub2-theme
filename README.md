@@ -106,6 +106,7 @@ sudo ./install.sh -r -t yinlin
 
   - Aemeath: `aemeath`
   - Chisa: `chisa`
+  - Luuk Herssen: `luuk-herssen`
   - Lynae: `lynae`
 </details>
 
@@ -459,6 +460,12 @@ Just make sure your image is:
   <summary><b>Chisa</b></summary>
 
   ![Chisa](./previews/chisa.jpg)
+  </details>
+
+  <details>
+  <summary><b>Luuk Herssen</b></summary>
+
+  ![Luuk Herssen](./previews/luuk-herssen.jpg)
   </details>
 
   <details>
