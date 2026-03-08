@@ -23,10 +23,10 @@ _If no options are used, a user interface `dialog` will show up instead_
 sudo ./install.sh -t yinlin -s 2k
 ```
 
- - Install jinxi theme into /boot/grub/themes:
+ - Install jinhsi theme into /boot/grub/themes:
 
 ```sh
-sudo ./install.sh -b -t jinxi
+sudo ./install.sh -b -t jinhsi
 ```
 
  - Uninstall yinlin theme:
@@ -153,11 +153,17 @@ Just make sure your image is:
 
 ## Previews:
 
+
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/rover.png" alt="Rover" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/rover.png" alt="Rover" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Rover</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -179,9 +185,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/huanglong.png" alt="Huang Long" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/huanglong.png" alt="Huang Long" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Huang Long</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -305,9 +316,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/black_shores.png" alt="Black Shores" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/black_shores.png" alt="Black Shores" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Black Shores</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -353,9 +369,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/ragunna.png" alt="Ragunna" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/ragunna.png" alt="Ragunna" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Ragunna</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -413,9 +434,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/septimont.webp" alt="Septimont" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/septimont.webp" alt="Septimont" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Septimont</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -443,9 +469,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/startorch_academy.webp" alt="Startorch Academy" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/startorch_academy.webp" alt="Startorch Academy" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Startorch Academy</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -479,9 +510,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/spacetrek_collective.webp" alt="Spacetrek Collective" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/spacetrek_collective.webp" alt="Spacetrek Collective" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Spacetrek Collective</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -497,9 +533,14 @@ Just make sure your image is:
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/the_fractsidus.webp" alt="The Fractsidus" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/the_fractsidus.webp" alt="The Fractsidus" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>The Fractsidus</b>
+  </div>
 </summary>
 
   <blockquote>
@@ -511,13 +552,18 @@ Just make sure your image is:
   </details>
 
   </blockquote>
-</summary>
+</details>
 
 <details>
 <summary>
-  <p align="center">
-    <img src="./previews/affiliation_icons/unknown.png" alt="Unknown" height=100>
-  </p>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/unknown.png" alt="Unknown" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Unknown</b>
+  </div>
 </summary>
 
   <blockquote>
