@@ -117,6 +117,12 @@ sudo ./install.sh -r -t yinlin
 </details>
 
 <details>
+<summary><b>The Roya Tribe</b></summary>
+
+  - Sigrika: `sigrika`
+</details>
+
+<details>
 <summary><b>The Fractsidus</b></summary>
 
   - Phlorova: `phlorova`
@@ -153,6 +159,7 @@ Just make sure your image is:
 
 ## Previews:
 
+*Click to reveal*
 
 <details>
 <summary>
@@ -526,6 +533,29 @@ Just make sure your image is:
   <summary><b>Mornye</b></summary>
 
   ![Mornye](./previews/mornye.jpg)
+  </details>
+  
+  </blockquote>
+</details>
+
+<details>
+<summary>
+  <div align="center">
+    <picture align="center">
+        <img src="./previews/affiliation_icons/the_roya_tribe.webp" alt="The Roya Tribe" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>The Roya Tribe</b>
+  </div>
+</summary>
+
+  <blockquote>
+
+  <details>
+  <summary><b>Sigrika</b></summary>
+
+  ![Sigrika](./previews/sigrika.jpg)
   </details>
   
   </blockquote>
