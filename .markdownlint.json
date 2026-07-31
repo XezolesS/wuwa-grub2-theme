@@ -1,0 +1,14 @@
+{
+  "MD033": {
+    "allowed_elements": [
+      "blockquote",
+      "b",
+      "img",
+      "div",
+      "picture",
+      "json",
+      "details",
+      "summary"
+    ]
+  }
+}

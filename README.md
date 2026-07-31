@@ -1,3 +1,5 @@
+# wuwa-grub2-themes
+
 ![banner](banner.png?raw=true)
 
 **This repository is a fork of [vinceliuice/Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)**
@@ -150,7 +152,8 @@ sudo ./install.sh -r -t yinlin
 
 ### Adding a custom theme
 
-Put your custom background image under `./backgrounds` directory. The script will recognize your image automatically.  
+Put your custom background image under `./backgrounds` directory.
+The script will recognize your image automatically.  
 Just make sure your image is:
 
 - In **8-bit, non-indexed PNG format**
@@ -161,7 +164,8 @@ Just make sure your image is:
 
 - On the grub screen, press `c` to enter the command line
 - Enter `vbeinfo` or `videoinfo` to check available resolutions
-- Open `/etc/default/grub`, and edit `GRUB_GFXMODE=[height]x[width]x32` to match your resolution
+- Open `/etc/default/grub`, and edit `GRUB_GFXMODE=[height]x[width]x32` to match
+your resolution
 - Finally, run `grub-mkconfig -o /boot/grub/grub.cfg` to update your grub config
 
 ## Contributing
@@ -175,13 +179,14 @@ Just make sure your image is:
 
 ## Previews
 
-_Click to reveal_
+Click to reveal
 
 <details>
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/rover.png" alt="Rover" height=100 href="/">
+        <img src="./previews/affiliation_icons/rover.png"
+          alt="Rover" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -210,7 +215,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/huanglong.png" alt="Huang Long" height=100 href="/">
+        <img src="./previews/affiliation_icons/huanglong.png"
+          alt="Huang Long" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -341,7 +347,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/black_shores.png" alt="Black Shores" height=100 href="/">
+        <img src="./previews/affiliation_icons/black_shores.png"
+          alt="Black Shores" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -394,7 +401,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/ragunna.png" alt="Ragunna" height=100 href="/">
+        <img src="./previews/affiliation_icons/ragunna.png"
+          alt="Ragunna" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -459,7 +467,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/septimont.webp" alt="Septimont" height=100 href="/">
+        <img src="./previews/affiliation_icons/septimont.webp"
+          alt="Septimont" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -494,7 +503,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/startorch_academy.webp" alt="Startorch Academy" height=100 href="/">
+        <img src="./previews/affiliation_icons/startorch_academy.webp"
+          alt="Startorch Academy" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -535,7 +545,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/spacetrek_collective.webp" alt="Spacetrek Collective" height=100 href="/">
+        <img src="./previews/affiliation_icons/spacetrek_collective.webp"
+          alt="Spacetrek Collective" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -558,7 +569,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/the_roya_tribe.webp" alt="The Roya Tribe" height=100 href="/">
+        <img src="./previews/affiliation_icons/the_roya_tribe.webp"
+          alt="The Roya Tribe" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -581,7 +593,8 @@ _Click to reveal_
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/the_fractsidus.webp" alt="The Fractsidus" height=100 href="/">
+        <img src="./previews/affiliation_icons/the_fractsidus.webp"
+          alt="The Fractsidus" height=100 href="/">
     </picture>
   </div>
   <div align="center">
