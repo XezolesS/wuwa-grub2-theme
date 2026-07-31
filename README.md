@@ -2,7 +2,7 @@
 
 **This repository is a fork of [vinceliuice/Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)**
 
-## Installation:
+## Installation
 
 Usage:  `sudo ./install.sh [OPTIONS...]`
 
@@ -16,150 +16,166 @@ Usage:  `sudo ./install.sh [OPTIONS...]`
 
 _If no options are used, a user interface `dialog` will show up instead_
 
-### Examples:
- - Install yinlin theme on 2k display device:
+### Examples
+
+- Install yinlin theme on 2k display device:
 
 ```sh
 sudo ./install.sh -t yinlin -s 2k
 ```
 
- - Install jinhsi theme into /boot/grub/themes:
+- Install jinhsi theme into /boot/grub/themes:
 
 ```sh
 sudo ./install.sh -b -t jinhsi
 ```
 
- - Uninstall yinlin theme:
+- Uninstall yinlin theme:
 
 ```sh
 sudo ./install.sh -r -t yinlin
 ```
 
 ### Available Themes
-[*Preview available below*](#previews)
+
+[_Preview available below_](#previews)
 
 <details>
 <summary><b>Rover</b></summary>
 
-  - Rover (Female): `rover-female`
-  - Rover (Male): `rover-male`
+- Rover (Female): `rover-female`
+- Rover (Male): `rover-male`
+
 </details>
 
 <details>
 <summary><b>Huang Long</b></summary>
 
-  - Baizhi: `baizhi`
-  - Changli: `changli`
-  - Chixia: `chixia`
-  - Danjin: `danjin`
-  - Jianxin: `jianxin`
-  - Jinhsi: `jinhsi`
-  - Lingyang: `lingyang`
-  - Lumi: `lumi`
-  - Mortefi: `mortefi`
-  - Qiuyuan: `qiuyuan`
-  - Sanhua: `sanhua`
-  - Taoqi: `taoqi`
-  - Verina: `verina`
-  - Xiangli Yao: `xiangli_yao`
-  - Yangyang: `yangyang`
-  - Yinlin: `yinlin`
-  - Youhu: `youhu`
-  - Yuanwu: `yuanwu`
-  - Zhezhi: `zhezhi`
+- Baizhi: `baizhi`
+- Changli: `changli`
+- Chixia: `chixia`
+- Danjin: `danjin`
+- Jianxin: `jianxin`
+- Jinhsi: `jinhsi`
+- Lingyang: `lingyang`
+- Lumi: `lumi`
+- Mortefi: `mortefi`
+- Qiuyuan: `qiuyuan`
+- Sanhua: `sanhua`
+- Taoqi: `taoqi`
+- Verina: `verina`
+- Xiangli Yao: `xiangli_yao`
+- Yangyang: `yangyang`
+- Yinlin: `yinlin`
+- Youhu: `youhu`
+- Yuanwu: `yuanwu`
+- Zhezhi: `zhezhi`
+
 </details>
 
 <details>
 <summary><b>Black Shores</b></summary>
 
-  - Aalto: `aalto`
-  - Buling: `buling`
-  - Camellya: `camellya`
-  - Encore: `encore`
-  - Galbrena: `galbrena`
-  - The Shorekeeper: `shorekeeper`
+- Aalto: `aalto`
+- Buling: `buling`
+- Camellya: `camellya`
+- Encore: `encore`
+- Galbrena: `galbrena`
+- The Shorekeeper: `shorekeeper`
+
 </details>
   
 <details>
 <summary><b>Ragunna</b></summary>
 
-  - Brant: `brant`
-  - Cantarella: `cantarella`
-  - Carlotta: `carlotta`
-  - Cartethyia: `cartethyia`
-  - Ciaccona: `ciaccona`
-  - Phoebe: `phoebe`
-  - Roccia: `roccia`
-  - Zani: `zani`
+- Brant: `brant`
+- Cantarella: `cantarella`
+- Carlotta: `carlotta`
+- Cartethyia: `cartethyia`
+- Ciaccona: `ciaccona`
+- Phoebe: `phoebe`
+- Roccia: `roccia`
+- Zani: `zani`
+
 </details>
 
 <details>
 <summary><b>Septimont</b></summary>
 
-  - Augusta: `augusta`
-  - Luno: `luno`
-  - Lupa: `lupa`
+- Augusta: `augusta`
+- Iuno: `iuno`
+- Lupa: `lupa`
+
 </details>
 
 <details>
 <summary><b>Startorch Academy</b></summary>
 
-  - Aemeath: `aemeath`
-  - Chisa: `chisa`
-  - Luuk Herssen: `luuk-herssen`
-  - Lynae: `lynae`
+- Aemeath: `aemeath`
+- Chisa: `chisa`
+- Luuk Herssen: `luuk-herssen`
+- Lynae: `lynae`
+
 </details>
 
 <details>
 <summary><b>Spacetrek Collective</b></summary>
 
-  - Mornye: `mornye`
+- Mornye: `mornye`
+
 </details>
 
 <details>
 <summary><b>The Roya Tribe</b></summary>
 
-  - Sigrika: `sigrika`
+- Sigrika: `sigrika`
+
 </details>
 
 <details>
 <summary><b>The Fractsidus</b></summary>
 
-  - Phlorova: `phlorova`
+- Phlorova: `phlorova`
+
 </details>
 
 <details>
 <summary><b>Unknown</b></summary>
 
-  - Calcharo: `calcharo`
+- Calcharo: `calcharo`
+
 </details>
 
-## Issues / Tweaks:
+## Issues / Tweaks
 
-### Adding a custom theme:
+### Adding a custom theme
+
 Put your custom background image under `./backgrounds` directory. The script will recognize your image automatically.  
 Just make sure your image is:
-  - In **8-bit, non-indexed PNG format**
-  - Matches your screen resolution.
-  - Contains only alphanumerics, dashes(`-`), underscores(`_`) in its name. **NO SPACES!**
 
-### Correcting display resolution:
-  - On the grub screen, press `c` to enter the command line
-  - Enter `vbeinfo` or `videoinfo` to check available resolutions
-  - Open `/etc/default/grub`, and edit `GRUB_GFXMODE=[height]x[width]x32` to match your resolution
-  - Finally, run `grub-mkconfig -o /boot/grub/grub.cfg` to update your grub config
+- In **8-bit, non-indexed PNG format**
+- Matches your screen resolution.
+- Contains only alphanumerics, dashes(`-`), underscores(`_`) in its name. **NO SPACES!**
 
-## Contributing:
-  - If you made changes to icons, or added a new one:
-    - Make sure you have `inkscape` and `optipng` installed.
-    - Delete the existing icon, if there is one
-    - Run `cd assets; ./render-all.sh`
-  - Create a pull request from your branch or fork
-  - If any issues occur, report then to the [issue](issues) page
+### Correcting display resolution
 
-## Previews:
+- On the grub screen, press `c` to enter the command line
+- Enter `vbeinfo` or `videoinfo` to check available resolutions
+- Open `/etc/default/grub`, and edit `GRUB_GFXMODE=[height]x[width]x32` to match your resolution
+- Finally, run `grub-mkconfig -o /boot/grub/grub.cfg` to update your grub config
 
-*Click to reveal*
+## Contributing
+
+- If you made changes to icons, or added a new one:
+  - Make sure you have `inkscape` and `optipng` installed.
+  - Delete the existing icon, if there is one
+  - Run `cd assets; ./render-all.sh`
+- Create a pull request from your branch or fork
+- If any issues occur, report then to the [issue](issues) page
+
+## Previews
+
+_Click to reveal_
 
 <details>
 <summary>
@@ -460,9 +476,9 @@ Just make sure your image is:
   </details>
 
   <details>
-  <summary><b>Luno</b></summary>
+  <summary><b>Iuno</b></summary>
 
-  ![Luno](./previews/luno.jpg)
+  ![Iuno](./previews/iuno.jpg)
   </details>
 
   <details>

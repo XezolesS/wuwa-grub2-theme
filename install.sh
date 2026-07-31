@@ -49,21 +49,21 @@ b_CWAR=" \033[1;33m" # bold warning color
 # echo like ... with flag type and display message colors
 prompt() {
   case ${1} in
-    "-s" | "--success")
-      echo -e "${b_CGSC}${@/-s/}${CDEF}"
-      ;; # print success message
-    "-e" | "--error")
-      echo -e "${b_CRER}${@/-e/}${CDEF}"
-      ;; # print error message
-    "-w" | "--warning")
-      echo -e "${b_CWAR}${@/-w/}${CDEF}"
-      ;; # print warning message
-    "-i" | "--info")
-      echo -e "${b_CCIN}${@/-i/}${CDEF}"
-      ;; # print info message
-    *)
-      echo -e "$@"
-      ;;
+  "-s" | "--success")
+    echo -e "${b_CGSC}${@/-s/}${CDEF}"
+    ;; # print success message
+  "-e" | "--error")
+    echo -e "${b_CRER}${@/-e/}${CDEF}"
+    ;; # print error message
+  "-w" | "--warning")
+    echo -e "${b_CWAR}${@/-w/}${CDEF}"
+    ;; # print warning message
+  "-i" | "--info")
+    echo -e "${b_CCIN}${@/-i/}${CDEF}"
+    ;; # print info message
+  *)
+    echo -e "$@"
+    ;;
   esac
 }
 
@@ -306,20 +306,20 @@ run_dialog() {
       1 "System (/usr/share/grub/themes)" on \
       2 "Boot partition (/boot/grub/theme)" off --output-fd 1)
     case "$tui" in
-      1)
-        install_boot='false'
-        ;;
-      2)
-        install_boot='true'
-        if [[ -d "/boot/grub" ]]; then
-          GRUB_DIR="/boot/grub/themes"
-        elif [[ -d "/boot/grub2" ]]; then
-          GRUB_DIR="/boot/grub2/themes"
-        fi
-        ;;
-      *)
-        operation_canceled
-        ;;
+    1)
+      install_boot='false'
+      ;;
+    2)
+      install_boot='true'
+      if [[ -d "/boot/grub" ]]; then
+        GRUB_DIR="/boot/grub/themes"
+      elif [[ -d "/boot/grub2" ]]; then
+        GRUB_DIR="/boot/grub2/themes"
+      fi
+      ;;
+    *)
+      operation_canceled
+      ;;
     esac
 
     # THEME SELECTION OPTION
@@ -353,10 +353,10 @@ run_dialog() {
       2 "2k (2560x1440)" off \
       3 "4k (3840x2160)" off --output-fd 1)
     case "$tui" in
-      1) screen="1080p" ;;
-      2) screen="2k" ;;
-      3) screen="4k" ;;
-      *) operation_canceled ;;
+    1) screen="1080p" ;;
+    2) screen="2k" ;;
+    3) screen="4k" ;;
+    *) operation_canceled ;;
     esac
 
     # clear
@@ -543,96 +543,95 @@ while [[ $# -gt 0 ]]; do
   PROG_ARGS+=("${1}")
   dialog='false'
   case "${1}" in
-    -r | --remove)
-      remove='true'
-      shift
-      for theme in "${@}"; do
-        if [[ "${theme}" == -* ]]; then
-          break
-        fi
-
-        selected_theme=$(get_theme_index "$theme")
-
-        if [[ -n $selected_theme ]]; then
-          themes+=("${THEME_VARIANTS[selected_theme]}")
-          shift
-        else
-          prompt -e "ERROR: Unrecognized theme variant '$1'."
-          prompt -i "Try '$0 --help' for more information."
-          exit 1
-        fi
-      done
-      ;;
-    -b | --boot)
-      install_boot='true'
-      if [[ -d "/boot/grub" ]]; then
-        GRUB_DIR="/boot/grub/themes"
-      elif [[ -d "/boot/grub2" ]]; then
-        GRUB_DIR="/boot/grub2/themes"
+  -r | --remove)
+    remove='true'
+    shift
+    for theme in "${@}"; do
+      if [[ "${theme}" == -* ]]; then
+        break
       fi
-      shift 1
-      ;;
-    -t | --theme)
-      shift
-      for theme in "${@}"; do
-        if [[ "${theme}" == -* ]]; then
-          break
-        fi
 
-        selected_theme=$(get_theme_index "$theme")
-        if [[ $selected_theme != 255 ]]; then
-          themes+=("${THEME_VARIANTS[selected_theme]}")
-          shift
-        else
-          prompt -e "ERROR: Unrecognized theme variant '$1'."
-          prompt -i "Try '$0 --help' for more information."
-          exit 1
-        fi
-      done
-      ;;
-    -s | --screen)
-      shift
-      for screen in "${@}"; do
-        case "${screen}" in
-          1080p)
-            screens+=("${SCREEN_VARIANTS[0]}")
-            shift
-            ;;
-          2k)
-            screens+=("${SCREEN_VARIANTS[1]}")
-            shift
-            ;;
-          4k)
-            screens+=("${SCREEN_VARIANTS[2]}")
-            shift
-            ;;
-          -*)
-            break
-            ;;
-          *)
-            prompt -e "ERROR: Unrecognized screen variant '$1'."
-            prompt -i "Try '$0 --help' for more information."
-            exit 1
-            ;;
-        esac
-      done
-      ;;
-    -h | --help)
-      usage
-      exit 0
-      ;;
-    *)
-      prompt -e "ERROR: Unrecognized installation option '$1'."
-      prompt -i "Try '$0 --help' for more information."
-      exit 1
-      ;;
+      selected_theme=$(get_theme_index "$theme")
+
+      if [[ -n $selected_theme ]]; then
+        themes+=("${THEME_VARIANTS[selected_theme]}")
+        shift
+      else
+        prompt -e "ERROR: Unrecognized theme variant '$1'."
+        prompt -i "Try '$0 --help' for more information."
+        exit 1
+      fi
+    done
+    ;;
+  -b | --boot)
+    install_boot='true'
+    if [[ -d "/boot/grub" ]]; then
+      GRUB_DIR="/boot/grub/themes"
+    elif [[ -d "/boot/grub2" ]]; then
+      GRUB_DIR="/boot/grub2/themes"
+    fi
+    shift 1
+    ;;
+  -t | --theme)
+    shift
+    for theme in "${@}"; do
+      if [[ "${theme}" == -* ]]; then
+        break
+      fi
+
+      selected_theme=$(get_theme_index "$theme")
+      if [[ $selected_theme != 255 ]]; then
+        themes+=("${THEME_VARIANTS[selected_theme]}")
+        shift
+      else
+        prompt -e "ERROR: Unrecognized theme variant '$1'."
+        prompt -i "Try '$0 --help' for more information."
+        exit 1
+      fi
+    done
+    ;;
+  -s | --screen)
+    shift
+    for screen in "${@}"; do
+      case "${screen}" in
+      1080p)
+        screens+=("${SCREEN_VARIANTS[0]}")
+        shift
+        ;;
+      2k)
+        screens+=("${SCREEN_VARIANTS[1]}")
+        shift
+        ;;
+      4k)
+        screens+=("${SCREEN_VARIANTS[2]}")
+        shift
+        ;;
+      -*)
+        break
+        ;;
+      *)
+        prompt -e "ERROR: Unrecognized screen variant '$1'."
+        prompt -i "Try '$0 --help' for more information."
+        exit 1
+        ;;
+      esac
+    done
+    ;;
+  -h | --help)
+    usage
+    exit 0
+    ;;
+  *)
+    prompt -e "ERROR: Unrecognized installation option '$1'."
+    prompt -i "Try '$0 --help' for more information."
+    exit 1
+    ;;
   esac
 done
 
 if [[ "${#screens[@]}" -eq 0 ]]; then
   screens=("${SCREEN_VARIANTS[0]}")
 fi
-
 
 if [[ "${#themes[@]}" -eq 0 ]]; then
   themes=("${THEME_VARIANTS[1]}")
