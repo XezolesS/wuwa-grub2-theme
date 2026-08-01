@@ -593,6 +593,30 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
+        <img src="./previews/affiliation_icons/flaming_sakura.webp"
+          alt="Flaming Sakura" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>Flaming Sakura</b>
+  </div>
+</summary>
+
+  <blockquote>
+
+  <details>
+  <summary><b>Hiyuki</b></summary>
+
+  ![Hiyuki](./previews/hiyuki.jpg)
+  </details>
+
+  </blockquote>
+</details>
+
+<details>
+<summary>
+  <div align="center">
+    <picture align="center">
         <img src="./previews/affiliation_icons/the_fractsidus.webp"
           alt="The Fractsidus" height=100 href="/">
     </picture>
