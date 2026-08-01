@@ -117,7 +117,7 @@ sudo ./install.sh -r -t yinlin
 
 - Aemeath: `aemeath`
 - Chisa: `chisa`
-- Luuk Herssen: `luuk-herssen`
+- Luuk Herssen: `luuk_herssen`
 - Lynae: `lynae`
 
 </details>
@@ -552,7 +552,7 @@ Click to reveal
   <details>
   <summary><b>Luuk Herssen</b></summary>
 
-  ![Luuk Herssen](./previews/luuk-herssen.jpg)
+  ![Luuk Herssen](./previews/luuk_herssen.jpg)
   </details>
 
   <details>
