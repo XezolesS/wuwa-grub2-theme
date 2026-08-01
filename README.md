@@ -562,6 +562,12 @@ Click to reveal
   ![Mornye](./previews/mornye.jpg)
   </details>
   
+  <details>
+  <summary><b>Lucilla</b></summary>
+
+  ![Lucilla](./previews/lucilla.jpg)
+  </details>
+
   </blockquote>
 </details>
 
