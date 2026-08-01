@@ -64,10 +64,12 @@ sudo ./install.sh -r -t yinlin
 - Mortefi: `mortefi`
 - Qiuyuan: `qiuyuan`
 - Sanhua: `sanhua`
+- Suisui: `suisui`
 - Taoqi: `taoqi`
 - Verina: `verina`
 - Xiangli Yao: `xiangli_yao`
 - Yangyang: `yangyang`
+- Yangyang: Xuanling: `yangyang-xuanling`
 - Yinlin: `yinlin`
 - Youhu: `youhu`
 - Yuanwu: `yuanwu`
@@ -124,6 +126,7 @@ sudo ./install.sh -r -t yinlin
 <summary><b>Spacetrek Collective</b></summary>
 
 - Mornye: `mornye`
+- Lucilla: `lucilla`
 
 </details>
 
@@ -131,6 +134,13 @@ sudo ./install.sh -r -t yinlin
 <summary><b>The Roya Tribe</b></summary>
 
 - Sigrika: `sigrika`
+
+</details>
+
+<details>
+<summary><b>Flaming Sakura</b></summary>
+
+- Hiyuki: `kiyuki`
 
 </details>
 
@@ -145,6 +155,7 @@ sudo ./install.sh -r -t yinlin
 <summary><b>Unknown</b></summary>
 
 - Calcharo: `calcharo`
+- Denia: `denia`
 
 </details>
 
@@ -290,6 +301,12 @@ Click to reveal
   <summary><b>Sanhua</b></summary>
 
   ![Sanhua](./previews/sanhua.jpg)
+  </details>
+
+  <details>
+  <summary><b>Suisui</b></summary>
+
+  ![Suisui](./previews/suisui.jpg)
   </details>
 
   <details>
@@ -664,15 +681,15 @@ Click to reveal
   <blockquote>
 
   <details>
-  <summary><b>Denia</b></summary>
-
-  ![Denia](./previews/denia.jpg)
-  </details>
-
-  <details>
   <summary><b>Calcharo</b></summary>
 
   ![Calcharo](./previews/calcharo.jpg)
+  </details>
+
+  <details>
+  <summary><b>Denia</b></summary>
+
+  ![Denia](./previews/denia.jpg)
   </details>
 
   </blockquote>
