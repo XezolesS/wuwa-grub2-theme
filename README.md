@@ -628,6 +628,12 @@ Click to reveal
   <blockquote>
 
   <details>
+  <summary><b>Denia</b></summary>
+
+  ![Denia](./previews/denia.jpg)
+  </details>
+
+  <details>
   <summary><b>Calcharo</b></summary>
 
   ![Calcharo](./previews/calcharo.jpg)
