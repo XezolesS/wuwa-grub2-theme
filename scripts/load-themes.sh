@@ -4,6 +4,9 @@
 # Also provides utility functions for it if the script is excuted with source.
 # If it's executed on its own, it just echos list of themes.
 
+# make sure the script is fail safe
+set -euo pipefail
+
 # ---- source scripts ----
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
@@ -19,15 +22,51 @@ THEME_PATH_LIST=()
 
 # remote configurations
 # TODO: switch branch to master before it being merged.
-# https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/backgrounds/themelist.txt
 GITHUB_USERNAME="XezolesS"
 GITHUB_REPOS="wuwa-grub2-theme"
 GITHUB_BRANCH="script-v2"
 
+# ---- arguments handling ----
+OPTS=$(getopt -o r,help -l remote,help -n "" -- "$@")
+eval set -- "$OPTS"
+
+while true; do
+  case "$1" in
+  -r | --remote)
+    REMOTE=1
+    shift
+    ;;
+  -h | --help)
+    cat <<EOF
+
+Usage: $0 [OPTION] [background_path]
+
+[OPTIONS]:
+  -r, --remote    Fetch the theme list from a remote repository. [background_path] will be ignored.
+  -h, --help      Show this help
+
+[background_path]:
+  If given as a directory, it would find all the PNG files from the given directory.
+  If given as a file path, it loads given file if it's a PNG file.
+  If it is not given, it would find PNG files from './backgrounds'.
+  Ignored when '-r' flag is on.
+
+EOF
+    exit 0
+    ;;
+  --)
+    shift
+    break
+    ;;
+  esac
+done
+
+BACKGROUND_PATH="${1:-./backgrounds}"
+
 # ---- functions ----
 # only declare functions if the script is sourced by another.
 if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
-  # check if THEME_VARIANTS is empty.
+  # check if THEME_LIST is empty.
   is_theme_empty() {
     if (("${#THEME_LIST[@]}" == 0)); then
       return 1
@@ -52,42 +91,6 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
     return "${THEME_PATH_LIST[$(get_theme_index "$1")]}"
   }
 fi
-
-# ---- arguments handling ----
-OPTS=$(getopt -o r -l remote -n "" -- "$@")
-eval set -- "$OPTS"
-
-while true; do
-  case "$1" in
-  -r | --remote)
-    REMOTE=1
-    shift
-    ;;
-  -h | --help)
-    cat <<EOF
-
-Usage: $0 [OPTION] [background_path]
-
-OPTIONS:
-  -r, --remote    Fetch the theme list from a remote repository. [background_path] will be ignored.
-  -h, --help      Show this help
-
-background_path:
-  If given as a directory, it would find all the PNG files in the given directory.
-  If given as a file path, it loads given file if it's a PNG file.
-  If it is not given, it would find PNG files from './backgrounds'.
-
-EOF
-    shift
-    ;;
-  --)
-    shift
-    break
-    ;;
-  esac
-done
-
-BACKGROUND_PATH="${1:-./backgrounds}"
 
 # ---- main executions ----
 if [[ -z "$REMOTE" ]]; then
