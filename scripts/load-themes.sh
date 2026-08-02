@@ -4,7 +4,7 @@
 # Also provides utility functions for it if the script is excuted with source.
 # If it's executed on its own, it just echos list of themes.
 
-# ---- source check ----
+# ---- source scripts ----
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
@@ -14,15 +14,22 @@ if ! declare -f print_msg >/dev/null; then
 fi
 
 # ---- globals ----
-THEME_LIST=('none')
-THEME_PATH_LIST=('none')
+THEME_LIST=()
+THEME_PATH_LIST=()
+
+# remote configurations
+# TODO: switch branch to master before it being merged.
+# https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/backgrounds/themelist.txt
+GITHUB_USERNAME="XezolesS"
+GITHUB_REPOS="wuwa-grub2-theme"
+GITHUB_BRANCH="script-v2"
 
 # ---- functions ----
 # only declare functions if the script is sourced by another.
 if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
   # check if THEME_VARIANTS is empty.
   is_theme_empty() {
-    if (("${#THEME_LIST[@]}" == 1)); then
+    if (("${#THEME_LIST[@]}" == 0)); then
       return 1
     else
       return 0
@@ -31,10 +38,8 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
 
   # echo theme index from given string
   get_theme_index() {
-    local input=$1
-
     for index in "${!THEME_LIST[@]}"; do
-      if [[ "$input" == "${THEME_LIST[index]}" ]]; then
+      if [[ "$1" == "${THEME_LIST[index]}" ]]; then
         echo "$index"
         return 0
       fi
@@ -42,13 +47,15 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
 
     return 1
   }
+
+  get_theme_path() {
+    return "${THEME_PATH_LIST[$(get_theme_index "$1")]}"
+  }
 fi
 
 # ---- arguments handling ----
 OPTS=$(getopt -o r -l remote -n "" -- "$@")
 eval set -- "$OPTS"
-
-REMOTE=0
 
 while true; do
   case "$1" in
@@ -62,7 +69,7 @@ while true; do
 Usage: $0 [OPTION] [background_path]
 
 OPTIONS:
-  -r, --remote    Fetch the theme list from the GitHub repo. [background_path] will be ignored.
+  -r, --remote    Fetch the theme list from a remote repository. [background_path] will be ignored.
   -h, --help      Show this help
 
 background_path:
@@ -83,32 +90,47 @@ done
 BACKGROUND_PATH="${1:-./backgrounds}"
 
 # ---- main executions ----
-# loads themes, only png files are allowed.
-if [[ -n "$BACKGROUND_PATH" ]] && [[ -d "$BACKGROUND_PATH" ]]; then
-  for file in "$BACKGROUND_PATH"/*; do
-    if [[ -f "$file" ]] && [[ "$file" == *".png" ]]; then
-      filename=$(basename "$file")
-      THEME_LIST+=("${filename%.png}")
-      THEME_PATH_LIST+=("$(realpath "$file")")
+if [[ -z "$REMOTE" ]]; then
+  # loads themes, only png files are allowed.
+  if [[ -n "$BACKGROUND_PATH" ]] && [[ -d "$BACKGROUND_PATH" ]]; then
+    # if $BACKGROUND_PATH is a directory
+    for file in "$BACKGROUND_PATH"/*; do
+      if [[ -f "$file" ]] && [[ "$file" == *".png" ]]; then
+        filename=$(basename "$file")
+        THEME_LIST+=("${filename%.png}")
+        THEME_PATH_LIST+=("$(realpath "$file")")
+      fi
+    done
+  elif [[ -n "$BACKGROUND_PATH" ]] && [[ -f "$BACKGROUND_PATH" ]]; then
+    # if $BACKGROUND_PATH is a path
+    if [[ "$BACKGROUND_PATH" != *".png" ]]; then
+      error_msg "file type must be PNG."
+      exit 1
     fi
-  done
-elif [[ -n "$BACKGROUND_PATH" ]] && [[ -f "$BACKGROUND_PATH" ]]; then
-  if [[ "$BACKGROUND_PATH" != *".png" ]]; then
-    error_msg "file type must be PNG."
+
+    filename="$(basename "$BACKGROUND_PATH")"
+    THEME_LIST+=("${filename%.png}")
+    THEME_PATH_LIST+=("$BACKGROUND_PATH")
+  else
+    error_msg "invalid directory or file."
     exit 1
   fi
-
-  filename="$(basename "$BACKGROUND_PATH")"
-  THEME_LIST+=("${filename%.png}")
-  THEME_PATH_LIST+=("$BACKGROUND_PATH")
 else
-  error_msg "invalid directory or file."
-  exit 1
+  # Fetch a theme list from GitHub repository.
+  backgrounds_url="https://raw.githubusercontent.com/$GITHUB_USERNAME/$GITHUB_REPOS/$GITHUB_BRANCH/backgrounds"
+  themelist_url="$backgrounds_url/themelist.txt"
+
+  mapfile -t themes < <(curl -fsSL "$themelist_url")
+  THEME_LIST+=("${themes[@]}")
+
+  for theme in "${THEME_LIST[@]}"; do
+    THEME_PATH_LIST+=("$backgrounds_url/$theme.png")
+  done
 fi
 
 # echos list of themes if it is executed by itself.
 if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
-  for ((i = 1; i < "${#THEME_LIST[@]}"; i++)); do
-    echo "${THEME_LIST[$i]}"
+  for theme in "${THEME_LIST[@]}"; do
+    echo "${theme}"
   done
 fi
