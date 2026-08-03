@@ -5,7 +5,11 @@ SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
-THEME_DIR="${PROJECT_ROOT}/backgrounds"
+THEME_DIR="$PROJECT_ROOT/backgrounds"
 
 # ---- main executions ----
-"${SCRIPT_DIR}/load-themes.sh" >"${THEME_DIR}/themelist.txt"
+if [[ -f "$THEME_DIR/index.txt" ]]; then
+  rm "$THEME_DIR/index.txt"
+fi
+
+"$SCRIPT_DIR/load-themes.sh" >"$THEME_DIR/index.txt"
