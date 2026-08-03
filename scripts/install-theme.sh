@@ -162,7 +162,7 @@ download_theme() {
 # install a theme
 install_theme() {
   # requires root permission
-  if [[ "$UID" -eq "$ROOT_UID" ]]; then
+  if [[ "$UID" -ne "$ROOT_UID" ]]; then
     error_msg "Requires root permission to install! try again with sudo."
     exit 1
   fi
