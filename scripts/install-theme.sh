@@ -283,7 +283,7 @@ install_theme() {
 
   # Update grub config
   info_msg "Updating grub config..."
-  updating_grub
+  grub_update
   warning_msg "* At the next restart of your computer you will see your new Grub theme: '${THEME_NAME}-${THEME}' "
 }
 
