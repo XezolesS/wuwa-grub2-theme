@@ -157,14 +157,14 @@ download_theme() {
     info_msg "Downloading '${other_f}' from: $_url"
     download_remote_content "$_url" "$TEMP_DL_DIR/assets-other/$other_f"
   done
-
 }
 
 # install a theme
 install_theme() {
   # requires root permission
   if [[ "$UID" -eq "$ROOT_UID" ]]; then
-    return
+    error_msg "Requires root permission to install! try again with sudo."
+    exit 1
   fi
 
   local GRUB_THEME_DIR=
@@ -288,4 +288,4 @@ install_theme() {
 }
 
 # ---- main executions ----
-sudo bash -c "$(install_theme)"
+install_theme
