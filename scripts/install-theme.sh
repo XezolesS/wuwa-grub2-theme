@@ -166,7 +166,7 @@ install_theme() {
   fi
 
   local GRUB_THEME_DIR=
-  GRUB_THEME_DIR <<<"$(grub_get_theme_dir "$BOOT")"
+  $GRUB_THEME_DIR <<<"$(grub_get_theme_dir "$BOOT")"
 
   # Make a themes directory if it doesn't exist
   info_msg "Checking themes directory ${GRUB_THEME_DIR} ..."
