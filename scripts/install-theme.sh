@@ -7,6 +7,8 @@ set -euo pipefail
 readonly ROOT_UID=0
 readonly THEME_NAME="wuwa"
 
+readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
+
 # project paths
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
@@ -18,7 +20,7 @@ TEMP_DL_DIR=".wuwa-grub2-theme-dl"
 
 # ---- arguments handling ----
 OPTS=$(getopt \
-  -o t:,r:,b,R,h \
+  -o t:,r:,R,b,h \
   -l theme:,resolution:,boot,remote,backgrounds-dir:,help \
   -n "install-theme" -- "$@")
 eval set -- "$OPTS"
@@ -72,7 +74,12 @@ done
 
 # ---- source scripts ----
 # utils.sh
-source "${SCRIPT_DIR}/utils.sh"
+
+if ((REMOTE == 0)); then
+  source "${SCRIPT_DIR}/utils.sh"
+else
+  source <(curl -fsSL "$UTILS_SH_URL")
+fi
 
 # load-themes.sh
 LOAD_THEMES_PARAMS=()
@@ -89,7 +96,12 @@ if [[ -n "$BACKGROUND_DIR" ]]; then
   fi
 fi
 
-source "${SCRIPT_DIR}/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+if ((REMOTE == 0)); then
+  source "${SCRIPT_DIR}/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+else
+  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" ".load-themes.sh"
+  source ".load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+fi
 
 # ---- functions ----
 download_theme() {
@@ -271,4 +283,4 @@ install_theme() {
 }
 
 # ---- main executions ----
-sudo bash -c "$(install_theme)"
+# sudo bash -c "$(install_theme)"

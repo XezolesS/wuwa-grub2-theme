@@ -57,7 +57,11 @@ BACKGROUND_PATH="${1:-./backgrounds}"
 # ---- source scripts ----
 # if print_msg is not defined, source utils.sh
 if ! declare -f print_msg >/dev/null; then
-  source "${SCRIPT_DIR}/utils.sh"
+  if ((REMOTE == 0)); then
+    source "${SCRIPT_DIR}/utils.sh"
+  else
+    source <(curl -fsSL "$UTILS_SH_URL")
+  fi
 fi
 
 # ---- functions ----
@@ -117,12 +121,10 @@ if ((REMOTE == 0)); then
   fi
 else
   # Fetch a theme list from GitHub repository.
-  backgrounds_url="$(get_remote_content_url "/backgrounds")"
-  themelist_url="$backgrounds_url/themelist.txt"
-
-  mapfile -t themes < <(curl -fsSL "$themelist_url")
+  mapfile -t themes < <(curl_remote_content "$(get_remote_content_url "/backgrounds/index.txt")")
   THEME_LIST+=("${themes[@]}")
 
+  backgrounds_url="$(get_remote_content_url "/backgrounds")"
   for theme in "${THEME_LIST[@]}"; do
     THEME_PATH_LIST+=("$backgrounds_url/$theme.png")
   done
