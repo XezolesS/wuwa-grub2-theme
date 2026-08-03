@@ -180,26 +180,26 @@ install_theme() {
   info_msg "Installing ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
 
   if ((REMOTE == 0)); then
-    local THEME_FONTS="${PROJECT_ROOT}/fonts/*.pf2"
+    local THEME_FONTS_DIR="${PROJECT_ROOT}/fonts"
     local THEME_CONFIG="${PROJECT_ROOT}/config/theme-${RESOLUTION}.txt"
     local THEME_BACKGROUNDS="${PROJECT_ROOT}/backgrounds/${THEME}.png"
-    local THEME_ASSETS_ICONS="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
-    local THEME_ASSETS_OTHER="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}/*.png"
+    local THEME_ASSETS_ICONS_DIR="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
+    local THEME_ASSETS_OTHER_DIR="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}"
   else
     download_theme
-    local THEME_FONTS="${TEMP_DL_DIR}/fonts/*.pf2"
+    local THEME_FONTS_DIR="${TEMP_DL_DIR}/fonts"
     local THEME_CONFIG="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
     local THEME_BACKGROUNDS="${TEMP_DL_DIR}/${THEME}.png"
-    local THEME_ASSETS_ICONS="${TEMP_DL_DIR}/assets-icons"
-    local THEME_ASSETS_OTHER="${TEMP_DL_DIR}/assets-other/*.png"
+    local THEME_ASSETS_ICONS_DIR="${TEMP_DL_DIR}/assets-icons"
+    local THEME_ASSETS_OTHER_DIR="${TEMP_DL_DIR}/assets-other"
   fi
 
   # Don't preserve ownership because the owner will be root, and that causes the script to crash if it is ran from terminal by sudo
-  cp -a --no-preserve=ownership "$THEME_FONTS" "${GRUB_THEME_DIR}"
+  cp -a --no-preserve=ownership "$THEME_FONTS_DIR"/*.pf2 "${GRUB_THEME_DIR}"
   cp -a --no-preserve=ownership "$THEME_CONFIG" "${GRUB_THEME_DIR}/theme.txt"
   cp -a --no-preserve=ownership "$THEME_BACKGROUNDS" "${GRUB_THEME_DIR}/background.png"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS" "${GRUB_THEME_DIR}/icons"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER" "${GRUB_THEME_DIR}"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS_DIR" "${GRUB_THEME_DIR}/icons"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER_DIR"/*.png "${GRUB_THEME_DIR}"
 
   # delete temporary directory if it exists
   if [[ -d "$TEMP_DL_DIR" ]]; then
