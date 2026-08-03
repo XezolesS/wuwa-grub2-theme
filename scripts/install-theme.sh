@@ -102,7 +102,7 @@ else
   # temporarily download a script, because passing arguments is kinda tideous.
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" ".load-themes.sh"
   source ".load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
-  rm .load-theme.sh
+  rm .load-themes.sh
 fi
 
 # ---- functions ----
