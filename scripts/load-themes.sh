@@ -8,7 +8,9 @@
 set -euo pipefail
 
 # ---- globals ----
-readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
+if [[ ! -v "$UTILS_SH_URL" ]]; then
+  readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
+fi
 
 THEME_LIST=()
 THEME_PATH_LIST=()
