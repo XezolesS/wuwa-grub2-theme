@@ -56,6 +56,7 @@ Usage: $0 [OPTION] THEME [RESOLUTION]
 
 THEME:
   Name of the theme to install.
+  If '--background-path' is a file, this will be ignored, but required.
 
 [RESOLUTION]: [fhd | qhd | uhd]
   Resolution of a monitor. Defaults to 'fhd'.
@@ -96,6 +97,17 @@ else
   fi
 fi
 
+if [[ -n "$BACKGROUND_PATH" ]]; then
+  # Disable remote if BACKGROUND_PATH is given
+  REMOTE=0
+
+  # Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
+  if [[ "$BACKGROUND_PATH" == *".png" ]]; then
+    _themename="$(basename "$BACKGROUND_PATH")"
+    THEME="${_themename%.png}"
+  fi
+fi
+
 # ---- source scripts ----
 # utils.sh
 
@@ -112,12 +124,7 @@ if ((REMOTE == 1)); then
 fi
 
 if [[ -n "$BACKGROUND_PATH" ]]; then
-  # if $THEME is a file, $BACKGROUND_PATH is ignored.
-  if [[ "$THEME" == *".png" ]]; then
-    LOAD_THEMES_PARAMS+=("$THEME")
-  else
-    LOAD_THEMES_PARAMS+=("$BACKGROUND_PATH")
-  fi
+  LOAD_THEMES_PARAMS+=("$BACKGROUND_PATH")
 fi
 
 if ((REMOTE == 0)); then
@@ -131,6 +138,10 @@ fi
 
 # ---- functions ----
 download_theme() {
+  if ((REMOTE == 0)); then
+    return
+  fi
+
   # Remote, make temporary directory and download inside of it
   if [[ -d "$TEMP_DL_DIR" ]]; then
     rm -r "$TEMP_DL_DIR"
