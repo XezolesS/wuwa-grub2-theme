@@ -99,8 +99,10 @@ fi
 if ((REMOTE == 0)); then
   source "${SCRIPT_DIR}/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
 else
+  # temporarily download a script, because passing arguments is kinda tideous.
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" ".load-themes.sh"
   source ".load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+  rm .load-theme.sh
 fi
 
 # ---- functions ----
@@ -184,6 +186,7 @@ install_theme() {
     local THEME_ASSETS_ICONS="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
     local THEME_ASSETS_OTHER="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}/*.png"
   else
+    download_theme
     local THEME_FONTS="${TEMP_DL_DIR}/fonts/*.pf2"
     local THEME_CONFIG="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
     local THEME_BACKGROUNDS="${TEMP_DL_DIR}/${THEME}.png"
