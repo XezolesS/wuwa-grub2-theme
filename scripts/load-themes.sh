@@ -7,28 +7,27 @@
 # make sure the script is fail safe
 set -euo pipefail
 
-# ---- source scripts ----
-SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
-SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
-
-# if print_msg is not defined, source utils.sh
-if ! declare -f print_msg >/dev/null; then
-  source "${SCRIPT_DIR}/utils.sh"
-fi
-
 # ---- globals ----
 THEME_LIST=()
 THEME_PATH_LIST=()
 
+# project paths
+SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
+
 # remote configurations
 # TODO: switch branch to master before it being merged.
-GITHUB_USERNAME="XezolesS"
-GITHUB_REPOS="wuwa-grub2-theme"
-GITHUB_BRANCH="script-v2"
+if [[ ! -v "GITHUB_USERNAME" ]]; then
+  readonly GITHUB_USERNAME="XezolesS"
+  readonly GITHUB_REPOS="wuwa-grub2-theme"
+  readonly GITHUB_BRANCH="script-v2"
+fi
 
 # ---- arguments handling ----
-OPTS=$(getopt -o r,help -l remote,help -n "" -- "$@")
+OPTS=$(getopt -o r,h -l remote,help -n "load-themes" -- "$@")
 eval set -- "$OPTS"
+
+REMOTE=0
 
 while true; do
   case "$1" in
@@ -63,6 +62,12 @@ done
 
 BACKGROUND_PATH="${1:-./backgrounds}"
 
+# ---- source scripts ----
+# if print_msg is not defined, source utils.sh
+if ! declare -f print_msg >/dev/null; then
+  source "${SCRIPT_DIR}/utils.sh"
+fi
+
 # ---- functions ----
 # only declare functions if the script is sourced by another.
 if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
@@ -93,7 +98,7 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
 fi
 
 # ---- main executions ----
-if [[ -z "$REMOTE" ]]; then
+if ((REMOTE == 0)); then
   # loads themes, only png files are allowed.
   if [[ -n "$BACKGROUND_PATH" ]] && [[ -d "$BACKGROUND_PATH" ]]; then
     # if $BACKGROUND_PATH is a directory

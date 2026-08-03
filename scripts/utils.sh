@@ -13,7 +13,6 @@ COLOR_BOLD_ERR="\033[1;31m" # bold error color
 COLOR_BOLD_WAR="\033[1;33m" # bold warning color
 
 # ---- functions ----
-
 print_msg() {
   printf "${COLOR_DEF}%s\n" "$1"
 }
@@ -36,4 +35,41 @@ error_msg() {
 
 has_command() {
   command -v "$1" &>/dev/null
+}
+
+grub_update() {
+  if has_command update-grub; then
+    update-grub
+  elif has_command grub-mkconfig; then
+    grub-mkconfig -o /boot/grub/grub.cfg
+  # Check for OpenSuse (regular or microOS)
+  elif has_command zypper || has_command transactional-update; then
+    grub2-mkconfig -o /boot/grub2/grub.cfg
+  # Check for Fedora (regular or Atomic)
+  elif has_command dnf || has_command rpm-ostree; then
+    # Check for UEFI
+    if [[ -f /boot/efi/EFI/fedora/grub.cfg ]]; then
+      info_msg "Find config file on /boot/efi/EFI/fedora/grub.cfg ...\n"
+      grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+    # Check for BIOS
+    elif [[ -f /boot/grub2/grub.cfg ]]; then
+      info_msg "Find config file on /boot/grub2/grub.cfg ...\n"
+      grub2-mkconfig -o /boot/grub2/grub.cfg
+    fi
+  fi
+
+  # Success message
+  success_msg "\n * All done!"
+}
+
+grub_get_theme_dir() {
+  if [[ "$1" == "0" ]]; then
+    echo "/usr/share/grub/themes"
+  else
+    if [[ -d "/boot/grub" ]]; then
+      echo "/boot/grub/themes"
+    elif [[ -d "/boot/grub2" ]]; then
+      echo "/boot/grub2/themes"
+    fi
+  fi
 }
