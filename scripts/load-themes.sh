@@ -8,6 +8,8 @@
 set -euo pipefail
 
 # ---- globals ----
+readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
+
 THEME_LIST=()
 THEME_PATH_LIST=()
 

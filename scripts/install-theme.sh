@@ -163,12 +163,12 @@ download_theme() {
 install_theme() {
   # requires root permission
   if [[ "$UID" -ne "$ROOT_UID" ]]; then
-    error_msg "Requires root permission to install! try again with sudo."
+    error_msg "Requires root permission to install! Try again with sudo."
     exit 1
   fi
 
   local GRUB_THEME_DIR=
-  $GRUB_THEME_DIR <<<"$(grub_get_theme_dir "$BOOT")"
+  GRUB_THEME_DIR="$(grub_get_theme_dir "$BOOT")"
 
   # Make a themes directory if it doesn't exist
   info_msg "Checking themes directory ${GRUB_THEME_DIR} ..."
