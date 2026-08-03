@@ -30,6 +30,7 @@ eval set -- "$OPTS"
 BOOT=0
 VERBOSE=0
 REMOTE=0
+CUSTOM_BACKGROUND=0
 
 while true; do
   case "$1" in
@@ -97,15 +98,11 @@ else
   fi
 fi
 
-if [[ -n "$BACKGROUND_PATH" ]]; then
-  # Disable remote if BACKGROUND_PATH is given
-  REMOTE=0
-
-  # Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
-  if [[ "$BACKGROUND_PATH" == *".png" ]]; then
-    _themename="$(basename "$BACKGROUND_PATH")"
-    THEME="${_themename%.png}"
-  fi
+# Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
+if [[ -n "$BACKGROUND_PATH" ]] && [[ "$BACKGROUND_PATH" == *".png" ]]; then
+  _themename="$(basename "$BACKGROUND_PATH")"
+  THEME="${_themename%.png}"
+  CUSTOM_BACKGROUND=1
 fi
 
 # ---- source scripts ----
@@ -170,9 +167,13 @@ download_theme() {
   download_remote_content "$_url" "$TEMP_DL_DIR/theme-${RESOLUTION}.txt"
 
   # download a background
-  _url="$(get_remote_content_url "backgrounds/${THEME}.png")"
-  info_msg "Downloading '${THEME}' theme from: $_url"
-  download_remote_content "$_url" "$TEMP_DL_DIR/${THEME}.png"
+  if ((CUSTOM_BACKGROUND == 0)); then
+    _url="$(get_remote_content_url "backgrounds/${THEME}.png")"
+    info_msg "Downloading '${THEME}' theme from: $_url"
+    download_remote_content "$_url" "$TEMP_DL_DIR/${THEME}.png"
+  else
+    info_msg "Custom background $THEME is set. Skip downloading background..."
+  fi
 
   # donwload assets
   _url="$(get_remote_content_url "assets/assets-icons/index.txt")"
