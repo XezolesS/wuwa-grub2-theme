@@ -14,11 +14,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 BACKGROUND_DIR="${PROJECT_ROOT}/backgrounds"
 
-# remote configurations
-# TODO: switch branch to master before it being merged.
-readonly GITHUB_USERNAME="XezolesS"
-readonly GITHUB_REPOS="wuwa-grub2-theme"
-readonly GITHUB_BRANCH="script-v2"
+TEMP_DL_DIR=".wuwa-grub2-theme-dl"
 
 # ---- arguments handling ----
 OPTS=$(getopt \
@@ -96,6 +92,59 @@ fi
 source "${SCRIPT_DIR}/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
 
 # ---- functions ----
+download_theme() {
+  # Remote, make temporary directory and download inside of it
+  if [[ -d "$TEMP_DL_DIR" ]]; then
+    rm -r "$TEMP_DL_DIR"
+  fi
+
+  mkdir "$TEMP_DL_DIR" \
+    "$TEMP_DL_DIR/fonts" \
+    "$TEMP_DL_DIR/assets-icons" \
+    "$TEMP_DL_DIR/assets-other"
+
+  local _url=""
+
+  # download fonts
+  _url="$(get_remote_content_url "fonts/index.txt")"
+  info_msg "Fetching fonts index from: $_url"
+  mapfile -t font_files < <(curl_remote_content "$_url")
+  for font_f in "${font_files[@]}"; do
+    _url=$(get_remote_content_url "fonts/${font_f}")
+    info_msg "Downloading '${font_f}' from: $_url"
+    download_remote_content "$_url" "$TEMP_DL_DIR/fonts/$font_f"
+  done
+
+  # download a config
+  _url="$(get_remote_content_url "config/theme-${RESOLUTION}.txt")"
+  info_msg "Downloading '${RESOLUTION}' config from: $_url"
+  download_remote_content "$_url" "$TEMP_DL_DIR/theme-${RESOLUTION}.txt"
+
+  # download a background
+  _url="$(get_remote_content_url "backgrounds/${THEME}.png")"
+  info_msg "Downloading '${THEME}' theme from: $_url"
+  download_remote_content "$_url" "$TEMP_DL_DIR/${THEME}.png"
+
+  # donwload assets
+  _url="$(get_remote_content_url "assets/assets-icons/index.txt")"
+  info_msg "Fetching icon assets index from: $_url"
+  mapfile -t assets_icons_files < <(curl_remote_content "$_url")
+  for icon_f in "${assets_icons_files[@]}"; do
+    _url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
+    info_msg "Downloading '${icon_f}' from: $_url"
+    download_remote_content "$_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
+  done
+
+  _url="$(get_remote_content_url "assets/assets-other/index.txt")"
+  info_msg "Fetching other assets index from: $_url"
+  mapfile -t assets_other_files < <(curl_remote_content "$_url")
+  for other_f in "${assets_other_files[@]}"; do
+    _url=$(get_remote_content_url "assets/assets-other/other-${RESOLUTION}/${other_f}")
+    info_msg "Downloading '${other_f}' from: $_url"
+    download_remote_content "$_url" "$TEMP_DL_DIR/assets-other/$other_f"
+  done
+
+}
 # install a theme
 install_theme() {
   # requires root permission
@@ -114,12 +163,31 @@ install_theme() {
   # Copy theme
   info_msg "Installing ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
 
+  if ((REMOTE == 0)); then
+    local THEME_FONTS="${PROJECT_ROOT}/fonts/*.pf2"
+    local THEME_CONFIG="${PROJECT_ROOT}/config/theme-${RESOLUTION}.txt"
+    local THEME_BACKGROUNDS="${PROJECT_ROOT}/backgrounds/${THEME}.png"
+    local THEME_ASSETS_ICONS="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
+    local THEME_ASSETS_OTHER="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}/*.png"
+  else
+    local THEME_FONTS="${TEMP_DL_DIR}/fonts/*.pf2"
+    local THEME_CONFIG="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
+    local THEME_BACKGROUNDS="${TEMP_DL_DIR}/${THEME}.png"
+    local THEME_ASSETS_ICONS="${TEMP_DL_DIR}/assets-icons"
+    local THEME_ASSETS_OTHER="${TEMP_DL_DIR}/assets-other/*.png"
+  fi
+
   # Don't preserve ownership because the owner will be root, and that causes the script to crash if it is ran from terminal by sudo
-  cp -a --no-preserve=ownership "${REO_DIR}/common/"*.pf2 "${GRUB_THEME_DIR}"
-  cp -a --no-preserve=ownership "${REO_DIR}/config/theme-${RESOLUTION}.txt" "${GRUB_THEME_DIR}/theme.txt"
-  cp -a --no-preserve=ownership "${REO_DIR}/backgrounds/${THEME}.png" "${GRUB_THEME_DIR}/background.png"
-  cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-icons/icons-${RESOLUTION}" "${GRUB_THEME_DIR}/icons"
-  cp -a --no-preserve=ownership "${REO_DIR}/assets/assets-other/other-${RESOLUTION}/"*.png "${GRUB_THEME_DIR}"
+  cp -a --no-preserve=ownership "$THEME_FONTS" "${GRUB_THEME_DIR}"
+  cp -a --no-preserve=ownership "$THEME_CONFIG" "${GRUB_THEME_DIR}/theme.txt"
+  cp -a --no-preserve=ownership "$THEME_BACKGROUNDS" "${GRUB_THEME_DIR}/background.png"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS" "${GRUB_THEME_DIR}/icons"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER" "${GRUB_THEME_DIR}"
+
+  # delete temporary directory if it exists
+  if [[ -d "$TEMP_DL_DIR" ]]; then
+    rm -r "$TEMP_DL_DIR"
+  fi
 
   # Fedora workaround to fix the missing unicode.pf2 file (tested on fedora 34): https://bugzilla.redhat.com/show_bug.cgi?id=1739762
   # This occurs when we add a theme on grub2 with Fedora.
@@ -203,4 +271,4 @@ install_theme() {
 }
 
 # ---- main executions ----
-sudo bash -c "$(install_theme)"
+# sudo bash -c "$(install_theme)"

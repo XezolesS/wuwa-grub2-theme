@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# make sure the script is fail safe
+set -euo pipefail
+
 # ---- colors ----
 COLOR_DEF="\033[0m"         # default color
 COLOR_INF="\033[0;36m"      # info color
@@ -11,6 +14,12 @@ COLOR_BOLD_INF="\033[1;36m" # bold info color
 COLOR_BOLD_SUC="\033[1;32m" # bold success color
 COLOR_BOLD_ERR="\033[1;31m" # bold error color
 COLOR_BOLD_WAR="\033[1;33m" # bold warning color
+
+# ---- remote configurations ----
+# TODO: switch branch to master before it being merged.
+readonly GITHUB_USERNAME="XezolesS"
+readonly GITHUB_REPOS="wuwa-grub2-theme"
+readonly GITHUB_BRANCH="script-v2"
 
 # ---- functions ----
 print_msg() {
@@ -35,6 +44,18 @@ error_msg() {
 
 has_command() {
   command -v "$1" &>/dev/null
+}
+
+get_remote_content_url() {
+  echo "https://raw.githubusercontent.com/$GITHUB_USERNAME/$GITHUB_REPOS/$GITHUB_BRANCH/$1"
+}
+
+curl_remote_content() {
+  curl -fsSL "$1"
+}
+
+download_remote_content() {
+  curl -fsSL "$1" -o "$2"
 }
 
 grub_update() {

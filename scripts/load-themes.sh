@@ -15,14 +15,6 @@ THEME_PATH_LIST=()
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
-# remote configurations
-# TODO: switch branch to master before it being merged.
-if [[ ! -v "GITHUB_USERNAME" ]]; then
-  readonly GITHUB_USERNAME="XezolesS"
-  readonly GITHUB_REPOS="wuwa-grub2-theme"
-  readonly GITHUB_BRANCH="script-v2"
-fi
-
 # ---- arguments handling ----
 OPTS=$(getopt -o r,h -l remote,help -n "load-themes" -- "$@")
 eval set -- "$OPTS"
@@ -125,7 +117,7 @@ if ((REMOTE == 0)); then
   fi
 else
   # Fetch a theme list from GitHub repository.
-  backgrounds_url="https://raw.githubusercontent.com/$GITHUB_USERNAME/$GITHUB_REPOS/$GITHUB_BRANCH/backgrounds"
+  backgrounds_url="$(get_remote_content_url "/backgrounds")"
   themelist_url="$backgrounds_url/themelist.txt"
 
   mapfile -t themes < <(curl -fsSL "$themelist_url")

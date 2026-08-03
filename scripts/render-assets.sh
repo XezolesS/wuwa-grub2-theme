@@ -1,5 +1,8 @@
 #! /usr/bin/env bash
 
+# make sure the script is fail safe
+set -euo pipefail
+
 # ---- globals ----
 # binaries
 INKSCAPE="/usr/bin/inkscape"
