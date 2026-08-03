@@ -157,6 +157,7 @@ download_theme() {
   done
 
 }
+
 # install a theme
 install_theme() {
   # requires root permission
@@ -164,7 +165,8 @@ install_theme() {
     return
   fi
 
-  local GRUB_THEME_DIR <<<"$(grub_get_theme_dir "$BOOT")"
+  local GRUB_THEME_DIR=
+  GRUB_THEME_DIR <<<"$(grub_get_theme_dir "$BOOT")"
 
   # Make a themes directory if it doesn't exist
   info_msg "Checking themes directory ${GRUB_THEME_DIR} ..."
