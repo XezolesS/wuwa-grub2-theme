@@ -30,6 +30,12 @@ info_msg() {
   printf "${COLOR_BOLD_INF}INFO: ${COLOR_DEF}%s\n" "$1"
 }
 
+verbose_info_msg() {
+  if (("$1" == 1)); then
+    info_msg "$2"
+  fi
+}
+
 success_msg() {
   printf "${COLOR_BOLD_SUC}SUCCESS: ${COLOR_DEF}%s\n" "$1"
 }

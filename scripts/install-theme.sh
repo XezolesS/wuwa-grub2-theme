@@ -9,37 +9,30 @@ readonly THEME_NAME="wuwa"
 
 readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
 
+readonly RESOLUTION_OPTIONS=("fhd" "qhd" "uhd")
+
 # project paths
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
-BACKGROUND_DIR="${PROJECT_ROOT}/backgrounds"
+BACKGROUND_PATH="${PROJECT_ROOT}/backgrounds"
 
 TEMP_DL_DIR=".wuwa-grub2-theme-dl"
 
 # ---- arguments handling ----
 OPTS=$(getopt \
-  -o t:,r:,R,b,h \
-  -l theme:,resolution:,boot,remote,backgrounds-dir:,help \
+  -o R,b,v,h \
+  -l boot,remote,backgrounds-path:,verbose,help \
   -n "install-theme" -- "$@")
 eval set -- "$OPTS"
 
-THEME=
-RESOLUTION="fhd"
 BOOT=0
+VERBOSE=0
 REMOTE=0
 
 while true; do
   case "$1" in
-  -t | --theme)
-    THEME="$2"
-    shift 2
-    ;;
-  -r | --resolution)
-    RESOLUTION="${2,,}"
-    shift 2
-    ;;
   -b | --boot)
     BOOT=1
     shift
@@ -48,20 +41,31 @@ while true; do
     REMOTE=1
     shift
     ;;
-  --backgrounds-dir)
-    BACKGROUND_DIR="$2"
+  --backgrounds-path)
+    BACKGROUND_PATH="$2"
     shift 2
+    ;;
+  -v | --verbose)
+    VERBOSE=1
+    shift
     ;;
   -h | --help)
     cat <<EOF
 
-Usage: $0 [OPTION]
+Usage: $0 [OPTION] THEME [RESOLUTION]
+
+THEME:
+  Name of the theme to install.
+
+[RESOLUTION]: [fhd | qhd | uhd]
+  Resolution of a monitor. Defaults to 'fhd'.
 
 [OPTIONS]:
-  -t, --theme THEME   
-  -s, --screen-resoltuion (fhd|qhd|uhd) 
-  -r, --remote    Fetch the theme list from a remote repository. [background_path] will be ignored.
-  -h, --help      Show this help
+  -b, --boot          Install theme to boot directory. (/boot/grub/theme)
+  -r, --remote        Fetch the theme list from a remote repository. [background-path] will be ignored.
+  --backgrounds-path  Custom background path. Can be either file or directory.
+  -v, --verbose       Verbose messages.
+  -h, --help          Show this help.
 EOF
     exit 0
     ;;
@@ -71,6 +75,26 @@ EOF
     ;;
   esac
 done
+
+# positional arguments
+# THEME
+if [[ -z "${1-}" ]]; then
+  echo -e "\033[1;31mERROR: \033[0mYou need to specify a theme to install!"
+  exit 1
+fi
+
+THEME="$1"
+
+# RESOLUTION
+if [[ -z "${2-}" ]]; then
+  RESOLUTION="fhd"
+else
+  RESOLUTION="$2"
+  if ! printf '%s\0' "${RESOLUTION_OPTIONS[@]}" | grep -Fxqz -- "$RESOLUTION"; then
+    echo -e "\033[1;31mERROR: \033[0mUnsupported resolution! Supports: (${RESOLUTION_OPTIONS[*]})"
+    exit 1
+  fi
+fi
 
 # ---- source scripts ----
 # utils.sh
@@ -87,12 +111,12 @@ if ((REMOTE == 1)); then
   LOAD_THEMES_PARAMS+=("-r")
 fi
 
-if [[ -n "$BACKGROUND_DIR" ]]; then
-  # if $THEME is a file, $BACKGROUND_DIR is ignored.
+if [[ -n "$BACKGROUND_PATH" ]]; then
+  # if $THEME is a file, $BACKGROUND_PATH is ignored.
   if [[ "$THEME" == *".png" ]]; then
     LOAD_THEMES_PARAMS+=("$THEME")
   else
-    LOAD_THEMES_PARAMS+=("$BACKGROUND_DIR")
+    LOAD_THEMES_PARAMS+=("$BACKGROUND_PATH")
   fi
 fi
 
@@ -125,7 +149,7 @@ download_theme() {
   mapfile -t font_files < <(curl_remote_content "$_url")
   for font_f in "${font_files[@]}"; do
     _url=$(get_remote_content_url "fonts/${font_f}")
-    info_msg "Downloading '${font_f}' from: $_url"
+    verbose_info_msg "$VERBOSE" "Downloading '${font_f}' from: $_url"
     download_remote_content "$_url" "$TEMP_DL_DIR/fonts/$font_f"
   done
 
@@ -143,24 +167,26 @@ download_theme() {
   _url="$(get_remote_content_url "assets/assets-icons/index.txt")"
   info_msg "Fetching icon assets index from: $_url"
   mapfile -t assets_icons_files < <(curl_remote_content "$_url")
+  info_msg "Downloading ${#assets_icons_files[@]} assets..."
   for icon_f in "${assets_icons_files[@]}"; do
     _url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
-    info_msg "Downloading '${icon_f}' from: $_url"
+    verbose_info_msg "$VERBOSE" "Downloading '${icon_f}' from: $_url"
     download_remote_content "$_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
   done
 
   _url="$(get_remote_content_url "assets/assets-other/index.txt")"
   info_msg "Fetching other assets index from: $_url"
   mapfile -t assets_other_files < <(curl_remote_content "$_url")
+  info_msg "Downloading ${#assets_other_files[@]} assets..."
   for other_f in "${assets_other_files[@]}"; do
     _url=$(get_remote_content_url "assets/assets-other/other-${RESOLUTION}/${other_f}")
-    info_msg "Downloading '${other_f}' from: $_url"
+    verbose_info_msg "$VERBOSE" "Downloading '${other_f}' from: $_url"
     download_remote_content "$_url" "$TEMP_DL_DIR/assets-other/$other_f"
   done
 }
 
 # install a theme
-install_theme() {
+grub_install_theme() {
   # requires root permission
   if [[ "$UID" -ne "$ROOT_UID" ]]; then
     error_msg "Requires root permission to install! Try again with sudo."
@@ -288,4 +314,4 @@ install_theme() {
 }
 
 # ---- main executions ----
-install_theme
+grub_install_theme

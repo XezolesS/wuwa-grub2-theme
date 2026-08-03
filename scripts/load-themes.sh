@@ -38,7 +38,7 @@ Usage: $0 [OPTION] [background_path]
 
 [OPTIONS]:
   -r, --remote    Fetch the theme list from a remote repository. [background_path] will be ignored.
-  -h, --help      Show this help
+  -h, --help      Show this help.
 
 [background_path]:
   If given as a directory, it would find all the PNG files from the given directory.
