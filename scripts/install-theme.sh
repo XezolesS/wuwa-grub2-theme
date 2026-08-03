@@ -283,4 +283,4 @@ install_theme() {
 }
 
 # ---- main executions ----
-# sudo bash -c "$(install_theme)"
+sudo bash -c "$(install_theme)"
