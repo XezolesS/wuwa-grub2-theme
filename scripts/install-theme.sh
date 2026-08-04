@@ -92,10 +92,6 @@ if [[ -z "${2-}" ]]; then
   RESOLUTION="fhd"
 else
   RESOLUTION="$2"
-  if ! printf '%s\0' "${RESOLUTION_OPTIONS[@]}" | grep -Fxqz -- "$RESOLUTION"; then
-    echo -e "\033[1;31mERROR: \033[0mUnsupported resolution! Supports: (${RESOLUTION_OPTIONS[*]})"
-    exit 1
-  fi
 fi
 
 # Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
@@ -116,7 +112,7 @@ fi
 
 # load-themes.sh
 LOAD_THEMES_PARAMS=()
-if ((REMOTE == 1)); then
+if ((REMOTE == 1)) && ((CUSTOM_BACKGROUND == 0)); then
   LOAD_THEMES_PARAMS+=("-r")
 fi
 
@@ -326,4 +322,19 @@ grub_install_theme() {
 }
 
 # ---- main executions ----
+
+# verify theme
+if ! printf '%s\0' "${THEME_LIST[@]}" | grep -Fxqz -- "$THEME"; then
+  error_msg "Unknown theme '$THEME'! List of themes:"
+  printf '%s, \0' "${THEME_LIST[@]}" && echo ""
+  exit 1
+fi
+
+# verify resolution
+if ! printf '%s\0' "${RESOLUTION_OPTIONS[@]}" | grep -Fxqz -- "$RESOLUTION"; then
+  error_msg "Unsupported resolution '$RESOLUTION'! Supported resolutions:"
+  printf '%s, \0' "${RESOLUTION_OPTIONS[@]}" && echo ""
+  exit 1
+fi
+
 grub_install_theme
