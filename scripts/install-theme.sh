@@ -22,8 +22,8 @@ TEMP_DL_DIR=".wuwa-grub2-theme-dl"
 
 # ---- arguments handling ----
 OPTS=$(getopt \
-  -o R,b,v,h \
-  -l boot,remote,backgrounds-path:,verbose,help \
+  -o b,r,v,o:,h \
+  -l boot,remote,backgrounds-path:,output,verbose,help \
   -n "install-theme" -- "$@")
 eval set -- "$OPTS"
 
@@ -31,6 +31,7 @@ BOOT=0
 VERBOSE=0
 REMOTE=0
 CUSTOM_BACKGROUND=0
+OUTPUT=
 
 while true; do
   case "$1" in
@@ -38,12 +39,16 @@ while true; do
     BOOT=1
     shift
     ;;
-  -R | --remote)
+  -r | --remote)
     REMOTE=1
     shift
     ;;
   --backgrounds-path)
     BACKGROUND_PATH="${2/#\~/$HOME}" # simple tilde expansion
+    shift 2
+    ;;
+  -o | --output)
+    OUTPUT="${2/#\~/$HOME}"
     shift 2
     ;;
   -v | --verbose)
@@ -66,6 +71,7 @@ THEME:
   -b, --boot          Install theme to boot directory. (/boot/grub/theme)
   -r, --remote        Fetch the theme list from a remote repository. [background-path] will be ignored.
   --backgrounds-path  Custom background path. Can be either file or directory.
+  -o, --output        Output directory. Instead of installing theme to GRUB, it compiles it to other directory. Cannot be used with --boot.
   -v, --verbose       Verbose messages.
   -h, --help          Show this help.
 EOF
@@ -199,27 +205,16 @@ download_theme() {
   done
 }
 
-# install a theme
-grub_install_theme() {
-  # requires root permission
-  if [[ "$UID" -ne "$ROOT_UID" ]]; then
-    error_msg "Requires root permission to install! Try again with sudo."
-    exit 1
-  fi
+compile_theme() {
+  info_msg "Compiling ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
 
-  info_msg "Start installing $THEME in ${RESOLUTION^^}."
-
-  local GRUB_THEME_DIR=
-  GRUB_THEME_DIR="$(grub_get_theme_dir "$BOOT")"
+  local OUTPUT_DIR="$1"
 
   # Make a themes directory if it doesn't exist
-  info_msg "Checking themes directory ${GRUB_THEME_DIR} ..."
+  info_msg "Checking themes directory ${OUTPUT_DIR} ..."
 
-  [[ -d "${GRUB_THEME_DIR}" ]] && rm -rf "${GRUB_THEME_DIR}"
-  mkdir -p "${GRUB_THEME_DIR}"
-
-  # Copy theme
-  info_msg "Installing ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
+  [[ -d "${OUTPUT_DIR}" ]] && rm -rf "${OUTPUT_DIR}"
+  mkdir -p "${OUTPUT_DIR}"
 
   if ((REMOTE == 0)); then
     local THEME_FONTS_DIR="${PROJECT_ROOT}/fonts"
@@ -230,6 +225,7 @@ grub_install_theme() {
     local THEME_ASSETS_OTHER_DIR="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}"
   else
     download_theme
+
     local THEME_FONTS_DIR="${TEMP_DL_DIR}/fonts"
     local THEME_CONFIG="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
     local THEME_BACKGROUND="${TEMP_DL_DIR}/${THEME}.png"
@@ -242,16 +238,33 @@ grub_install_theme() {
   fi
 
   # Don't preserve ownership because the owner will be root, and that causes the script to crash if it is ran from terminal by sudo
-  cp -a --no-preserve=ownership "$THEME_FONTS_DIR"/*.pf2 "${GRUB_THEME_DIR}"
-  cp -a --no-preserve=ownership "$THEME_CONFIG" "${GRUB_THEME_DIR}/theme.txt"
-  cp -a --no-preserve=ownership "$THEME_BACKGROUND" "${GRUB_THEME_DIR}/background.png"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS_DIR" "${GRUB_THEME_DIR}/icons"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER_DIR"/*.png "${GRUB_THEME_DIR}"
+  cp -a --no-preserve=ownership "$THEME_FONTS_DIR"/*.pf2 "${OUTPUT_DIR}"
+  cp -a --no-preserve=ownership "$THEME_CONFIG" "${OUTPUT_DIR}/theme.txt"
+  cp -a --no-preserve=ownership "$THEME_BACKGROUND" "${OUTPUT_DIR}/background.png"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS_DIR" "${OUTPUT_DIR}/icons"
+  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER_DIR"/*.png "${OUTPUT_DIR}"
 
   # delete temporary directory if it exists
   if [[ -d "$TEMP_DL_DIR" ]]; then
     rm -r "$TEMP_DL_DIR"
   fi
+}
+
+# install a theme
+grub_install_theme() {
+  # requires root permission
+  if [[ "$UID" -ne "$ROOT_UID" ]]; then
+    error_msg "Requires root permission to install! Try again with sudo."
+    exit 1
+  fi
+
+  info_msg "Start installing $THEME in ${RESOLUTION^^}."
+
+  local GRUB_THEME_DIR
+  GRUB_THEME_DIR="$(grub_get_theme_dir "$BOOT")"
+
+  # Compile theme
+  compile_theme "$GRUB_THEME_DIR"
 
   # Fedora workaround to fix the missing unicode.pf2 file (tested on fedora 34): https://bugzilla.redhat.com/show_bug.cgi?id=1739762
   # This occurs when we add a theme on grub2 with Fedora.
@@ -331,7 +344,7 @@ grub_install_theme() {
   # Update grub config
   info_msg "Updating grub config..."
   grub_update
-  warning_msg "* At the next restart of your computer you will see your new Grub theme: '${THEME_NAME}-${THEME}' "
+  warning_msg "At the next restart of your computer you will see your new Grub theme: '${THEME_NAME}-${THEME}' "
 }
 
 # ---- main executions ----
@@ -350,6 +363,12 @@ if ! printf '%s\0' "${RESOLUTION_OPTIONS[@]}" | grep -Fxqz -- "$RESOLUTION"; the
   exit 1
 fi
 
+# boot & output confict check
+if ((BOOT == 1)) && [[ -n "$OUTPUT" ]]; then
+  error_msg "--boot and --output cannot be used together!"
+  exit 1
+fi
+
 # verbose logging
 if ((VERBOSE == 1)); then
   info_msg "Theme: ${THEME}"
@@ -358,6 +377,11 @@ if ((VERBOSE == 1)); then
   info_msg "Remote flag: ${REMOTE}"
   info_msg "Background path: ${BACKGROUND_PATH}"
   info_msg "Custom background flag: ${CUSTOM_BACKGROUND}"
+  info_msg "Output: ${OUTPUT}"
 fi
 
-grub_install_theme
+if [[ -z "$OUTPUT" ]]; then
+  grub_install_theme
+else
+  compile_theme "$OUTPUT"
+fi
