@@ -43,7 +43,7 @@ while true; do
     shift
     ;;
   --backgrounds-path)
-    BACKGROUND_PATH="$2"
+    BACKGROUND_PATH="${2/#\~/$HOME}" # simple tilde expansion
     shift 2
     ;;
   -v | --verbose)
@@ -94,10 +94,14 @@ else
   RESOLUTION="$2"
 fi
 
-# Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
-if [[ -n "$BACKGROUND_PATH" ]] && [[ "$BACKGROUND_PATH" == *".png" ]]; then
-  _themename="$(basename "$BACKGROUND_PATH")"
-  THEME="${_themename%.png}"
+# set custom background flag
+if [[ -n "$BACKGROUND_PATH" ]]; then
+  # Set THEME as base name of a BACKGROUND_PATH, if its a PNG file.
+  if [[ "$BACKGROUND_PATH" == *".png" ]]; then
+    _themename="$(basename "$BACKGROUND_PATH")"
+    THEME="${_themename%.png}"
+  fi
+
   CUSTOM_BACKGROUND=1
 fi
 
@@ -220,7 +224,8 @@ grub_install_theme() {
   if ((REMOTE == 0)); then
     local THEME_FONTS_DIR="${PROJECT_ROOT}/fonts"
     local THEME_CONFIG="${PROJECT_ROOT}/config/theme-${RESOLUTION}.txt"
-    local THEME_BACKGROUND <"$(get_theme_path "$THEME")"
+    local THEME_BACKGROUND
+    THEME_BACKGROUND="$(get_theme_path "$THEME")"
     local THEME_ASSETS_ICONS_DIR="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
     local THEME_ASSETS_OTHER_DIR="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}"
   else
@@ -232,7 +237,7 @@ grub_install_theme() {
     local THEME_ASSETS_OTHER_DIR="${TEMP_DL_DIR}/assets-other"
 
     if ((CUSTOM_BACKGROUND == 1)); then
-      THEME_BACKGROUND="$BACKGROUND_PATH"
+      $THEME_BACKGROUND <"$(get_theme_path "$THEME")"
     fi
   fi
 

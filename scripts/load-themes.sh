@@ -57,6 +57,7 @@ EOF
 done
 
 BACKGROUND_PATH="${1:-./backgrounds}"
+BACKGROUND_PATH="${BACKGROUND_PATH/#\~/$HOME}" # simple tilde expansion
 
 # ---- source scripts ----
 # if print_msg is not defined, source utils.sh
@@ -85,15 +86,12 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
     for index in "${!THEME_LIST[@]}"; do
       if [[ "$1" == "${THEME_LIST[index]}" ]]; then
         echo "$index"
-        return 0
       fi
     done
-
-    return 1
   }
 
   get_theme_path() {
-    return "${THEME_PATH_LIST[$(get_theme_index "$1")]}"
+    return "${THEME_PATH_LIST["$(get_theme_index "$1")"]}"
   }
 fi
 
