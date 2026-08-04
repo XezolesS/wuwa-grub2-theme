@@ -201,6 +201,8 @@ grub_install_theme() {
     exit 1
   fi
 
+  info_msg "Start installing $THEME in ${RESOLUTION^^}."
+
   local GRUB_THEME_DIR=
   GRUB_THEME_DIR="$(grub_get_theme_dir "$BOOT")"
 
@@ -335,6 +337,16 @@ if ! printf '%s\0' "${RESOLUTION_OPTIONS[@]}" | grep -Fxqz -- "$RESOLUTION"; the
   error_msg "Unsupported resolution '$RESOLUTION'! Supported resolutions:"
   printf '%s, \0' "${RESOLUTION_OPTIONS[@]}" && echo ""
   exit 1
+fi
+
+# verbose logging
+if ((VERBOSE == 1)); then
+  info_msg "Theme: ${THEME}"
+  info_msg "Resolution: ${RESOLUTION}"
+  info_msg "Boot flag: ${BOOT}"
+  info_msg "Remote flag: ${REMOTE}"
+  info_msg "Background path: ${BACKGROUND_PATH}"
+  info_msg "Custom background flag: ${CUSTOM_BACKGROUND}"
 fi
 
 grub_install_theme
