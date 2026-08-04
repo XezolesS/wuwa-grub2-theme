@@ -84,14 +84,14 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
   # echo theme index from given string
   get_theme_index() {
     for index in "${!THEME_LIST[@]}"; do
-      if [[ "$1" == "${THEME_LIST[index]}" ]]; then
+      if [[ "$1" == "${THEME_LIST[$index]}" ]]; then
         echo "$index"
       fi
     done
   }
 
   get_theme_path() {
-    return "${THEME_PATH_LIST[$(get_theme_index "$1")]}"
+    return "${THEME_PATH_LIST["$(get_theme_index "$1")"]}"
   }
 fi
 
