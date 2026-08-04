@@ -91,7 +91,7 @@ if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" != "$0" ]]; then
   }
 
   get_theme_path() {
-    return "${THEME_PATH_LIST["$(get_theme_index "$1")"]}"
+    echo "${THEME_PATH_LIST["$(get_theme_index "$1")"]}"
   }
 fi
 
