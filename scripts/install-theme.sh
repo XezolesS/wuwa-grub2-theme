@@ -237,7 +237,7 @@ grub_install_theme() {
     local THEME_ASSETS_OTHER_DIR="${TEMP_DL_DIR}/assets-other"
 
     if ((CUSTOM_BACKGROUND == 1)); then
-      $THEME_BACKGROUND <"$(get_theme_path "$THEME")"
+      THEME_BACKGROUND="$(get_theme_path "$THEME")"
     fi
   fi
 
