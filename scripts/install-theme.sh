@@ -127,6 +127,8 @@ else
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" ".load-themes.sh"
   source ".load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
   rm .load-themes.sh
+
+  REMOTE=1 # workaround for REMOTE being changed by .load-themes.sh
 fi
 
 # ---- functions ----
