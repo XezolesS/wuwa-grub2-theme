@@ -113,7 +113,6 @@ fi
 
 # ---- source scripts ----
 # utils.sh
-
 if ((REMOTE == 0)); then
   source "${SCRIPT_DIR}/utils.sh"
 else
@@ -258,10 +257,10 @@ grub_install_theme() {
     exit 1
   fi
 
-  info_msg "Start installing $THEME in ${RESOLUTION^^}."
+  info_msg "Start installing ${THEME} in ${RESOLUTION^^}."
 
   local GRUB_THEME_DIR
-  GRUB_THEME_DIR="$(grub_get_theme_dir "$BOOT")"
+  GRUB_THEME_DIR="$(grub_get_theme_dir "${BOOT}")"/"${THEME_NAME}-${THEME}"
 
   # Compile theme
   compile_theme "$GRUB_THEME_DIR"
