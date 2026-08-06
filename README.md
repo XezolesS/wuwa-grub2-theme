@@ -44,7 +44,7 @@ cd ./wuwa-grub2-themes/scripts
 sudo ./install-theme.sh [PARAM]
 ```
 
-### install-theme.sh Usage
+### `install-theme.sh` Usage
 
 ```ansi
 Usage: ./install-theme.sh [OPTION] THEME [RESOLUTION]
@@ -96,7 +96,7 @@ With this method, you are going to execute a script locally.
 sudo <wuwa-grub2-theme-path>/scripts/install-theme.sh [PARAM]
 ```
 
-### uninstall-theme.sh Usage
+### `uninstall-theme.sh` Usage
 
 ```ansi
 Usage: $0 [OPTION] [THEMES ...]
@@ -260,10 +260,14 @@ your resolution
 
 ## Contributing
 
+- If you add new background, make sure create a new `index.txt`:
+  - Run `./scripts/write-theme-index.sh`
+- If you made changes to fonts, make sure create a new `index.txt`:
+  - Run `./scripts/makefont.sh`
 - If you made changes to icons, or added a new one:
   - Make sure you have `inkscape` and `optipng` installed.
   - Delete the existing icon, if there is one
-  - Run `cd assets; ./render-all.sh`
+  - Run `./scripts/render-assets.sh`
 - Create a pull request from your branch or fork
 - If any issues occur, report then to the [issue](issues) page
 
