@@ -111,8 +111,7 @@ prompt_uninstall_theme() {
   local theme_dir="$2"
 
   while true; do
-    info_msg "Uninstall theme '$theme'? [Y|n]"
-    read -r yn_prompt
+    read -r -p "Uninstall theme '$theme'? [Y|n]" yn_prompt
 
     if [[ "${yn_prompt,,}" == "y" ]]; then
       # Yes, remove a theme
