@@ -154,92 +154,92 @@ download_theme() {
     "$TEMP_DL_DIR/assets-icons" \
     "$TEMP_DL_DIR/assets-other"
 
-  local _url=""
+  local content_url=""
 
   # download fonts
-  _url="$(get_remote_content_url "fonts/index.txt")"
-  info_msg "Fetching fonts index from: $_url"
-  mapfile -t font_files < <(curl_remote_content "$_url")
+  content_url="$(get_remote_content_url "fonts/index.txt")"
+  info_msg "Fetching fonts index from: $content_url"
+  mapfile -t font_files < <(curl_remote_content "$content_url")
   for font_f in "${font_files[@]}"; do
-    _url=$(get_remote_content_url "fonts/${font_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${font_f}' from: $_url"
-    download_remote_content "$_url" "$TEMP_DL_DIR/fonts/$font_f"
+    content_url=$(get_remote_content_url "fonts/${font_f}")
+    verbose_info_msg "$VERBOSE" "Downloading '${font_f}' from: $content_url"
+    download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
   done
 
   # download a config
-  _url="$(get_remote_content_url "config/theme-${RESOLUTION}.txt")"
-  info_msg "Downloading '${RESOLUTION}' config from: $_url"
-  download_remote_content "$_url" "$TEMP_DL_DIR/theme-${RESOLUTION}.txt"
+  content_url="$(get_remote_content_url "config/theme-${RESOLUTION}.txt")"
+  info_msg "Downloading '${RESOLUTION}' config from: $content_url"
+  download_remote_content "$content_url" "$TEMP_DL_DIR/theme-${RESOLUTION}.txt"
 
   # download a background
   if ((CUSTOM_BACKGROUND == 0)); then
-    _url="$(get_remote_content_url "backgrounds/${THEME}.png")"
-    info_msg "Downloading '${THEME}' theme from: $_url"
-    download_remote_content "$_url" "$TEMP_DL_DIR/${THEME}.png"
+    content_url="$(get_remote_content_url "backgrounds/${THEME}.png")"
+    info_msg "Downloading '${THEME}' theme from: $content_url"
+    download_remote_content "$content_url" "$TEMP_DL_DIR/${THEME}.png"
   else
     info_msg "Custom background $THEME is set. Skip downloading background..."
   fi
 
   # donwload assets
-  _url="$(get_remote_content_url "assets/assets-icons/index.txt")"
-  info_msg "Fetching icon assets index from: $_url"
-  mapfile -t assets_icons_files < <(curl_remote_content "$_url")
+  content_url="$(get_remote_content_url "assets/assets-icons/index.txt")"
+  info_msg "Fetching icon assets index from: $content_url"
+  mapfile -t assets_icons_files < <(curl_remote_content "$content_url")
   info_msg "Downloading ${#assets_icons_files[@]} assets..."
   for icon_f in "${assets_icons_files[@]}"; do
-    _url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${icon_f}' from: $_url"
-    download_remote_content "$_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
+    content_url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
+    verbose_info_msg "$VERBOSE" "Downloading '${icon_f}' from: $content_url"
+    download_remote_content "$content_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
   done
 
-  _url="$(get_remote_content_url "assets/assets-other/index.txt")"
-  info_msg "Fetching other assets index from: $_url"
-  mapfile -t assets_other_files < <(curl_remote_content "$_url")
+  content_url="$(get_remote_content_url "assets/assets-other/index.txt")"
+  info_msg "Fetching other assets index from: $content_url"
+  mapfile -t assets_other_files < <(curl_remote_content "$content_url")
   info_msg "Downloading ${#assets_other_files[@]} assets..."
   for other_f in "${assets_other_files[@]}"; do
-    _url=$(get_remote_content_url "assets/assets-other/other-${RESOLUTION}/${other_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${other_f}' from: $_url"
-    download_remote_content "$_url" "$TEMP_DL_DIR/assets-other/$other_f"
+    content_url=$(get_remote_content_url "assets/assets-other/other-${RESOLUTION}/${other_f}")
+    verbose_info_msg "$VERBOSE" "Downloading '${other_f}' from: $content_url"
+    download_remote_content "$content_url" "$TEMP_DL_DIR/assets-other/$other_f"
   done
 }
 
 compile_theme() {
   info_msg "Compiling ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
 
-  local OUTPUT_DIR="$1"
+  local output_dir="$1"
 
   # Make a themes directory if it doesn't exist
-  info_msg "Checking themes directory ${OUTPUT_DIR} ..."
+  info_msg "Checking themes directory ${output_dir} ..."
 
-  [[ -d "${OUTPUT_DIR}" ]] && rm -rf "${OUTPUT_DIR}"
-  mkdir -p "${OUTPUT_DIR}"
+  [[ -d "${output_dir}" ]] && rm -rf "${output_dir}"
+  mkdir -p "${output_dir}"
 
   if ((REMOTE == 0)); then
-    local THEME_FONTS_DIR="${PROJECT_ROOT}/fonts"
-    local THEME_CONFIG="${PROJECT_ROOT}/config/theme-${RESOLUTION}.txt"
-    local THEME_BACKGROUND
-    THEME_BACKGROUND="$(get_theme_path "$THEME")"
-    local THEME_ASSETS_ICONS_DIR="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
-    local THEME_ASSETS_OTHER_DIR="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}"
+    local theme_fonts_dir="${PROJECT_ROOT}/fonts"
+    local theme_config="${PROJECT_ROOT}/config/theme-${RESOLUTION}.txt"
+    local theme_background
+    theme_background="$(get_theme_path "$THEME")"
+    local theme_assets_icons_dir="${PROJECT_ROOT}/assets/assets-icons/icons-${RESOLUTION}"
+    local theme_assets_other_dir="${PROJECT_ROOT}/assets/assets-other/other-${RESOLUTION}"
   else
     download_theme
 
-    local THEME_FONTS_DIR="${TEMP_DL_DIR}/fonts"
-    local THEME_CONFIG="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
-    local THEME_BACKGROUND="${TEMP_DL_DIR}/${THEME}.png"
-    local THEME_ASSETS_ICONS_DIR="${TEMP_DL_DIR}/assets-icons"
-    local THEME_ASSETS_OTHER_DIR="${TEMP_DL_DIR}/assets-other"
+    local theme_fonts_dir="${TEMP_DL_DIR}/fonts"
+    local theme_config="${TEMP_DL_DIR}/theme-${RESOLUTION}.txt"
+    local theme_background="${TEMP_DL_DIR}/${THEME}.png"
+    local theme_assets_icons_dir="${TEMP_DL_DIR}/assets-icons"
+    local theme_assets_other_dir="${TEMP_DL_DIR}/assets-other"
 
     if ((CUSTOM_BACKGROUND == 1)); then
-      THEME_BACKGROUND="$(get_theme_path "$THEME")"
+      theme_background="$(get_theme_path "$THEME")"
     fi
   fi
 
   # Don't preserve ownership because the owner will be root, and that causes the script to crash if it is ran from terminal by sudo
-  cp -a --no-preserve=ownership "$THEME_FONTS_DIR"/*.pf2 "${OUTPUT_DIR}"
-  cp -a --no-preserve=ownership "$THEME_CONFIG" "${OUTPUT_DIR}/theme.txt"
-  cp -a --no-preserve=ownership "$THEME_BACKGROUND" "${OUTPUT_DIR}/background.png"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_ICONS_DIR" "${OUTPUT_DIR}/icons"
-  cp -a --no-preserve=ownership "$THEME_ASSETS_OTHER_DIR"/*.png "${OUTPUT_DIR}"
+  cp -a --no-preserve=ownership "$theme_fonts_dir"/*.pf2 "${output_dir}"
+  cp -a --no-preserve=ownership "$theme_config" "${output_dir}/theme.txt"
+  cp -a --no-preserve=ownership "$theme_background" "${output_dir}/background.png"
+  cp -a --no-preserve=ownership "$theme_assets_icons_dir" "${output_dir}/icons"
+  cp -a --no-preserve=ownership "$theme_assets_other_dir"/*.png "${output_dir}"
 
   # delete temporary directory if it exists
   if [[ -d "$TEMP_DL_DIR" ]]; then
@@ -257,11 +257,11 @@ grub_install_theme() {
 
   info_msg "Start installing ${THEME} in ${RESOLUTION^^}."
 
-  local GRUB_THEME_DIR
-  GRUB_THEME_DIR="$(grub_get_theme_dir "${BOOT}")"/"${THEME_NAME}-${THEME}"
+  local grub_theme_dir
+  grub_theme_dir="$(grub_get_theme_dir "${BOOT}")"/"${THEME_NAME}-${THEME}"
 
   # Compile theme
-  compile_theme "$GRUB_THEME_DIR"
+  compile_theme "$grub_theme_dir"
 
   # Fedora workaround to fix the missing unicode.pf2 file (tested on fedora 34): https://bugzilla.redhat.com/show_bug.cgi?id=1739762
   # This occurs when we add a theme on grub2 with Fedora.
@@ -287,18 +287,18 @@ grub_install_theme() {
 
   if grep "GRUB_THEME=" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_THEME
-    sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${GRUB_THEME_DIR}/theme.txt\"|" /etc/default/grub
+    sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${grub_theme_dir}/theme.txt\"|" /etc/default/grub
   else
     #Append GRUB_THEME
-    echo "GRUB_THEME=\"${GRUB_THEME_DIR}/theme.txt\"" >>/etc/default/grub
+    echo "GRUB_THEME=\"${grub_theme_dir}/theme.txt\"" >>/etc/default/grub
   fi
 
   if grep "GRUB_BACKGROUND=" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_BACKGROUND
-    sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${GRUB_THEME_DIR}/background.png\"|" /etc/default/grub
+    sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${grub_theme_dir}/background.png\"|" /etc/default/grub
   else
     #Append GRUB_BACKGROUND
-    echo "GRUB_BACKGROUND=\"${GRUB_THEME_DIR}/background.png\"" >>/etc/default/grub
+    echo "GRUB_BACKGROUND=\"${grub_theme_dir}/background.png\"" >>/etc/default/grub
   fi
 
   # Make sure the right resolution for grub is set
@@ -335,7 +335,7 @@ grub_install_theme() {
     ! -f "/etc/default/grub.d/kali-themes.cfg.bak" ]]; then
     cp -an /etc/default/grub.d/kali-themes.cfg /etc/default/grub.d/kali-themes.cfg.bak
     sed -i "s|.*GRUB_GFXMODE=.*|${gfxmode}|" /etc/default/grub.d/kali-themes.cfg
-    sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${GRUB_THEME_DIR}/theme.txt\"|" /etc/default/grub.d/kali-themes.cfg
+    sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${grub_theme_dir}/theme.txt\"|" /etc/default/grub.d/kali-themes.cfg
   fi
 
   # Update grub config
