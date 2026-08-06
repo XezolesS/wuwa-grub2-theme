@@ -109,11 +109,13 @@ deactivate_theme() {
 prompt_uninstall_theme() {
   local theme="$1"
   local theme_dir="$2"
+  local current_theme="$3"
 
   while true; do
+    exec 0</dev/tty # stdin redirections for piping scripts.
     read -r -p "Uninstall theme '$theme'? [Y|n]" yn_prompt
 
-    if [[ "${yn_prompt,,}" == "y" ]]; then
+    if [[ "${yn_prompt,,}" == "y"* ]]; then
       # Yes, remove a theme
       if [[ "$current_theme" == "$theme" ]]; then
         info_msg "Uninstalling currently activated theme. Try to deactivate it..."
@@ -123,7 +125,7 @@ prompt_uninstall_theme() {
       rm -rf "$theme_dir"
       success_msg "$theme is uninstall successfully."
       break
-    elif [[ "${yn_prompt,,}" == "n" ]]; then
+    elif [[ "${yn_prompt,,}" == "n"* ]]; then
       # No, skip it
       info_msg "User skipped to uninstall '$theme'"
       break
@@ -166,7 +168,8 @@ grub_uninstall_theme() {
     for index in "${!installed_themes[@]}"; do
       prompt_uninstall_theme \
         "${installed_themes[$index]}" \
-        "${installed_theme_dirs[$index]}"
+        "${installed_theme_dirs[$index]}" \
+        "${current_theme}"
     done
   else
     local theme_index
@@ -182,7 +185,8 @@ grub_uninstall_theme() {
       if ((theme_index > 0)); then
         prompt_uninstall_theme \
           "${installed_themes[$theme_index]}" \
-          "${installed_theme_dirs[$theme_index]}"
+          "${installed_theme_dirs[$theme_index]}" \
+          "${current_theme}"
       else
         warning_msg "Cannot find theme '$th'. Skipped."
       fi
