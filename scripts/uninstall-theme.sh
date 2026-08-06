@@ -123,7 +123,6 @@ prompt_uninstall_theme() {
   local current_theme="$3"
 
   while true; do
-    exec 0</dev/tty # stdin redirections for piping scripts.
     read -r -p "Uninstall theme '$theme'? [Y|n]" yn_prompt
 
     if [[ "${yn_prompt,,}" == "y"* ]]; then
