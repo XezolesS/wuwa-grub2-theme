@@ -154,16 +154,18 @@ download_theme() {
     "$TEMP_DL_DIR/assets-icons" \
     "$TEMP_DL_DIR/assets-other"
 
-  local content_url=""
+  local content_url
 
   # download fonts
   content_url="$(get_remote_content_url "fonts/index.txt")"
   info_msg "Fetching fonts index from: $content_url"
   mapfile -t font_files < <(curl_remote_content "$content_url")
   for font_f in "${font_files[@]}"; do
-    content_url=$(get_remote_content_url "fonts/${font_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${font_f}' from: $content_url"
-    download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
+    if [[ -z "$font_f" ]]; then
+      content_url=$(get_remote_content_url "fonts/${font_f}")
+      verbose_info_msg "Downloading '${font_f}' from: $content_url"
+      download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
+    fi
   done
 
   # download a config
@@ -186,9 +188,11 @@ download_theme() {
   mapfile -t assets_icons_files < <(curl_remote_content "$content_url")
   info_msg "Downloading ${#assets_icons_files[@]} assets..."
   for icon_f in "${assets_icons_files[@]}"; do
-    content_url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${icon_f}' from: $content_url"
-    download_remote_content "$content_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
+    if [[ -n "$font_f" ]]; then
+      content_url=$(get_remote_content_url "assets/assets-icons/icons-${RESOLUTION}/${icon_f}")
+      verbose_info_msg "Downloading '${icon_f}' from: $content_url"
+      download_remote_content "$content_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
+    fi
   done
 
   content_url="$(get_remote_content_url "assets/assets-other/index.txt")"
@@ -197,7 +201,7 @@ download_theme() {
   info_msg "Downloading ${#assets_other_files[@]} assets..."
   for other_f in "${assets_other_files[@]}"; do
     content_url=$(get_remote_content_url "assets/assets-other/other-${RESOLUTION}/${other_f}")
-    verbose_info_msg "$VERBOSE" "Downloading '${other_f}' from: $content_url"
+    verbose_info_msg "Downloading '${other_f}' from: $content_url"
     download_remote_content "$content_url" "$TEMP_DL_DIR/assets-other/$other_f"
   done
 }
@@ -368,13 +372,13 @@ fi
 
 # verbose logging
 if ((VERBOSE == 1)); then
-  info_msg "Theme: ${THEME}"
-  info_msg "Resolution: ${RESOLUTION}"
-  info_msg "Boot flag: ${BOOT}"
-  info_msg "Remote flag: ${REMOTE}"
-  info_msg "Background path: ${BACKGROUND_PATH}"
-  info_msg "Custom background flag: ${CUSTOM_BACKGROUND}"
-  info_msg "Output: ${OUTPUT}"
+  verbose_info_msg "Theme: ${THEME}"
+  verbose_info_msg "Resolution: ${RESOLUTION}"
+  verbose_info_msg "Boot flag: ${BOOT}"
+  verbose_info_msg "Remote flag: ${REMOTE}"
+  verbose_info_msg "Background path: ${BACKGROUND_PATH}"
+  verbose_info_msg "Custom background flag: ${CUSTOM_BACKGROUND}"
+  verbose_info_msg "Output: ${OUTPUT}"
 fi
 
 if [[ -z "$OUTPUT" ]]; then

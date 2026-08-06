@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # make sure the script is fail safe
 set -euo pipefail
@@ -31,8 +31,8 @@ info_msg() {
 }
 
 verbose_info_msg() {
-  if (("$1" == 1)); then
-    info_msg "$2"
+  if (("$VERBOSE" == 1)); then
+    info_msg "$1"
   fi
 }
 
@@ -75,11 +75,11 @@ grub_update() {
   # Check for Fedora (regular or Atomic)
   elif has_command dnf || has_command rpm-ostree; then
     # Check for UEFI
-    if [[ -f /boot/efi/EFI/fedora/grub.cfg ]]; then
+    if [[ -f "/boot/efi/EFI/fedora/grub.cfg" ]]; then
       info_msg "Find config file on /boot/efi/EFI/fedora/grub.cfg ...\n"
       grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
     # Check for BIOS
-    elif [[ -f /boot/grub2/grub.cfg ]]; then
+    elif [[ -f "/boot/grub2/grub.cfg" ]]; then
       info_msg "Find config file on /boot/grub2/grub.cfg ...\n"
       grub2-mkconfig -o /boot/grub2/grub.cfg
     fi
@@ -99,4 +99,30 @@ grub_get_theme_dir() {
       echo "/boot/grub2/themes"
     fi
   fi
+}
+
+# only list themes starts with a certain string.
+grub_ls_themes() {
+  prefix="$1"
+  themes=()
+
+  for th in "/usr/share/grub/themes/$prefix"*; do
+    if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
+      themes+=("/usr/share/grub/themes/$th")
+    fi
+  done
+
+  for th in "/boot/grub/themes/$prefix"*; do
+    if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
+      themes+=("/boot/grub/themes/$th")
+    fi
+  done
+
+  for th in "/boot/grub2/themes/$prefix"*; do
+    if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
+      themes+=("/boot/grub2/themes/$th")
+    fi
+  done
+
+  printf '%s\n' "${themes[@]}"
 }
