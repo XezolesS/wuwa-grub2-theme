@@ -167,17 +167,20 @@ download_theme() {
       download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
     fi
   done
+  success_msg "Successfully downloaded fonts!"
 
   # download a config
   content_url="$(get_remote_content_url "config/theme-${RESOLUTION}.txt")"
   info_msg "Downloading '${RESOLUTION}' config from: $content_url"
   download_remote_content "$content_url" "$TEMP_DL_DIR/theme-${RESOLUTION}.txt"
+  success_msg "Successfully downloaded a config!"
 
   # download a background
   if ((CUSTOM_BACKGROUND == 0)); then
     content_url="$(get_remote_content_url "backgrounds/${THEME}.png")"
     info_msg "Downloading '${THEME}' theme from: $content_url"
     download_remote_content "$content_url" "$TEMP_DL_DIR/${THEME}.png"
+    success_msg "Successfully downloaded a background!"
   else
     info_msg "Custom background $THEME is set. Skip downloading background..."
   fi
@@ -194,6 +197,7 @@ download_theme() {
       download_remote_content "$content_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
     fi
   done
+  success_msg "Successfully downloaded icon assets!"
 
   content_url="$(get_remote_content_url "assets/assets-other/index.txt")"
   info_msg "Fetching other assets index from: $content_url"
@@ -204,6 +208,7 @@ download_theme() {
     verbose_info_msg "Downloading '${other_f}' from: $content_url"
     download_remote_content "$content_url" "$TEMP_DL_DIR/assets-other/$other_f"
   done
+  success_msg "Successfully downloaded other assets!"
 }
 
 compile_theme() {
@@ -249,6 +254,8 @@ compile_theme() {
   if [[ -d "$TEMP_DL_DIR" ]]; then
     rm -r "$TEMP_DL_DIR"
   fi
+
+  success_msg "Successfully compiled a theme $THEME."
 }
 
 # install a theme
@@ -270,7 +277,9 @@ grub_install_theme() {
   # Fedora workaround to fix the missing unicode.pf2 file (tested on fedora 34): https://bugzilla.redhat.com/show_bug.cgi?id=1739762
   # This occurs when we add a theme on grub2 with Fedora.
   if has_command dnf; then
+    info_msg "Fedora system detected. Working on a missing font..."
     if [[ -f "/boot/grub2/fonts/unicode.pf2" ]]; then
+      verbose_info_msg "Font is found at: '/boot/grub2/fonts/unicode.pf2'. Writing GRUB_FONT to grub config..."
       if grep "GRUB_FONT=" /etc/default/grub >/dev/null 2>&1; then
         #Replace GRUB_FONT
         sed -i "s|.*GRUB_FONT=.*|GRUB_FONT=/boot/grub2/fonts/unicode.pf2|" /etc/default/grub
@@ -279,6 +288,7 @@ grub_install_theme() {
         echo "GRUB_FONT=/boot/grub2/fonts/unicode.pf2" >>/etc/default/grub
       fi
     elif [[ -f "/boot/efi/EFI/fedora/fonts/unicode.pf2" ]]; then
+      verbose_info_msg "Font is found at: '/boot/efi/EFI/fedora/fonts/unicode.pf2'. Writing GRUB_FONT to grub config..."
       if grep "GRUB_FONT=" /etc/default/grub >/dev/null 2>&1; then
         #Replace GRUB_FONT
         sed -i "s|.*GRUB_FONT=.*|GRUB_FONT=/boot/efi/EFI/fedora/fonts/unicode.pf2|" /etc/default/grub
@@ -289,6 +299,7 @@ grub_install_theme() {
     fi
   fi
 
+  verbose_info_msg "Writing a GRUB_THEME to grub config..."
   if grep "GRUB_THEME=" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_THEME
     sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${grub_theme_dir}/theme.txt\"|" /etc/default/grub
@@ -297,6 +308,7 @@ grub_install_theme() {
     echo "GRUB_THEME=\"${grub_theme_dir}/theme.txt\"" >>/etc/default/grub
   fi
 
+  verbose_info_msg "Writing a GRUB_BACKGROUND to grub config..."
   if grep "GRUB_BACKGROUND=" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_BACKGROUND
     sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${grub_theme_dir}/background.png\"|" /etc/default/grub
@@ -314,6 +326,7 @@ grub_install_theme() {
     gfxmode="GRUB_GFXMODE=3840x2160,auto"
   fi
 
+  verbose_info_msg "Writing a GRUB_GFXMODE to grub config... ($gfxmode)"
   if grep "GRUB_GFXMODE=" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_GFXMODE
     sed -i "s|.*GRUB_GFXMODE=.*|${gfxmode}|" /etc/default/grub
@@ -322,12 +335,14 @@ grub_install_theme() {
     echo "${gfxmode}" >>/etc/default/grub
   fi
 
+  verbose_info_msg "Writing GRUB_TERMINAL to grub config..."
   if grep "GRUB_TERMINAL=console" /etc/default/grub >/dev/null 2>&1 ||
     grep "GRUB_TERMINAL=\"console\"" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_TERMINAL
     sed -i "s|.*GRUB_TERMINAL=.*|#GRUB_TERMINAL=console|" /etc/default/grub
   fi
 
+  verbose_info_msg "Writing GRUB_TERMINAL_OUTPUT to grub config..."
   if grep "GRUB_TERMINAL_OUTPUT=console" /etc/default/grub >/dev/null 2>&1 ||
     grep "GRUB_TERMINAL_OUTPUT=\"console\"" /etc/default/grub >/dev/null 2>&1; then
     #Replace GRUB_TERMINAL_OUTPUT
@@ -337,6 +352,7 @@ grub_install_theme() {
   # For Kali linux
   if [[ -f "/etc/default/grub.d/kali-themes.cfg" &&
     ! -f "/etc/default/grub.d/kali-themes.cfg.bak" ]]; then
+    verbose_info_msg "Kali Linux system detected. Patching Kali specific grub config..."
     cp -an /etc/default/grub.d/kali-themes.cfg /etc/default/grub.d/kali-themes.cfg.bak
     sed -i "s|.*GRUB_GFXMODE=.*|${gfxmode}|" /etc/default/grub.d/kali-themes.cfg
     sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${grub_theme_dir}/theme.txt\"|" /etc/default/grub.d/kali-themes.cfg
@@ -346,10 +362,10 @@ grub_install_theme() {
   info_msg "Updating grub config..."
   grub_update
   warning_msg "At the next restart of your computer you will see your new Grub theme: '${THEME_NAME}-${THEME}' "
+  success_msg "Successfully installed a theme $THEME!"
 }
 
 # ---- main executions ----
-
 # verify theme
 if ! printf '%s\0' "${THEME_LIST[@]}" | grep -Fxqz -- "$THEME"; then
   error_msg "Unknown theme '$THEME'! List of themes:"
