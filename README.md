@@ -4,43 +4,97 @@
 
 **This repository is a fork of [vinceliuice/Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)**
 
+## Prerequisites
+
+- `bash`
+- `curl` (when --remote|-r flag is passed)
+- `git` (to clone this repository)
+
 ## Installation
 
-Usage:  `sudo ./install.sh [OPTIONS...]`
+### Method 1. Remote Install (Recommended)
 
-```
-  -t, --theme     Background theme variant(s)
-  -s, --screen    Screen display variant(s)   [1080p|2k|4k] (default is 1080p)
-  -r, --remove    Remove/Uninstall theme
-  -b, --boot      install theme into '/boot/grub' or '/boot/grub2'
-  -h, --help      Show this help
-```
+With this method, installation script is fetched using `curl`.
+The script will automatically download assets from this GitHub repository.
+It is recommended due to the increase of backgrounds, a whole repo is quite
+chunky to download.
 
-_If no options are used, a user interface `dialog` will show up instead_
+Copy this command below and run it with parameters.
 
-### Examples
-
-- Install yinlin theme on 2k display device:
-
-```sh
-sudo ./install.sh -t yinlin -s 2k
+```bash
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
+scripts/uninstall-theme.sh | sudo bash -s -- -r [PARAM]
 ```
 
-- Install jinhsi theme into /boot/grub/themes:
+_e.g. Download a 'jinhsi' theme in a UHD resolution, onto a boot directory,
+with verbose output._
 
-```sh
-sudo ./install.sh -b -t jinhsi
+```bash
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
+scripts/install-theme.sh | sudo bash -s -- -r -bv jinhsi uhd
 ```
 
-- Uninstall yinlin theme:
+### Method 2. Local Install
 
-```sh
-sudo ./install.sh -r -t yinlin
+With this method, you are going to clone this repository and execute a script locally.
+
+```bash
+git clone https://github.com/XezolesS/wuwa-grub2-theme.git
+cd ./wuwa-grub2-themes/scripts
+sudo ./install-theme.sh [PARAM]
 ```
 
-### Available Themes
+### install-theme.sh Usage
 
-[_Preview available below_](#previews)
+```ansi
+Usage: ./install-theme.sh [OPTION] THEME [RESOLUTION]
+
+THEME:
+  Name of the theme to install.
+  If '--background-path' is a file, this will be ignored, but required.
+
+[RESOLUTION]: [fhd | qhd | uhd]
+  Resolution of a monitor. Defaults to 'fhd'.
+
+[OPTIONS]:
+  -b, --boot          Install theme to boot directory. (/boot/grub/theme)
+  -r, --remote        Fetch the theme list from a remote repository.
+[background-path] will be ignored.
+  --backgrounds-path  Custom background path. Can be either file or directory.
+  -o, --output        Output directory. Instead of installing theme to GRUB, it
+compiles it to other directory. Cannot be used with --boot.
+  -v, --verbose       Verbose messages.
+  -h, --help          Show this help.
+```
+
+## Uninstallation
+
+### Method 1. Remote Uninstall (Recommended)
+
+Unlike installation, this scripts need interactive tty to confirm a user to
+delete a theme. It can be done when a script doesn't have a parameter, but
+unfortunately, the script has it. So you have to download the script separately
+and then run it locally.
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
+scripts/uninstall-theme.sh > uninstall-theme.sh
+chmod 755 uninstall-theme.sh
+sudo ./uninstall-theme.sh [PARAM]
+rm uninstall-theme.sh
+```
+
+### Method 2. Local Uninstall
+
+With this method, you are going to execute a script locally.
+
+```bash
+sudo <wuwa-grub2-theme-path>/scripts/install-theme.sh [PARAM]
+```
+
+## Available Themes
+
+[_Previews available below_](#previews)
 
 <details>
 <summary><b>Rover</b></summary>

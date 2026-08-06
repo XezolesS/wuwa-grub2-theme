@@ -7,7 +7,7 @@ set -euo errexit
 readonly ROOT_UID=0
 readonly THEME_NAME="wuwa"
 
-readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/script-v2/scripts/utils.sh"
+readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
 
 # project paths
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
