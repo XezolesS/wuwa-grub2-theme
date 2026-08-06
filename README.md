@@ -67,11 +67,15 @@ compiles it to other directory. Cannot be used with --boot.
   -h, --help          Show this help.
 ```
 
+### Custom theme background
+
+Check [Adding a custom theme](#adding-a-custom-theme)
+
 ## Uninstallation
 
 ### Method 1. Remote Uninstall (Recommended)
 
-Unlike installation, this scripts need interactive tty to confirm a user to
+Unlike installation, this script need interactive tty to confirm a user to
 delete a theme. It can be done when a script doesn't have a parameter, but
 unfortunately, the script has it. So you have to download the script separately
 and then run it locally.
@@ -90,6 +94,20 @@ With this method, you are going to execute a script locally.
 
 ```bash
 sudo <wuwa-grub2-theme-path>/scripts/install-theme.sh [PARAM]
+```
+
+### uninstall-theme.sh Usage
+
+```ansi
+Usage: $0 [OPTION] [THEMES ...]
+
+THEMES:
+  Themes to uninstall.
+  If it's empty, uninstall all themes that are intalled by this project.
+
+  [OPTIONS]:
+  -v, --verbose       Verbose messages.
+  -h, --help          Show this help.
 ```
 
 ## Available Themes
@@ -217,9 +235,16 @@ sudo <wuwa-grub2-theme-path>/scripts/install-theme.sh [PARAM]
 
 ### Adding a custom theme
 
-Put your custom background image under `./backgrounds` directory.
-The script will recognize your image automatically.  
-Just make sure your image is:
+You can pass your custom background image as a parameter `--backgrounds-path`.
+It can be either file or directory.
+
+If it's given as a file, the name of the theme(`THEME` argument) will be ignored,
+though it is mandatory so just pass any value.
+
+If it's given as a directory, you should pass a valid theme name. The name will
+be one of the PNG file inside of the directory, without an extension.
+
+And make sure your image is:
 
 - In **8-bit, non-indexed PNG format**
 - Matches your screen resolution.

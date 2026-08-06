@@ -16,7 +16,6 @@ COLOR_BOLD_ERR="\033[1;31m" # bold error color
 COLOR_BOLD_WAR="\033[1;33m" # bold warning color
 
 # ---- remote configurations ----
-# TODO: switch branch to master before it being merged.
 readonly GITHUB_USERNAME="XezolesS"
 readonly GITHUB_REPOS="wuwa-grub2-theme"
 readonly GITHUB_BRANCH="master"
