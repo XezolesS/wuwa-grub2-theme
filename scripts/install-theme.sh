@@ -161,7 +161,7 @@ download_theme() {
   info_msg "Fetching fonts index from: $content_url"
   mapfile -t font_files < <(curl_remote_content "$content_url")
   for font_f in "${font_files[@]}"; do
-    if [[ -z "$font_f" ]]; then
+    if [[ -n "$font_f" ]]; then
       content_url=$(get_remote_content_url "fonts/${font_f}")
       verbose_info_msg "Downloading '${font_f}' from: $content_url"
       download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
