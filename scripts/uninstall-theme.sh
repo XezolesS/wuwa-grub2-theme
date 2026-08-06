@@ -30,10 +30,10 @@ while true; do
     ;;
   -h | --help)
     cat <<EOF
-Usage: $0 [OPTION] [THEME]
+Usage: $0 [OPTION] [THEMES ...]
 
-THEME:
-  Name of the theme to uninstall.
+THEMES:
+  Themes to uninstall.
   If it's empty, uninstall all themes that are intalled by this project.
 
   [OPTIONS]:
@@ -50,8 +50,11 @@ EOF
 done
 
 # positional arguments
-# THEME
-THEME="${1-}"
+# THEMES
+THEMES=
+if (("$#" > 0)); then
+  read -ra THEMES <<<"$@"
+fi
 
 # ---- source scripts ----
 # utils.sh
@@ -65,7 +68,7 @@ else
 fi
 
 # ---- functions ----
-deactivate_theme() {
+get_current_theme() {
   # check what theme is activated
   local grub_config_location
 
@@ -79,26 +82,54 @@ deactivate_theme() {
     info_msg "Exiting..."
     exit 1
   fi
+  verbose_info_msg "Found grub config at: $grub_config_location"
 
   local current_theme
   current_theme="$(grep 'GRUB_THEME=' $grub_config_location | grep -v \#)"
+  verbose_info_msg "Current theme is: $current_theme"
 
-  if [[ -n "$current_theme" ]]; then
-    # Backup with --in-place option to grub.bak within the same directory; then remove the current theme.
-    sed --in-place='.bak' "s|$current_theme|#GRUB_THEME=|" "$grub_config_location"
+  echo "$current_theme"
+}
 
-    if [[ -f "$grub_config_location".bak ]]; then
-      rm -rf "$grub_config_location".bak
-    fi
+deactivate_theme() {
+  local current_theme="$1"
 
-    # Update grub config
-    info_msg "Resetting grub theme..."
-    grub_update
-  else
-    error_msg "\n No active theme found."
-    info_msg "\n Exiting..."
-    exit 1
+  # Backup with --in-place option to grub.bak within the same directory; then remove the current theme.
+  sed --in-place='.bak' "s|$current_theme|#GRUB_THEME=|" "$grub_config_location"
+
+  if [[ -f "$grub_config_location".bak ]]; then
+    rm -rf "$grub_config_location".bak
   fi
+
+  # Update grub config
+  info_msg "Resetting grub theme..."
+  grub_update
+}
+
+prompt_uninstall_theme() {
+  local theme="$1"
+  local theme_dir="$2"
+
+  while true; do
+    info_msg "Uninstall theme '$theme'? [Y|n]"
+    read -r yn_prompt
+
+    if [[ "${yn_prompt,,}" == "y" ]]; then
+      # Yes, remove a theme
+      if [[ "$current_theme" == "$theme" ]]; then
+        info_msg "Uninstalling currently activated theme. Try to deactivate it..."
+        deactivate_theme "$current_theme"
+      fi
+
+      rm -rf "$theme_dir"
+      success_msg "$theme is uninstall successfully."
+      break
+    elif [[ "${yn_prompt,,}" == "n" ]]; then
+      # No, skip it
+      info_msg "User skipped to uninstall '$theme'"
+      break
+    fi
+  done
 }
 
 grub_uninstall_theme() {
@@ -122,8 +153,40 @@ grub_uninstall_theme() {
 
   info_msg "Found ${#installed_themes[@]} themes installed."
   if ((VERBOSE == 1)); then
-    for th in "${installed_themes[@]}"; do
-      verbose_info_msg "Found at $th"
+    for index in "${!installed_themes[@]}"; do
+      verbose_info_msg "Found ${th[$index]} at ${th[$index]}"
+    done
+  fi
+
+  # get currently activated theme
+  local current_theme
+  current_theme=$(get_current_theme)
+
+  # remove installed themes
+  if ((${#THEMES[@]} == 0)); then
+    for index in "${!installed_themes[@]}"; do
+      prompt_uninstall_theme \
+        "${installed_themes[$index]}" \
+        "${installed_theme_dirs[$index]}"
+    done
+  else
+    local theme_index
+    for th in "${THEMES[@]}"; do
+      theme_index=-1
+      for index in "${!installed_themes[@]}"; do
+        if [[ th == "${installed_themes[$index]}" ]]; then
+          theme_index=$index
+          verbose_info_msg "Index of a theme '$th' is $theme_index"
+        fi
+      done
+
+      if ((theme_index > 0)); then
+        prompt_uninstall_theme \
+          "${installed_themes[$theme_index]}" \
+          "${installed_theme_dirs[$theme_index]}"
+      else
+        warning_msg "Cannot find theme '$th'. Skipped."
+      fi
     done
   fi
 }
