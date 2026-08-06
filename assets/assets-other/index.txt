@@ -1,0 +1,5 @@
+info.png
+logo.png
+select_c.png
+select_e.png
+select_w.png
