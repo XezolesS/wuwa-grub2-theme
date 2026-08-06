@@ -22,16 +22,14 @@ chunky to download.
 Copy this command below and run it with parameters.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
-scripts/uninstall-theme.sh | sudo bash -s -- -r [PARAM]
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/install-theme.sh | sudo bash -s -- -r [PARAM]
 ```
 
 _e.g. Download a 'jinhsi' theme in a UHD resolution, onto a boot directory,
 with verbose output._
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
-scripts/install-theme.sh | sudo bash -s -- -r -bv jinhsi uhd
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/install-theme.sh | sudo bash -s -- -r -bv jinhsi uhd
 ```
 
 ### Method 2. Local Install
@@ -81,8 +79,7 @@ unfortunately, the script has it. So you have to download the script separately
 and then run it locally.
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/
-scripts/uninstall-theme.sh > uninstall-theme.sh
+curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/uninstall-theme.sh > uninstall-theme.sh
 chmod 755 uninstall-theme.sh
 sudo ./uninstall-theme.sh [PARAM]
 rm uninstall-theme.sh
@@ -99,7 +96,7 @@ sudo <wuwa-grub2-theme-path>/scripts/install-theme.sh [PARAM]
 ### `uninstall-theme.sh` Usage
 
 ```ansi
-Usage: $0 [OPTION] [THEMES ...]
+Usage: ./uninstall-theme.sh [OPTION] [THEMES ...]
 
 THEMES:
   Themes to uninstall.
