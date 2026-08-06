@@ -86,7 +86,7 @@ grub_update() {
   fi
 
   # Success message
-  success_msg "All done!"
+  success_msg "GRUB config updated!"
 }
 
 grub_get_theme_dir() {

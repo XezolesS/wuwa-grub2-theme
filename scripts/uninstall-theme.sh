@@ -77,25 +77,36 @@ get_current_theme() {
   elif [[ -f "/etc/default/grub.d/kali-themes.cfg" ]]; then
     grub_config_location="/etc/default/grub.d/kali-themes.cfg"
   else
-    error_msg "Cannot find grub config file in default locations!"
-    warning_msg "Please inform the developers by opening an issue on github."
-    info_msg "Exiting..."
     exit 1
   fi
-  verbose_info_msg "Found grub config at: $grub_config_location"
 
   local current_theme
   current_theme="$(grep 'GRUB_THEME=' $grub_config_location | grep -v \#)"
-  verbose_info_msg "Current theme is: $current_theme"
+  current_theme="${current_theme#"GRUB_THEME=\""}" # remove GRUB_THEME=" at the start
+  current_theme="${current_theme%"\""}"            # remove " at the end
+  current_theme="$(dirname "$current_theme")"      # parent of theme.txt
+  current_theme="$(basename "$current_theme")"     # get theme name
+  current_theme="${current_theme#"$THEME_NAME-"}"  # remove a prefix
 
   echo "$current_theme"
 }
 
 deactivate_theme() {
-  local current_theme="$1"
+  local grub_config_location
+
+  if [[ -f "/etc/default/grub" ]]; then
+    grub_config_location="/etc/default/grub"
+  elif [[ -f "/etc/default/grub.d/kali-themes.cfg" ]]; then
+    grub_config_location="/etc/default/grub.d/kali-themes.cfg"
+  else
+    exit 1
+  fi
+
+  local grub_theme_line
+  grub_theme_line="$(grep 'GRUB_THEME=' $grub_config_location | grep -v \#)"
 
   # Backup with --in-place option to grub.bak within the same directory; then remove the current theme.
-  sed --in-place='.bak' "s|$current_theme|#GRUB_THEME=|" "$grub_config_location"
+  sed --in-place='.bak' -e "s|$grub_theme_line|#GRUB_THEME=|" "$grub_config_location"
 
   if [[ -f "$grub_config_location".bak ]]; then
     rm -rf "$grub_config_location".bak
@@ -119,7 +130,7 @@ prompt_uninstall_theme() {
       # Yes, remove a theme
       if [[ "$current_theme" == "$theme" ]]; then
         info_msg "Uninstalling currently activated theme. Try to deactivate it..."
-        deactivate_theme "$current_theme"
+        deactivate_theme
       fi
 
       rm -rf "$theme_dir"
@@ -141,13 +152,18 @@ grub_uninstall_theme() {
   fi
 
   # get intalled themes
-  mapfile -t lsth < <(grub_ls_themes "$THEME_NAME")
+  local prefix="$THEME_NAME-"
+  mapfile -t lsth < <(grub_ls_themes "$prefix")
 
   local installed_themes=()
   local installed_theme_dirs=()
   for th in "${lsth[@]}"; do
     if [[ -n "$th" ]]; then
-      installed_themes+=("$(basename "$th")")
+      local theme_name
+      theme_name="$(basename "$th")"
+      theme_name="${theme_name#"$prefix"}"
+
+      installed_themes+=("$theme_name")
       installed_theme_dirs+=("$th")
     fi
   done
@@ -162,6 +178,7 @@ grub_uninstall_theme() {
   # get currently activated theme
   local current_theme
   current_theme=$(get_current_theme)
+  verbose_info_msg "Currently activated theme is: $current_theme"
 
   # remove installed themes
   if ((${#THEMES[@]} == 0)); then
@@ -176,7 +193,7 @@ grub_uninstall_theme() {
     for th in "${THEMES[@]}"; do
       theme_index=-1
       for index in "${!installed_themes[@]}"; do
-        if [[ th == "${installed_themes[$index]}" ]]; then
+        if [[ "$th" == "${installed_themes[$index]}" ]]; then
           theme_index=$index
           verbose_info_msg "Index of a theme '$th' is $theme_index"
         fi
