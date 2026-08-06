@@ -45,6 +45,7 @@ while true; do
     ;;
   --backgrounds-path)
     BACKGROUND_PATH="${2/#\~/$HOME}" # simple tilde expansion
+    CUSTOM_BACKGROUND=1
     shift 2
     ;;
   -o | --output)
@@ -57,7 +58,6 @@ while true; do
     ;;
   -h | --help)
     cat <<EOF
-
 Usage: $0 [OPTION] THEME [RESOLUTION]
 
 THEME:
@@ -107,8 +107,6 @@ if [[ -n "$BACKGROUND_PATH" ]]; then
     _themename="$(basename "$BACKGROUND_PATH")"
     THEME="${_themename%.png}"
   fi
-
-  CUSTOM_BACKGROUND=1
 fi
 
 # ---- source scripts ----

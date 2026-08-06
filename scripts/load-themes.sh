@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#! /usr/bin/env bash
 
 # Load themes from given parameters.
 # Also provides utility functions for it if the script is excuted with source.
@@ -33,7 +33,6 @@ while true; do
     ;;
   -h | --help)
     cat <<EOF
-
 Usage: $0 [OPTION] [background_path]
 
 [OPTIONS]:
