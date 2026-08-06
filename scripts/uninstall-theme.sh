@@ -51,7 +51,7 @@ done
 
 # positional arguments
 # THEMES
-THEMES=
+THEMES=()
 if (("$#" > 0)); then
   read -ra THEMES <<<"$@"
 fi
@@ -154,7 +154,7 @@ grub_uninstall_theme() {
   info_msg "Found ${#installed_themes[@]} themes installed."
   if ((VERBOSE == 1)); then
     for index in "${!installed_themes[@]}"; do
-      verbose_info_msg "Found ${th[$index]} at ${th[$index]}"
+      verbose_info_msg "Found ${installed_themes[$index]} at ${installed_theme_dirs[$index]}"
     done
   fi
 
