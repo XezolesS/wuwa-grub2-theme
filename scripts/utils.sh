@@ -108,19 +108,19 @@ grub_ls_themes() {
 
   for th in "/usr/share/grub/themes/$prefix"*; do
     if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
-      themes+=("/usr/share/grub/themes/$th")
+      themes+=("$th")
     fi
   done
 
   for th in "/boot/grub/themes/$prefix"*; do
     if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
-      themes+=("/boot/grub/themes/$th")
+      themes+=("$th")
     fi
   done
 
   for th in "/boot/grub2/themes/$prefix"*; do
     if [[ -d "$th" ]] && [[ -f "$th"/theme.txt ]]; then
-      themes+=("/boot/grub2/themes/$th")
+      themes+=("$th")
     fi
   done
 
