@@ -62,7 +62,7 @@ BACKGROUND_PATH="${BACKGROUND_PATH/#\~/$HOME}" # simple tilde expansion
 # if print_msg is not defined, source utils.sh
 if ! declare -f print_msg >/dev/null; then
   if ((REMOTE == 0)); then
-    source "${SCRIPT_DIR}/utils.sh"
+    source "$SCRIPT_DIR/utils.sh"
   else
     source <(curl -fsSL "$UTILS_SH_URL")
   fi
@@ -134,6 +134,6 @@ fi
 # echos list of themes if it is executed by itself.
 if [[ -n "${BASH_SOURCE[0]}" ]] && [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
   for theme in "${THEME_LIST[@]}"; do
-    echo "${theme}"
+    echo "$theme"
   done
 fi
