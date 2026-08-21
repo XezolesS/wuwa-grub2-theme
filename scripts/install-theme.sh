@@ -112,7 +112,7 @@ fi
 # ---- source scripts ----
 # utils.sh
 if ((REMOTE == 0)); then
-  source "${SCRIPT_DIR}/utils.sh"
+  source "$SCRIPT_DIR/utils.sh"
 else
   source <(curl -fsSL "$UTILS_SH_URL")
 fi
@@ -128,11 +128,11 @@ if [[ -n "$BACKGROUND_PATH" ]]; then
 fi
 
 if ((REMOTE == 0)); then
-  source "${SCRIPT_DIR}/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+  source "$SCRIPT_DIR/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
 else
   # temporarily download a script, because passing arguments is kinda tideous.
-  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" ".load-themes.sh"
-  source ".load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
+  source "$TEMP_DL_DIR/.load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
   rm .load-themes.sh
 
   REMOTE=1 # workaround for REMOTE being changed by .load-themes.sh
