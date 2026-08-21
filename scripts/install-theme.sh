@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # make sure the script is fail safe
-set -euo errexit
+set -euo pipefail
 
 # ---- globals ----
 readonly ROOT_UID=0
