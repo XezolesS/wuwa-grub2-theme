@@ -133,7 +133,7 @@ else
   # temporarily download a script, because passing arguments is kinda tideous.
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
   source "$TEMP_DL_DIR/.load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
-  rm .load-themes.sh
+  rm "$TEMP_DL_DIR/.load-themes.sh"
 
   REMOTE=1 # workaround for REMOTE being changed by .load-themes.sh
 fi
