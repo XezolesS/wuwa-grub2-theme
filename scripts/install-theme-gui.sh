@@ -20,6 +20,9 @@ BACKGROUND_PATH="$PROJECT_ROOT/backgrounds"
 
 TEMP_DL_DIR=".wuwa-grub2-theme-dl"
 
+BOOT=0
+THEME=""
+
 # ---- source scripts ----
 # utils.sh
 if [[ -f "$SCRIPT_DIR/utils.sh" ]]; then
@@ -55,10 +58,10 @@ itg_main() {
   theme_combo_str="$(printf "|%s" "${THEME_LIST[@]}")"
   theme_combo_str="${theme_combo_str:1}"
 
-  set +e
+  set +e # to yoink zenity exit code
   local ans
   ans=$(
-    zenity --title="GRUB Wuthering Waves Theme Setup" --modal --ok-label="Install" --cancel-label="Cancel" \
+    zenity --title="GRUB Wuthering Waves Theme Setup" --ok-label="Install" --cancel-label="Cancel" \
       --forms --text="Installation details" \
       --add-combo="Install at:" --combo-values="system|boot" \
       --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
@@ -70,27 +73,73 @@ itg_main() {
 
   case $ecode in
   0)
+    IFS='|' read -ra opt <<<"$ans"
+
+    THEME="${opt[1]}"
+
+    if [[ "${opt[0]}" == "boot" ]]; then
+      BOOT=1
+    else
+      BOOT=0
+    fi
+
+    return 0
     ;;
   1)
     if [[ "$ans" == "Load Default Themes" ]]; then
       source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
+
       itg_main
     elif [[ "$ans" == "Load Custom Themes" ]]; then
-      itg_load_custom_themes
+      set +e # not to exit when file selection canceled
+      local themes_dir
+      themes_dir=$(zenity --title="Select a directory of themes" --file-selection --directory)
+      set -e
+
+      source "$LOAD_THEMES_SCRIPT_PATH" "$themes_dir"
+
       itg_main
     else
-      exit 1
+      true
     fi
+
+    return 1
     ;;
   esac
 }
 
-itg_load_custom_themes() {
-  local ans
-  ans=$(zenity --title="Select a directory of themes" --file-selection --directory)
+itg_confirm() {
+  local confirm_text="<big>You're installing:</big>\n\n"
+  confirm_text+="<b><span foreground=\"orange\">$THEME</span></b> theme, "
+  confirm_text+="under "
 
-  source "$LOAD_THEMES_SCRIPT_PATH" "$ans"
+  if ((BOOT == 1)); then
+    confirm_text+="<b><span foreground=\"cyan\">boot</span></b> directory<i> (/boot/grub/themes)</i>"
+  else
+    confirm_text+="<b><span foreground=\"cyan\">system</span></b> directory<i> (/usr/share/grub/themes)</i>"
+  fi
+
+  set +e # to yoink zenity exit code
+  zenity --title="Confirm your installation" --ok-label="Yes" --cancel-label="No" \
+    --question --text="$confirm_text"
+  local ecode=$?
+  set -e
+
+  case $ecode in
+  0)
+    ;;
+  1)
+    ;;
+  esac
+}
+
+itg_prompt_sudo() {
+  # TODO: get sudo password to install a theme
+  true
 }
 
 # ---- main executions ----
-itg_main
+while itg_main; do
+  # TODO: break if installation success, continue otherwise
+  itg_confirm
+done
