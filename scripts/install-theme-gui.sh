@@ -58,10 +58,11 @@ itg_main() {
   theme_combo_str="$(printf "|%s" "${THEME_LIST[@]}")"
   theme_combo_str="${theme_combo_str:1}"
 
+  # TODO: Resolution options
   set +e # to yoink zenity exit code
   local ans
   ans=$(
-    zenity --title="GRUB Wuthering Waves Theme Setup" --ok-label="Install" --cancel-label="Cancel" \
+    zenity --title="GRUB Wuthering Waves Theme Setup" --width=320 --ok-label="Install" --cancel-label="Cancel" \
       --forms --text="Installation details" \
       --add-combo="Install at:" --combo-values="system|boot" \
       --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
@@ -120,26 +121,42 @@ itg_confirm() {
   fi
 
   set +e # to yoink zenity exit code
-  zenity --title="Confirm your installation" --ok-label="Yes" --cancel-label="No" \
+  zenity --title="Confirm your installation" --width=320 --ok-label="Yes" --cancel-label="No" \
     --question --text="$confirm_text"
   local ecode=$?
   set -e
 
   case $ecode in
   0)
+    return 0
     ;;
   1)
+    return 1
     ;;
   esac
 }
 
-itg_prompt_sudo() {
-  # TODO: get sudo password to install a theme
-  true
-}
-
 # ---- main executions ----
+if [[ ! -d $TEMP_DL_DIR ]]; then
+  mkdir $TEMP_DL_DIR
+fi
+
+# write sudo gui prompt
+echo "#! /usr/bin/env bash
+exec zenity --title=\"[sudo]\" --width=320 \
+--password --text=\"password for $USER:\"" \
+  >"$TEMP_DL_DIR/sudo_prompt.sh"
+chmod +x "$TEMP_DL_DIR/sudo_prompt.sh"
+
 while itg_main; do
-  # TODO: break if installation success, continue otherwise
-  itg_confirm
+  if itg_confirm; then
+    SUDO_ASKPASS="$TEMP_DL_DIR/sudo_prompt.sh" sudo -A true
+
+    break
+  fi
 done
+
+# remove temporary files
+if [[ -d $TEMP_DL_DIR ]]; then
+  rm -r $TEMP_DL_DIR
+fi
