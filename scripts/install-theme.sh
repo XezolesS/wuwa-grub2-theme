@@ -131,6 +131,10 @@ if ((REMOTE == 0)); then
   source "$SCRIPT_DIR/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
 else
   # temporarily download a script, because passing arguments is kinda tideous.
+  if [[ ! -d $TEMP_DL_DIR ]]; then
+    mkdir $TEMP_DL_DIR
+  fi
+
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
   source "$TEMP_DL_DIR/.load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
   rm "$TEMP_DL_DIR/.load-themes.sh"

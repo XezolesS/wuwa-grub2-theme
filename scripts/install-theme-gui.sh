@@ -35,18 +35,18 @@ fi
 LOAD_THEMES_PARAMS=()
 LOAD_THEMES_SCRIPT_PATH=""
 
-if [[ -n "$BACKGROUND_PATH" ]]; then
-  LOAD_THEMES_PARAMS+=("$BACKGROUND_PATH")
-else
-  LOAD_THEMES_PARAMS+=("-r")
-fi
-
 if [[ -f "$SCRIPT_DIR/load-themes.sh" ]]; then
+  LOAD_THEMES_PARAMS+=("$BACKGROUND_PATH")
   LOAD_THEMES_SCRIPT_PATH="$SCRIPT_DIR/load-themes.sh"
   source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
 else
   # temporarily download a script, because passing arguments is kinda tideous.
+  if [[ ! -d $TEMP_DL_DIR ]]; then
+    mkdir $TEMP_DL_DIR
+  fi
+
   download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
+  LOAD_THEMES_PARAMS+=("-r")
   LOAD_THEMES_SCRIPT_PATH="$TEMP_DL_DIR/.load-themes.sh"
   source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
   rm "$LOAD_THEMES_SCRIPT_PATH"
