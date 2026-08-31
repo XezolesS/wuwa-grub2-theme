@@ -1,7 +1,9 @@
 #! /usr/bin/env bash
 
 # ---- globals ----
-readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
+if [[ -n "${UTILS_SH_URL:-}" ]]; then
+  readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
+fi
 
 readonly RESOLUTION_OPTIONS=("fhd" "qhd" "uhd")
 
@@ -13,8 +15,8 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 BACKGROUND_PATH="$PROJECT_ROOT/backgrounds"
 
 # arguments
-BOOT=0
-THEME=""
+BOOT=
+THEME=
 
 # ---- source scripts ----
 # utils.sh
@@ -71,9 +73,7 @@ itg_main() {
       THEME="${opt[1]}"
 
       if [[ "${opt[0]}" == "boot" ]]; then
-        BOOT=1
-      else
-        BOOT=0
+        BOOT="-b"
       fi
 
       return 0
@@ -103,7 +103,7 @@ itg_confirm() {
   cfmsg+="<b><span foreground=\"orange\">$THEME</span></b> theme, "
   cfmsg+="under "
 
-  if ((BOOT == 1)); then
+  if [[ -n "$BOOT" ]]; then
     cfmsg+="<b><span foreground=\"cyan\">boot</span></b> directory<i> (/boot/grub/themes)</i>"
   else
     cfmsg+="<b><span foreground=\"cyan\">system</span></b> directory<i> (/usr/share/grub/themes)</i>"
@@ -127,7 +127,16 @@ chmod +x "$TEMP_DIR/sudo_prompt.sh"
 
 while itg_main; do
   if itg_confirm; then
-    SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" sudo -A true
+    iargs=("$BOOT" "$THEME")
+
+    if [[ -f "$SCRIPT_DIR/install-theme.sh" ]]; then
+      SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" \
+        sudo -A "$SCRIPT_DIR/install-theme.sh" "${iargs[@]}"
+    else
+      curl -fsSL "$(get_remote_content_url "scripts/install-theme.sh")" |
+        SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" \
+          sudo bash -s -- -r "${iargs[@]}"
+    fi
 
     break
   fi
