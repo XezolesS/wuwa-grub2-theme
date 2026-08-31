@@ -131,6 +131,7 @@ THEMES:
 - Lingyang: `lingyang`
 - Lumi: `lumi`
 - Mortefi: `mortefi`
+- Qingxiao: `qingxiao`
 - Qiuyuan: `qiuyuan`
 - Sanhua: `sanhua`
 - Suisui: `suisui`
@@ -369,6 +370,12 @@ Click to reveal
   <summary><b>Mortefi</b></summary>
 
   ![Mortefi](./previews/mortefi.jpg)
+  </details>
+
+  <details>
+  <summary><b>Qingxiao</b></summary>
+
+  ![Qingxiao](./previews/qingxiao.jpg)
   </details>
 
   <details>
