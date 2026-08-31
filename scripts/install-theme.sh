@@ -18,8 +18,6 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 BACKGROUND_PATH="$PROJECT_ROOT/backgrounds"
 
-TEMP_DL_DIR=".wuwa-grub2-theme-dl"
-
 # ---- arguments handling ----
 OPTS=$(getopt \
   -o b,r,v,o:,h \
@@ -131,13 +129,12 @@ if ((REMOTE == 0)); then
   source "$SCRIPT_DIR/load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
 else
   # temporarily download a script, because passing arguments is kinda tideous.
-  if [[ ! -d $TEMP_DL_DIR ]]; then
-    mkdir $TEMP_DL_DIR
-  fi
+  mktempdir
 
-  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
-  source "$TEMP_DL_DIR/.load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
-  rm "$TEMP_DL_DIR/.load-themes.sh"
+  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DIR/.load-themes.sh"
+  source "$TEMP_DIR/.load-themes.sh" "${LOAD_THEMES_PARAMS[@]}"
+
+  rmtempdir
 
   REMOTE=1 # workaround for REMOTE being changed by .load-themes.sh
 fi
@@ -149,14 +146,7 @@ download_theme() {
   fi
 
   # Remote, make temporary directory and download inside of it
-  if [[ -d "$TEMP_DL_DIR" ]]; then
-    rm -r "$TEMP_DL_DIR"
-  fi
-
-  mkdir "$TEMP_DL_DIR" \
-    "$TEMP_DL_DIR/fonts" \
-    "$TEMP_DL_DIR/assets-icons" \
-    "$TEMP_DL_DIR/assets-other"
+  mktempdir "fonts" "assets-icons" "assets-others"
 
   local content_url
 
@@ -168,7 +158,7 @@ download_theme() {
     if [[ -n "$font_f" ]]; then
       content_url=$(get_remote_content_url "fonts/$font_f")
       verbose_info_msg "Downloading '$font_f' from: $content_url"
-      download_remote_content "$content_url" "$TEMP_DL_DIR/fonts/$font_f"
+      download_remote_content "$content_url" "$TEMP_DIR/fonts/$font_f"
     fi
   done
   success_msg "Successfully downloaded fonts!"
@@ -176,14 +166,14 @@ download_theme() {
   # download a config
   content_url="$(get_remote_content_url "config/theme-$RESOLUTION.txt")"
   info_msg "Downloading '$RESOLUTION' config from: $content_url"
-  download_remote_content "$content_url" "$TEMP_DL_DIR/theme-$RESOLUTION.txt"
+  download_remote_content "$content_url" "$TEMP_DIR/theme-$RESOLUTION.txt"
   success_msg "Successfully downloaded a config!"
 
   # download a background
   if ((CUSTOM_BACKGROUND == 0)); then
     content_url="$(get_remote_content_url "backgrounds/$THEME.png")"
     info_msg "Downloading '$THEME' theme from: $content_url"
-    download_remote_content "$content_url" "$TEMP_DL_DIR/$THEME.png"
+    download_remote_content "$content_url" "$TEMP_DIR/$THEME.png"
     success_msg "Successfully downloaded a background!"
   else
     info_msg "Custom background $THEME is set. Skip downloading background..."
@@ -198,7 +188,7 @@ download_theme() {
     if [[ -n "$font_f" ]]; then
       content_url=$(get_remote_content_url "assets/assets-icons/icons-$RESOLUTION/$icon_f")
       verbose_info_msg "Downloading '$icon_f' from: $content_url"
-      download_remote_content "$content_url" "$TEMP_DL_DIR/assets-icons/$icon_f"
+      download_remote_content "$content_url" "$TEMP_DIR/assets-icons/$icon_f"
     fi
   done
   success_msg "Successfully downloaded icon assets!"
@@ -210,7 +200,7 @@ download_theme() {
   for other_f in "${assets_other_files[@]}"; do
     content_url=$(get_remote_content_url "assets/assets-other/other-$RESOLUTION/$other_f")
     verbose_info_msg "Downloading '$other_f' from: $content_url"
-    download_remote_content "$content_url" "$TEMP_DL_DIR/assets-other/$other_f"
+    download_remote_content "$content_url" "$TEMP_DIR/assets-other/$other_f"
   done
   success_msg "Successfully downloaded other assets!"
 }
@@ -236,11 +226,11 @@ compile_theme() {
   else
     download_theme
 
-    local theme_fonts_dir="$TEMP_DL_DIR/fonts"
-    local theme_config="$TEMP_DL_DIR/theme-$RESOLUTION.txt"
-    local theme_background="$TEMP_DL_DIR/$THEME.png"
-    local theme_assets_icons_dir="$TEMP_DL_DIR/assets-icons"
-    local theme_assets_other_dir="$TEMP_DL_DIR/assets-other"
+    local theme_fonts_dir="$TEMP_DIR/fonts"
+    local theme_config="$TEMP_DIR/theme-$RESOLUTION.txt"
+    local theme_background="$TEMP_DIR/$THEME.png"
+    local theme_assets_icons_dir="$TEMP_DIR/assets-icons"
+    local theme_assets_other_dir="$TEMP_DIR/assets-other"
 
     if ((CUSTOM_BACKGROUND == 1)); then
       theme_background="$(get_theme_path "$THEME")"
@@ -255,9 +245,7 @@ compile_theme() {
   cp -a --no-preserve=ownership "$theme_assets_other_dir"/*.png "$output_dir"
 
   # delete temporary directory if it exists
-  if [[ -d "$TEMP_DL_DIR" ]]; then
-    rm -r "$TEMP_DL_DIR"
-  fi
+  rmtempdir
 
   success_msg "Successfully compiled a theme $THEME."
 }

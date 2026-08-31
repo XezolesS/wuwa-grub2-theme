@@ -18,8 +18,7 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
 BACKGROUND_PATH="$PROJECT_ROOT/backgrounds"
 
-TEMP_DL_DIR=".wuwa-grub2-theme-dl"
-
+# arguments
 BOOT=0
 THEME=""
 
@@ -41,15 +40,14 @@ if [[ -f "$SCRIPT_DIR/load-themes.sh" ]]; then
   source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
 else
   # temporarily download a script, because passing arguments is kinda tideous.
-  if [[ ! -d $TEMP_DL_DIR ]]; then
-    mkdir $TEMP_DL_DIR
-  fi
+  mktempdir
 
-  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DL_DIR/.load-themes.sh"
+  download_remote_content "$(get_remote_content_url "scripts/load-themes.sh")" "$TEMP_DIR/.load-themes.sh"
   LOAD_THEMES_PARAMS+=("-r")
-  LOAD_THEMES_SCRIPT_PATH="$TEMP_DL_DIR/.load-themes.sh"
+  LOAD_THEMES_SCRIPT_PATH="$TEMP_DIR/.load-themes.sh"
   source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
-  rm "$LOAD_THEMES_SCRIPT_PATH"
+
+  rmtempdir
 fi
 
 # ---- functions ----
@@ -137,26 +135,21 @@ itg_confirm() {
 }
 
 # ---- main executions ----
-if [[ ! -d $TEMP_DL_DIR ]]; then
-  mkdir $TEMP_DL_DIR
-fi
+mktempdir
 
 # write sudo gui prompt
 echo "#! /usr/bin/env bash
 exec zenity --title=\"[sudo]\" --width=320 \
 --password --text=\"password for $USER:\"" \
-  >"$TEMP_DL_DIR/sudo_prompt.sh"
-chmod +x "$TEMP_DL_DIR/sudo_prompt.sh"
+  >"$TEMP_DIR/sudo_prompt.sh"
+chmod +x "$TEMP_DIR/sudo_prompt.sh"
 
 while itg_main; do
   if itg_confirm; then
-    SUDO_ASKPASS="$TEMP_DL_DIR/sudo_prompt.sh" sudo -A true
+    SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" sudo -A true
 
     break
   fi
 done
 
-# remove temporary files
-if [[ -d $TEMP_DL_DIR ]]; then
-  rm -r $TEMP_DL_DIR
-fi
+rmtempdir
