@@ -52,59 +52,59 @@ fi
 
 # ---- functions ----
 itg_main() {
-  local theme_combo_str
-  theme_combo_str="$(printf "|%s" "${THEME_LIST[@]}")"
-  theme_combo_str="${theme_combo_str:1}"
+  while true; do
+    local theme_combo_str
+    theme_combo_str="$(printf "|%s" "${THEME_LIST[@]}")"
+    theme_combo_str="${theme_combo_str:1}"
 
-  # TODO: Resolution options
-  set +e # to yoink zenity exit code
-  local ans
-  ans=$(
-    zenity --title="GRUB Wuthering Waves Theme Setup" --width=320 --ok-label="Install" --cancel-label="Cancel" \
-      --forms --text="Installation details" \
-      --add-combo="Install at:" --combo-values="system|boot" \
-      --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
-      --extra-button="Load Custom Themes" \
-      --extra-button="Load Default Themes"
-  )
-  local ecode=$?
-  set -e
+    # TODO: Resolution options
+    set +e # to yoink zenity exit code
+    local ans
+    ans=$(
+      zenity --title="GRUB Wuthering Waves Theme Setup" --width=320 --ok-label="Install" --cancel-label="Cancel" \
+        --forms --text="Installation details" \
+        --add-combo="Install at:" --combo-values="system|boot" \
+        --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
+        --extra-button="Load Custom Themes" \
+        --extra-button="Load Default Themes"
+    )
+    local ecode=$?
+    set -e
 
-  case $ecode in
-  0)
-    IFS='|' read -ra opt <<<"$ans"
+    case $ecode in
+    0)
+      IFS='|' read -ra opt <<<"$ans"
 
-    THEME="${opt[1]}"
+      THEME="${opt[1]}"
 
-    if [[ "${opt[0]}" == "boot" ]]; then
-      BOOT=1
-    else
-      BOOT=0
-    fi
+      if [[ "${opt[0]}" == "boot" ]]; then
+        BOOT=1
+      else
+        BOOT=0
+      fi
 
-    return 0
-    ;;
-  1)
-    if [[ "$ans" == "Load Default Themes" ]]; then
-      source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
+      return 0
+      ;;
+    1)
+      if [[ "$ans" == "Load Default Themes" ]]; then
+        source "$LOAD_THEMES_SCRIPT_PATH" "${LOAD_THEMES_PARAMS[@]}"
 
-      itg_main
-    elif [[ "$ans" == "Load Custom Themes" ]]; then
-      set +e # not to exit when file selection canceled
-      local themes_dir
-      themes_dir=$(zenity --title="Select a directory of themes" --file-selection --directory)
-      set -e
+        continue
+      elif [[ "$ans" == "Load Custom Themes" ]]; then
+        set +e # not to exit when file selection canceled
+        local themes_dir
+        themes_dir=$(zenity --title="Select a directory of themes" --file-selection --directory)
+        set -e
 
-      source "$LOAD_THEMES_SCRIPT_PATH" "$themes_dir"
+        source "$LOAD_THEMES_SCRIPT_PATH" "$themes_dir"
 
-      itg_main
-    else
-      true
-    fi
-
-    return 1
-    ;;
-  esac
+        continue
+      else
+        return 1
+      fi
+      ;;
+    esac
+  done
 }
 
 itg_confirm() {
