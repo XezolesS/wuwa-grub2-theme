@@ -7,7 +7,9 @@ set -euo pipefail
 readonly ROOT_UID=0
 readonly THEME_NAME="wuwa"
 
-readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
+if [[ -v "$UTILS_SH_URL" ]]; then
+  readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
+fi
 
 readonly RESOLUTION_OPTIONS=("fhd" "qhd" "uhd")
 
