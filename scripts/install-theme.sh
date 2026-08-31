@@ -215,6 +215,9 @@ compile_theme() {
   info_msg "Compiling ${THEME_NAME}-${THEME} ${RESOLUTION} ..."
 
   local output_dir="$1"
+  if [[ "$output_dir" != *"/$THEME_NAME-$THEME" ]]; then
+    output_dir+="/$THEME_NAME-$THEME"
+  fi
 
   # Make a themes directory if it doesn't exist
   info_msg "Checking themes directory ${output_dir} ..."
