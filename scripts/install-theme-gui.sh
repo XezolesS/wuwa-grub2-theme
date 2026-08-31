@@ -1,12 +1,6 @@
 #! /usr/bin/env bash
 
-# make sure the script is fail safe
-set -euo pipefail
-
 # ---- globals ----
-readonly ROOT_UID=0
-readonly THEME_NAME="wuwa"
-
 readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
 
 readonly RESOLUTION_OPTIONS=("fhd" "qhd" "uhd")
@@ -58,10 +52,10 @@ itg_main() {
     theme_combo_str="${theme_combo_str:1}"
 
     # TODO: Resolution options
-    set +e # to yoink zenity exit code
     local ans
     ans=$(
-      zenity --title="GRUB Wuthering Waves Theme Setup" --width=320 --ok-label="Install" --cancel-label="Cancel" \
+      zenity --title="GRUB Wuthering Waves Theme Setup" --width=320 \
+        --ok-label="Install" --cancel-label="Cancel" \
         --forms --text="Installation details" \
         --add-combo="Install at:" --combo-values="system|boot" \
         --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
@@ -69,7 +63,6 @@ itg_main() {
         --extra-button="Load Default Themes"
     )
     local ecode=$?
-    set -e
 
     case $ecode in
     0)
@@ -91,10 +84,8 @@ itg_main() {
 
         continue
       elif [[ "$ans" == "Load Custom Themes" ]]; then
-        set +e # not to exit when file selection canceled
         local themes_dir
         themes_dir=$(zenity --title="Select a directory of themes" --file-selection --directory)
-        set -e
 
         source "$LOAD_THEMES_SCRIPT_PATH" "$themes_dir"
 
@@ -108,30 +99,20 @@ itg_main() {
 }
 
 itg_confirm() {
-  local confirm_text="<big>You're installing:</big>\n\n"
-  confirm_text+="<b><span foreground=\"orange\">$THEME</span></b> theme, "
-  confirm_text+="under "
+  local cfmsg="<big>You're installing:</big>\n\n"
+  cfmsg+="<b><span foreground=\"orange\">$THEME</span></b> theme, "
+  cfmsg+="under "
 
   if ((BOOT == 1)); then
-    confirm_text+="<b><span foreground=\"cyan\">boot</span></b> directory<i> (/boot/grub/themes)</i>"
+    cfmsg+="<b><span foreground=\"cyan\">boot</span></b> directory<i> (/boot/grub/themes)</i>"
   else
-    confirm_text+="<b><span foreground=\"cyan\">system</span></b> directory<i> (/usr/share/grub/themes)</i>"
+    cfmsg+="<b><span foreground=\"cyan\">system</span></b> directory<i> (/usr/share/grub/themes)</i>"
   fi
 
-  set +e # to yoink zenity exit code
   zenity --title="Confirm your installation" --width=320 --ok-label="Yes" --cancel-label="No" \
-    --question --text="$confirm_text"
-  local ecode=$?
-  set -e
+    --question --text="$cfmsg"
 
-  case $ecode in
-  0)
-    return 0
-    ;;
-  1)
-    return 1
-    ;;
-  esac
+  return "$?"
 }
 
 # ---- main executions ----
