@@ -277,7 +277,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/rover.png"
+        <img src="./previews/affiliation_icons/rover.webp"
           alt="Rover" height=100 href="/">
     </picture>
   </div>
@@ -291,13 +291,13 @@ Click to reveal
   <details>
   <summary><b>Rover (Female)</b></summary>
 
-  ![Rover (Female)](./previews/rover-female.jpg)
+  ![Rover (Female)](./previews/rover-female.webp)
   </details>
 
   <details>
   <summary><b>Rover (Male)</b></summary>
 
-  ![Rover (Male)](./previews/rover-male.jpg)
+  ![Rover (Male)](./previews/rover-male.webp)
   </details>
 
   </blockquote>
@@ -307,7 +307,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/huanglong.png"
+        <img src="./previews/affiliation_icons/huanglong.webp"
           alt="Huang Long" height=100 href="/">
     </picture>
   </div>
@@ -321,133 +321,133 @@ Click to reveal
   <details>
   <summary><b>Baizhi</b></summary>
 
-  ![Baizhi](./previews/baizhi.jpg)
+  ![Baizhi](./previews/baizhi.webp)
   </details>
 
   <details>
   <summary><b>Changli</b></summary>
 
-  ![Changli](./previews/changli.jpg)
+  ![Changli](./previews/changli.webp)
   </details>
 
   <details>
   <summary><b>Chixia</b></summary>
 
-  ![Chixia](./previews/chixia.jpg)
+  ![Chixia](./previews/chixia.webp)
   </details>
 
   <details>
   <summary><b>Danjin</b></summary>
 
-  ![Danjin](./previews/danjin.jpg)
+  ![Danjin](./previews/danjin.webp)
   </details>
 
   <details>
   <summary><b>Jianxin</b></summary>
 
-  ![Jianxin](./previews/jianxin.jpg)
+  ![Jianxin](./previews/jianxin.webp)
   </details>
 
   <details>
   <summary><b>Jinhsi</b></summary>
 
-  ![Jinhsi](./previews/jinhsi.jpg)
+  ![Jinhsi](./previews/jinhsi.webp)
   </details>
 
   <details>
   <summary><b>Lingyang</b></summary>
 
-  ![Lingyang](./previews/lingyang.jpg)
+  ![Lingyang](./previews/lingyang.webp)
   </details>
 
   <details>
   <summary><b>Lumi</b></summary>
 
-  ![Lumi](./previews/lumi.jpg)
+  ![Lumi](./previews/lumi.webp)
   </details>
 
   <details>
   <summary><b>Mortefi</b></summary>
 
-  ![Mortefi](./previews/mortefi.jpg)
+  ![Mortefi](./previews/mortefi.webp)
   </details>
 
   <details>
   <summary><b>Qingxiao</b></summary>
 
-  ![Qingxiao](./previews/qingxiao.jpg)
+  ![Qingxiao](./previews/qingxiao.webp)
   </details>
 
   <details>
   <summary><b>Qiuyuan</b></summary>
 
-  ![Qiuyuan](./previews/qiuyuan.jpg)
+  ![Qiuyuan](./previews/qiuyuan.webp)
   </details>
 
   <details>
   <summary><b>Sanhua</b></summary>
 
-  ![Sanhua](./previews/sanhua.jpg)
+  ![Sanhua](./previews/sanhua.webp)
   </details>
 
   <details>
   <summary><b>Suisui</b></summary>
 
-  ![Suisui](./previews/suisui.jpg)
+  ![Suisui](./previews/suisui.webp)
   </details>
 
   <details>
   <summary><b>Taoqi</b></summary>
 
-  ![Taoqi](./previews/taoqi.jpg)
+  ![Taoqi](./previews/taoqi.webp)
   </details>
 
   <details>
   <summary><b>Verina</b></summary>
 
-  ![Verina](./previews/verina.jpg)
+  ![Verina](./previews/verina.webp)
   </details>
 
   <details>
   <summary><b>Xiangli Yao</b></summary>
 
-  ![Xiangli Yao](./previews/xiangli_yao.jpg)
+  ![Xiangli Yao](./previews/xiangli_yao.webp)
   </details>
 
   <details>
   <summary><b>Yangyang</b></summary>
 
-  ![Yangyang](./previews/yangyang.jpg)
+  ![Yangyang](./previews/yangyang.webp)
   </details>
 
   <details>
   <summary><b>Yangyang: Xuanling</b></summary>
 
-  ![Yangyang: Xuanling](./previews/yangyang-xuanling.jpg)
+  ![Yangyang: Xuanling](./previews/yangyang-xuanling.webp)
   </details>
 
   <details>
   <summary><b>Yinlin</b></summary>
 
-  ![Yinlin](./previews/yinlin.jpg)
+  ![Yinlin](./previews/yinlin.webp)
   </details>
 
   <details>
   <summary><b>Youhu</b></summary>
 
-  ![Youhu](./previews/youhu.jpg)
+  ![Youhu](./previews/youhu.webp)
   </details>
 
   <details>
   <summary><b>Yuanwu</b></summary>
 
-  ![Yuanwu](./previews/yuanwu.jpg)
+  ![Yuanwu](./previews/yuanwu.webp)
   </details>
 
   <details>
   <summary><b>Zhezhi</b></summary>
 
-  ![Zhezhi](./previews/zhezhi.jpg)
+  ![Zhezhi](./previews/zhezhi.webp)
   </details>
 
   </blockquote>
@@ -457,7 +457,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/black_shores.png"
+        <img src="./previews/affiliation_icons/black_shores.webp"
           alt="Black Shores" height=100 href="/">
     </picture>
   </div>
@@ -471,37 +471,37 @@ Click to reveal
   <details>
   <summary><b>Aalto</b></summary>
 
-  ![Aalto](./previews/aalto.jpg)
+  ![Aalto](./previews/aalto.webp)
   </details>
 
   <details>
   <summary><b>Buling</b></summary>
 
-  ![Buling](./previews/buling.jpg)
+  ![Buling](./previews/buling.webp)
   </details>
 
   <details>
   <summary><b>Camellya</b></summary>
 
-  ![Camellya](./previews/camellya.jpg)
+  ![Camellya](./previews/camellya.webp)
   </details>
 
   <details>
   <summary><b>Encore</b></summary>
 
-  ![Encore](./previews/encore.jpg)
+  ![Encore](./previews/encore.webp)
   </details>
 
   <details>
   <summary><b>Galbrena</b></summary>
 
-  ![Galbrena](./previews/galbrena.jpg)
+  ![Galbrena](./previews/galbrena.webp)
   </details>
 
   <details>
   <summary><b>The Shorekeeper</b></summary>
 
-  ![The Shorekeeper](./previews/shorekeeper.jpg)
+  ![The Shorekeeper](./previews/shorekeeper.webp)
   </details>
 
   </blockquote>
@@ -511,7 +511,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/ragunna.png"
+        <img src="./previews/affiliation_icons/ragunna.webp"
           alt="Ragunna" height=100 href="/">
     </picture>
   </div>
@@ -525,49 +525,49 @@ Click to reveal
   <details>
   <summary><b>Brant</b></summary>
 
-  ![Brant](./previews/brant.jpg)
+  ![Brant](./previews/brant.webp)
   </details>
 
   <details>
   <summary><b>Cantarella</b></summary>
 
-  ![Cantarella](./previews/cantarella.jpg)
+  ![Cantarella](./previews/cantarella.webp)
   </details>
 
   <details>
   <summary><b>Carlotta</b></summary>
 
-  ![Carlotta](./previews/carlotta.jpg)
+  ![Carlotta](./previews/carlotta.webp)
   </details>
 
   <details>
   <summary><b>Cartethyia</b></summary>
 
-  ![Cartethyia](./previews/cartethyia.jpg)
+  ![Cartethyia](./previews/cartethyia.webp)
   </details>
 
   <details>
   <summary><b>Ciaccona</b></summary>
 
-  ![Ciaccona](./previews/ciaccona.jpg)
+  ![Ciaccona](./previews/ciaccona.webp)
   </details>
 
   <details>
   <summary><b>Phoebe</b></summary>
 
-  ![Phoebe](./previews/phoebe.jpg)
+  ![Phoebe](./previews/phoebe.webp)
   </details>
 
   <details>
   <summary><b>Roccia</b></summary>
 
-  ![Roccia](./previews/roccia.jpg)
+  ![Roccia](./previews/roccia.webp)
   </details>
 
   <details>
   <summary><b>Zani</b></summary>
 
-  ![Zani](./previews/zani.jpg)
+  ![Zani](./previews/zani.webp)
   </details>
 
   </blockquote>
@@ -591,19 +591,19 @@ Click to reveal
   <details>
   <summary><b>Augusta</b></summary>
 
-  ![Augusta](./previews/augusta.jpg)
+  ![Augusta](./previews/augusta.webp)
   </details>
 
   <details>
   <summary><b>Iuno</b></summary>
 
-  ![Iuno](./previews/iuno.jpg)
+  ![Iuno](./previews/iuno.webp)
   </details>
 
   <details>
   <summary><b>Lupa</b></summary>
 
-  ![Lupa](./previews/lupa.jpg)
+  ![Lupa](./previews/lupa.webp)
   </details>
 
   </blockquote>
@@ -627,25 +627,25 @@ Click to reveal
   <details>
   <summary><b>Aemeath</b></summary>
 
-  ![Aemeath](./previews/aemeath.jpg)
+  ![Aemeath](./previews/aemeath.webp)
   </details>
 
   <details>
   <summary><b>Chisa</b></summary>
 
-  ![Chisa](./previews/chisa.jpg)
+  ![Chisa](./previews/chisa.webp)
   </details>
 
   <details>
   <summary><b>Luuk Herssen</b></summary>
 
-  ![Luuk Herssen](./previews/luuk_herssen.jpg)
+  ![Luuk Herssen](./previews/luuk_herssen.webp)
   </details>
 
   <details>
   <summary><b>Lynae</b></summary>
 
-  ![Lynae](./previews/lynae.jpg)
+  ![Lynae](./previews/lynae.webp)
   </details>
 
   </blockquote>
@@ -669,13 +669,13 @@ Click to reveal
   <details>
   <summary><b>Mornye</b></summary>
 
-  ![Mornye](./previews/mornye.jpg)
+  ![Mornye](./previews/mornye.webp)
   </details>
   
   <details>
   <summary><b>Lucilla</b></summary>
 
-  ![Lucilla](./previews/lucilla.jpg)
+  ![Lucilla](./previews/lucilla.webp)
   </details>
 
   </blockquote>
@@ -699,7 +699,7 @@ Click to reveal
   <details>
   <summary><b>Sigrika</b></summary>
 
-  ![Sigrika](./previews/sigrika.jpg)
+  ![Sigrika](./previews/sigrika.webp)
   </details>
   
   </blockquote>
@@ -723,7 +723,7 @@ Click to reveal
   <details>
   <summary><b>Hiyuki</b></summary>
 
-  ![Hiyuki](./previews/hiyuki.jpg)
+  ![Hiyuki](./previews/hiyuki.webp)
   </details>
 
   </blockquote>
@@ -747,7 +747,7 @@ Click to reveal
   <details>
   <summary><b>Phlorova</b></summary>
 
-  ![Phlorova](./previews/phlorova.jpg)
+  ![Phlorova](./previews/phlorova.webp)
   </details>
 
   </blockquote>
@@ -757,7 +757,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/unknown.png" alt="Unknown" height=100 href="/">
+        <img src="./previews/affiliation_icons/unknown.webp" alt="Unknown" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -770,13 +770,13 @@ Click to reveal
   <details>
   <summary><b>Calcharo</b></summary>
 
-  ![Calcharo](./previews/calcharo.jpg)
+  ![Calcharo](./previews/calcharo.webp)
   </details>
 
   <details>
   <summary><b>Denia</b></summary>
 
-  ![Denia](./previews/denia.jpg)
+  ![Denia](./previews/denia.webp)
   </details>
 
   </blockquote>
