@@ -134,7 +134,7 @@ while itg_main; do
       sudo -A "$SCRIPT_DIR/install-theme.sh" "${iargs[@]}"
     else
       curl -fsSL "$(get_remote_content_url "scripts/install-theme.sh")" |
-        sudo bash -s -- -r "${iargs[@]}"
+        sudo -A bash -s -- -r "${iargs[@]}"
     fi
 
     iecode=$?
