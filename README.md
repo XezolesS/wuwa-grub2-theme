@@ -2,7 +2,9 @@
 
 ![banner](banner.png?raw=true)
 
-**This repository is a fork of [vinceliuice/Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)**
+**This repository is a fork of
+[vinceliuice/Wuthering-grub2-themes](https://github.com/vinceliuice/Wuthering-grub2-themes)
+and is heavily modified.**
 
 ## Prerequisites
 
@@ -19,7 +21,20 @@ The script will automatically download assets from this GitHub repository.
 It is recommended due to the large number of backgrounds, a whole repo is quite
 chunky to download.
 
-Copy this command below and run it with parameters.
+#### Method 1.1. Remotely execute GUI installer
+
+Copy this command below and execute it.
+
+```bash
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/install-theme-gui.sh)"
+```
+
+<img src="./.readme_assets/gui-installer.png"
+  alt="gui-installer"/>
+
+#### Method 1.2. Remotely execute install script
+
+Copy this command below and execute it with parameters.
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/install-theme.sh | sudo bash -s -- -r [PARAM]
@@ -39,7 +54,8 @@ With this method, you are going to clone this repository and execute a script lo
 ```bash
 git clone https://github.com/XezolesS/wuwa-grub2-theme.git
 cd ./wuwa-grub2-themes/scripts
-sudo ./install-theme.sh [PARAM]
+sudo ./install-theme-gui.sh       # for GUI installer
+sudo ./install-theme.sh [PARAM]   # for CLI script
 ```
 
 ### `install-theme.sh` Usage
@@ -277,7 +293,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/rover.webp"
+        <img src="./.readme_assets/affiliation-icons/rover.webp"
           alt="Rover" height=100 href="/">
     </picture>
   </div>
@@ -291,13 +307,13 @@ Click to reveal
   <details>
   <summary><b>Rover (Female)</b></summary>
 
-  ![Rover (Female)](./previews/rover-female.webp)
+  ![Rover (Female)](./.readme_assets/rover-female.webp)
   </details>
 
   <details>
   <summary><b>Rover (Male)</b></summary>
 
-  ![Rover (Male)](./previews/rover-male.webp)
+  ![Rover (Male)](./.readme_assets/rover-male.webp)
   </details>
 
   </blockquote>
@@ -307,7 +323,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/huanglong.webp"
+        <img src="./.readme_assets/affiliation-icons/huanglong.webp"
           alt="Huang Long" height=100 href="/">
     </picture>
   </div>
@@ -321,133 +337,133 @@ Click to reveal
   <details>
   <summary><b>Baizhi</b></summary>
 
-  ![Baizhi](./previews/baizhi.webp)
+  ![Baizhi](./.readme_assets/themes/baizhi.webp)
   </details>
 
   <details>
   <summary><b>Changli</b></summary>
 
-  ![Changli](./previews/changli.webp)
+  ![Changli](./.readme_assets/themes/changli.webp)
   </details>
 
   <details>
   <summary><b>Chixia</b></summary>
 
-  ![Chixia](./previews/chixia.webp)
+  ![Chixia](./.readme_assets/themes/chixia.webp)
   </details>
 
   <details>
   <summary><b>Danjin</b></summary>
 
-  ![Danjin](./previews/danjin.webp)
+  ![Danjin](./.readme_assets/themes/danjin.webp)
   </details>
 
   <details>
   <summary><b>Jianxin</b></summary>
 
-  ![Jianxin](./previews/jianxin.webp)
+  ![Jianxin](./.readme_assets/themes/jianxin.webp)
   </details>
 
   <details>
   <summary><b>Jinhsi</b></summary>
 
-  ![Jinhsi](./previews/jinhsi.webp)
+  ![Jinhsi](./.readme_assets/themes/jinhsi.webp)
   </details>
 
   <details>
   <summary><b>Lingyang</b></summary>
 
-  ![Lingyang](./previews/lingyang.webp)
+  ![Lingyang](./.readme_assets/themes/lingyang.webp)
   </details>
 
   <details>
   <summary><b>Lumi</b></summary>
 
-  ![Lumi](./previews/lumi.webp)
+  ![Lumi](./.readme_assets/themes/lumi.webp)
   </details>
 
   <details>
   <summary><b>Mortefi</b></summary>
 
-  ![Mortefi](./previews/mortefi.webp)
+  ![Mortefi](./.readme_assets/themes/mortefi.webp)
   </details>
 
   <details>
   <summary><b>Qingxiao</b></summary>
 
-  ![Qingxiao](./previews/qingxiao.webp)
+  ![Qingxiao](./.readme_assets/themes/qingxiao.webp)
   </details>
 
   <details>
   <summary><b>Qiuyuan</b></summary>
 
-  ![Qiuyuan](./previews/qiuyuan.webp)
+  ![Qiuyuan](./.readme_assets/themes/qiuyuan.webp)
   </details>
 
   <details>
   <summary><b>Sanhua</b></summary>
 
-  ![Sanhua](./previews/sanhua.webp)
+  ![Sanhua](./.readme_assets/themes/sanhua.webp)
   </details>
 
   <details>
   <summary><b>Suisui</b></summary>
 
-  ![Suisui](./previews/suisui.webp)
+  ![Suisui](./.readme_assets/themes/suisui.webp)
   </details>
 
   <details>
   <summary><b>Taoqi</b></summary>
 
-  ![Taoqi](./previews/taoqi.webp)
+  ![Taoqi](./.readme_assets/themes/taoqi.webp)
   </details>
 
   <details>
   <summary><b>Verina</b></summary>
 
-  ![Verina](./previews/verina.webp)
+  ![Verina](./.readme_assets/themes/verina.webp)
   </details>
 
   <details>
   <summary><b>Xiangli Yao</b></summary>
 
-  ![Xiangli Yao](./previews/xiangli_yao.webp)
+  ![Xiangli Yao](./.readme_assets/themes/xiangli_yao.webp)
   </details>
 
   <details>
   <summary><b>Yangyang</b></summary>
 
-  ![Yangyang](./previews/yangyang.webp)
+  ![Yangyang](./.readme_assets/themes/yangyang.webp)
   </details>
 
   <details>
   <summary><b>Yangyang: Xuanling</b></summary>
 
-  ![Yangyang: Xuanling](./previews/yangyang-xuanling.webp)
+  ![Yangyang: Xuanling](./.readme_assets/yangyang-xuanling.webp)
   </details>
 
   <details>
   <summary><b>Yinlin</b></summary>
 
-  ![Yinlin](./previews/yinlin.webp)
+  ![Yinlin](./.readme_assets/themes/yinlin.webp)
   </details>
 
   <details>
   <summary><b>Youhu</b></summary>
 
-  ![Youhu](./previews/youhu.webp)
+  ![Youhu](./.readme_assets/themes/youhu.webp)
   </details>
 
   <details>
   <summary><b>Yuanwu</b></summary>
 
-  ![Yuanwu](./previews/yuanwu.webp)
+  ![Yuanwu](./.readme_assets/themes/yuanwu.webp)
   </details>
 
   <details>
   <summary><b>Zhezhi</b></summary>
 
-  ![Zhezhi](./previews/zhezhi.webp)
+  ![Zhezhi](./.readme_assets/themes/zhezhi.webp)
   </details>
 
   </blockquote>
@@ -457,7 +473,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/black_shores.webp"
+        <img src="./.readme_assets/affiliation-icons/black_shores.webp"
           alt="Black Shores" height=100 href="/">
     </picture>
   </div>
@@ -471,37 +487,37 @@ Click to reveal
   <details>
   <summary><b>Aalto</b></summary>
 
-  ![Aalto](./previews/aalto.webp)
+  ![Aalto](./.readme_assets/themes/aalto.webp)
   </details>
 
   <details>
   <summary><b>Buling</b></summary>
 
-  ![Buling](./previews/buling.webp)
+  ![Buling](./.readme_assets/themes/buling.webp)
   </details>
 
   <details>
   <summary><b>Camellya</b></summary>
 
-  ![Camellya](./previews/camellya.webp)
+  ![Camellya](./.readme_assets/themes/camellya.webp)
   </details>
 
   <details>
   <summary><b>Encore</b></summary>
 
-  ![Encore](./previews/encore.webp)
+  ![Encore](./.readme_assets/themes/encore.webp)
   </details>
 
   <details>
   <summary><b>Galbrena</b></summary>
 
-  ![Galbrena](./previews/galbrena.webp)
+  ![Galbrena](./.readme_assets/themes/galbrena.webp)
   </details>
 
   <details>
   <summary><b>The Shorekeeper</b></summary>
 
-  ![The Shorekeeper](./previews/shorekeeper.webp)
+  ![The Shorekeeper](./.readme_assets/themes/shorekeeper.webp)
   </details>
 
   </blockquote>
@@ -511,7 +527,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/ragunna.webp"
+        <img src="./.readme_assets/affiliation-icons/ragunna.webp"
           alt="Ragunna" height=100 href="/">
     </picture>
   </div>
@@ -525,49 +541,49 @@ Click to reveal
   <details>
   <summary><b>Brant</b></summary>
 
-  ![Brant](./previews/brant.webp)
+  ![Brant](./.readme_assets/themes/brant.webp)
   </details>
 
   <details>
   <summary><b>Cantarella</b></summary>
 
-  ![Cantarella](./previews/cantarella.webp)
+  ![Cantarella](./.readme_assets/themes/cantarella.webp)
   </details>
 
   <details>
   <summary><b>Carlotta</b></summary>
 
-  ![Carlotta](./previews/carlotta.webp)
+  ![Carlotta](./.readme_assets/themes/carlotta.webp)
   </details>
 
   <details>
   <summary><b>Cartethyia</b></summary>
 
-  ![Cartethyia](./previews/cartethyia.webp)
+  ![Cartethyia](./.readme_assets/themes/cartethyia.webp)
   </details>
 
   <details>
   <summary><b>Ciaccona</b></summary>
 
-  ![Ciaccona](./previews/ciaccona.webp)
+  ![Ciaccona](./.readme_assets/themes/ciaccona.webp)
   </details>
 
   <details>
   <summary><b>Phoebe</b></summary>
 
-  ![Phoebe](./previews/phoebe.webp)
+  ![Phoebe](./.readme_assets/themes/phoebe.webp)
   </details>
 
   <details>
   <summary><b>Roccia</b></summary>
 
-  ![Roccia](./previews/roccia.webp)
+  ![Roccia](./.readme_assets/themes/roccia.webp)
   </details>
 
   <details>
   <summary><b>Zani</b></summary>
 
-  ![Zani](./previews/zani.webp)
+  ![Zani](./.readme_assets/themes/zani.webp)
   </details>
 
   </blockquote>
@@ -577,7 +593,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/septimont.webp"
+        <img src="./.readme_assets/affiliation-icons/septimont.webp"
           alt="Septimont" height=100 href="/">
     </picture>
   </div>
@@ -591,19 +607,19 @@ Click to reveal
   <details>
   <summary><b>Augusta</b></summary>
 
-  ![Augusta](./previews/augusta.webp)
+  ![Augusta](./.readme_assets/themes/augusta.webp)
   </details>
 
   <details>
   <summary><b>Iuno</b></summary>
 
-  ![Iuno](./previews/iuno.webp)
+  ![Iuno](./.readme_assets/themes/iuno.webp)
   </details>
 
   <details>
   <summary><b>Lupa</b></summary>
 
-  ![Lupa](./previews/lupa.webp)
+  ![Lupa](./.readme_assets/themes/lupa.webp)
   </details>
 
   </blockquote>
@@ -613,7 +629,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/startorch_academy.webp"
+        <img src="./.readme_assets/affiliation-icons/startorch_academy.webp"
           alt="Startorch Academy" height=100 href="/">
     </picture>
   </div>
@@ -627,25 +643,25 @@ Click to reveal
   <details>
   <summary><b>Aemeath</b></summary>
 
-  ![Aemeath](./previews/aemeath.webp)
+  ![Aemeath](./.readme_assets/themes/aemeath.webp)
   </details>
 
   <details>
   <summary><b>Chisa</b></summary>
 
-  ![Chisa](./previews/chisa.webp)
+  ![Chisa](./.readme_assets/themes/chisa.webp)
   </details>
 
   <details>
   <summary><b>Luuk Herssen</b></summary>
 
-  ![Luuk Herssen](./previews/luuk_herssen.webp)
+  ![Luuk Herssen](./.readme_assets/themes/luuk_herssen.webp)
   </details>
 
   <details>
   <summary><b>Lynae</b></summary>
 
-  ![Lynae](./previews/lynae.webp)
+  ![Lynae](./.readme_assets/themes/lynae.webp)
   </details>
 
   </blockquote>
@@ -655,7 +671,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/spacetrek_collective.webp"
+        <img src="./.readme_assets/affiliation-icons/spacetrek_collective.webp"
           alt="Spacetrek Collective" height=100 href="/">
     </picture>
   </div>
@@ -669,13 +685,13 @@ Click to reveal
   <details>
   <summary><b>Mornye</b></summary>
 
-  ![Mornye](./previews/mornye.webp)
+  ![Mornye](./.readme_assets/themes/mornye.webp)
   </details>
   
   <details>
   <summary><b>Lucilla</b></summary>
 
-  ![Lucilla](./previews/lucilla.webp)
+  ![Lucilla](./.readme_assets/themes/lucilla.webp)
   </details>
 
   </blockquote>
@@ -685,7 +701,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/the_roya_tribe.webp"
+        <img src="./.readme_assets/affiliation-icons/the_roya_tribe.webp"
           alt="The Roya Tribe" height=100 href="/">
     </picture>
   </div>
@@ -699,7 +715,7 @@ Click to reveal
   <details>
   <summary><b>Sigrika</b></summary>
 
-  ![Sigrika](./previews/sigrika.webp)
+  ![Sigrika](./.readme_assets/themes/sigrika.webp)
   </details>
   
   </blockquote>
@@ -709,7 +725,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/flaming_sakura.webp"
+        <img src="./.readme_assets/affiliation-icons/flaming_sakura.webp"
           alt="Flaming Sakura" height=100 href="/">
     </picture>
   </div>
@@ -723,7 +739,7 @@ Click to reveal
   <details>
   <summary><b>Hiyuki</b></summary>
 
-  ![Hiyuki](./previews/hiyuki.webp)
+  ![Hiyuki](./.readme_assets/themes/hiyuki.webp)
   </details>
 
   </blockquote>
@@ -733,7 +749,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/the_fractsidus.webp"
+        <img src="./.readme_assets/affiliation-icons/the_fractsidus.webp"
           alt="The Fractsidus" height=100 href="/">
     </picture>
   </div>
@@ -747,7 +763,7 @@ Click to reveal
   <details>
   <summary><b>Phlorova</b></summary>
 
-  ![Phlorova](./previews/phlorova.webp)
+  ![Phlorova](./.readme_assets/themes/phlorova.webp)
   </details>
 
   </blockquote>
@@ -757,7 +773,7 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./previews/affiliation_icons/unknown.webp" alt="Unknown" height=100 href="/">
+        <img src="./.readme_assets/affiliation-icons/unknown.webp" alt="Unknown" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -770,13 +786,13 @@ Click to reveal
   <details>
   <summary><b>Calcharo</b></summary>
 
-  ![Calcharo](./previews/calcharo.webp)
+  ![Calcharo](./.readme_assets/themes/calcharo.webp)
   </details>
 
   <details>
   <summary><b>Denia</b></summary>
 
-  ![Denia](./previews/denia.webp)
+  ![Denia](./.readme_assets/themes/denia.webp)
   </details>
 
   </blockquote>
