@@ -13,7 +13,7 @@ SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]:-$0}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 
-ASSETS_DIR="${PROJECT_ROOT}/assets"
+ASSETS_DIR="$PROJECT_ROOT/assets"
 
 # assets
 VARIANTS=("icons" "other")
@@ -34,7 +34,7 @@ ICON_ALIASES=(
 # ---- source scripts ----
 # if print_msg is not defined, source utils.sh
 if ! declare -f print_msg >/dev/null; then
-  source "${SCRIPT_DIR}/utils.sh"
+  source "$SCRIPT_DIR/utils.sh"
 fi
 
 # ---- functions ----

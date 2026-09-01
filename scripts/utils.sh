@@ -20,6 +20,9 @@ readonly GITHUB_USERNAME="XezolesS"
 readonly GITHUB_REPOS="wuwa-grub2-theme"
 readonly GITHUB_BRANCH="master"
 
+# ---- temporary files ----
+readonly TEMP_DIR=".wuwa-grub2-temp"
+
 # ---- functions ----
 print_msg() {
   printf "${COLOR_DEF}%s\n" "$1"
@@ -124,4 +127,21 @@ grub_ls_themes() {
   done
 
   printf '%s\n' "${themes[@]}"
+}
+
+mktempdir() {
+  rmtempdir
+  mkdir "$TEMP_DIR"
+
+  for subdir in "$@"; do
+    if [[ ! -d "$TEMP_DIR/$subdir" ]]; then
+      mkdir "$TEMP_DIR/$subdir"
+    fi
+  done
+}
+
+rmtempdir() {
+  if [[ -d "$TEMP_DIR" ]]; then
+    rm -r "$TEMP_DIR"
+  fi
 }

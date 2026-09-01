@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # make sure the script is fail safe
-set -euo errexit
+set -euo pipefail
 
 # ---- globals ----
 readonly ROOT_UID=0
@@ -61,8 +61,8 @@ fi
 # I don't want a --remote options for this scripts,
 # so workaround by checking existence of utils.sh and
 # curl it when it cannot be found.
-if [[ -f "${SCRIPT_DIR}/utils.sh" ]]; then
-  source "${SCRIPT_DIR}/utils.sh"
+if [[ -f "$SCRIPT_DIR/utils.sh" ]]; then
+  source "$SCRIPT_DIR/utils.sh"
 else
   source <(curl -fsSL "$UTILS_SH_URL")
 fi
@@ -185,7 +185,7 @@ grub_uninstall_theme() {
       prompt_uninstall_theme \
         "${installed_themes[$index]}" \
         "${installed_theme_dirs[$index]}" \
-        "${current_theme}"
+        "$current_theme"
     done
   else
     local theme_index
@@ -202,7 +202,7 @@ grub_uninstall_theme() {
         prompt_uninstall_theme \
           "${installed_themes[$theme_index]}" \
           "${installed_theme_dirs[$theme_index]}" \
-          "${current_theme}"
+          "$current_theme"
       else
         warning_msg "Cannot find theme '$th'. Skipped."
       fi
