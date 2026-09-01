@@ -142,4 +142,7 @@ while itg_main; do
   fi
 done
 
+zenity --title="Installation Successful!" --width=320 --ok-label="Ok" \
+  --info --text="Theme <b>$THEME</b> will be applied on your next boot."
+
 rmtempdir
