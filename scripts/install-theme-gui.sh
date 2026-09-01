@@ -129,13 +129,12 @@ while itg_main; do
   if itg_confirm; then
     iargs=("$BOOT" "$THEME")
 
+    export SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh"
     if [[ -f "$SCRIPT_DIR/install-theme.sh" ]]; then
-      SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" \
-        sudo -A "$SCRIPT_DIR/install-theme.sh" "${iargs[@]}"
+      sudo -A "$SCRIPT_DIR/install-theme.sh" "${iargs[@]}"
     else
       curl -fsSL "$(get_remote_content_url "scripts/install-theme.sh")" |
-        SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh" \
-          sudo bash -s -- -r "${iargs[@]}"
+        sudo bash -s -- -r "${iargs[@]}"
     fi
 
     iecode=$?
