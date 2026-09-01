@@ -8,7 +8,7 @@
 set -euo pipefail
 
 # ---- globals ----
-if [[ -n "${UTILS_SH_URL:-}" ]]; then
+if [[ -z "${UTILS_SH_URL:-}" ]]; then
   readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
 fi
 

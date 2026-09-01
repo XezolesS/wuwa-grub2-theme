@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 # ---- globals ----
-if [[ -n "${UTILS_SH_URL:-}" ]]; then
+if [[ -z "${UTILS_SH_URL:-}" ]]; then
   readonly UTILS_SH_URL="http://raw.githubusercontent.com/XezolesS/wuwa-grub2-theme/master/scripts/utils.sh"
 fi
 
@@ -138,11 +138,13 @@ while itg_main; do
           sudo bash -s -- -r "${iargs[@]}"
     fi
 
+    if $?; then
+      zenity --title="Installation Successful!" --width=320 --ok-label="Ok" \
+        --info --text="Theme <b>$THEME</b> will be applied on your next boot."
+    fi
+
     break
   fi
 done
-
-zenity --title="Installation Successful!" --width=320 --ok-label="Ok" \
-  --info --text="Theme <b>$THEME</b> will be applied on your next boot."
 
 rmtempdir
