@@ -11,6 +11,7 @@ and is heavily modified.**
 - `bash`
 - `curl` (when --remote|-r flag is passed)
 - `git` (to clone this repository)
+- `zenity` (for GUI Installer)
 
 ## Installation
 
@@ -22,6 +23,8 @@ It is recommended due to the large number of backgrounds, a whole repo is quite
 chunky to download.
 
 #### Method 1.1. Remotely execute GUI installer
+
+**Make sure you have `zenity` installed.**
 
 Copy this command below and execute it.
 
