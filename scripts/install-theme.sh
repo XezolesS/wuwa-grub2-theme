@@ -148,7 +148,7 @@ download_theme() {
   fi
 
   # Remote, make temporary directory and download inside of it
-  mktempdir "fonts" "assets-icons" "assets-others"
+  mktempdir "fonts" "assets-icons" "assets-other"
 
   local content_url
 
