@@ -16,7 +16,7 @@
 
 With this method, installation script is fetched using `curl`.
 The script will automatically download assets from this GitHub repository.
-It is recommended due to the increase of backgrounds, a whole repo is quite
+It is recommended due to the large number of backgrounds, a whole repo is quite
 chunky to download.
 
 Copy this command below and run it with parameters.
