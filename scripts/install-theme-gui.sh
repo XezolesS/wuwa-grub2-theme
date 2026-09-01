@@ -17,6 +17,7 @@ BACKGROUND_PATH="$PROJECT_ROOT/backgrounds"
 # arguments
 BOOT=
 THEME=
+RESOLUTION=
 
 # ---- source scripts ----
 # utils.sh
@@ -61,6 +62,7 @@ itg_main() {
         --forms --text="Installation details" \
         --add-combo="Install at:" --combo-values="system|boot" \
         --add-combo="Selected theme:" --combo-values="$theme_combo_str" \
+        --add-combo="Resolution:" --combo-values="fhd|qhd|uhd" \
         --extra-button="Load Custom Themes" \
         --extra-button="Load Default Themes"
     )
@@ -75,6 +77,8 @@ itg_main() {
       if [[ "${opt[0]}" == "boot" ]]; then
         BOOT="-b"
       fi
+
+      RESOLUTION="${opt[2]}"
 
       return 0
       ;;
@@ -101,6 +105,7 @@ itg_main() {
 itg_confirm() {
   local cfmsg="<big>You're installing:</big>\n\n"
   cfmsg+="<b><span foreground=\"orange\">$THEME</span></b> theme, "
+  cfmsg+="<b><span foreground=\"magenta\">$RESOLUTION</span></b> resolution, "
   cfmsg+="under "
 
   if [[ -n "$BOOT" ]]; then
@@ -127,7 +132,7 @@ chmod +x "$TEMP_DIR/sudo_prompt.sh"
 
 while itg_main; do
   if itg_confirm; then
-    iargs=("$BOOT" "$THEME")
+    iargs=("$BOOT" "$THEME" "$RESOLUTION")
 
     export SUDO_ASKPASS="$TEMP_DIR/sudo_prompt.sh"
     if [[ -f "$SCRIPT_DIR/install-theme.sh" ]]; then
