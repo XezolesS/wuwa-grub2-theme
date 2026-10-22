@@ -146,6 +146,7 @@ THEMES:
 - Chixia: `chixia`
 - Danjin: `danjin`
 - Jianxin: `jianxin`
+- Jingran: `jingran`
 - Jinhsi: `jinhsi`
 - Lingyang: `lingyang`
 - Lumi: `lumi`
@@ -365,6 +366,12 @@ Click to reveal
   <summary><b>Jianxin</b></summary>
 
   ![Jianxin](./.readme_assets/themes/jianxin.webp)
+  </details>
+
+  <details>
+  <summary><b>Jingran</b></summary>
+
+  ![Jingran](./.readme_assets/themes/jingran.webp)
   </details>
 
   <details>
