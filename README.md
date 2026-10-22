@@ -145,6 +145,7 @@ THEMES:
 - Changli: `changli`
 - Chixia: `chixia`
 - Danjin: `danjin`
+- Hsin: `hsin`
 - Jianxin: `jianxin`
 - Jingran: `jingran`
 - Jinhsi: `jinhsi`
@@ -158,8 +159,8 @@ THEMES:
 - Taoqi: `taoqi`
 - Verina: `verina`
 - Xiangli Yao: `xiangli_yao`
-- Yangyang: `yangyang`
 - Yangyang: Xuanling: `yangyang-xuanling`
+- Yangyang: `yangyang`
 - Yinlin: `yinlin`
 - Youhu: `youhu`
 - Yuanwu: `yuanwu`
@@ -360,6 +361,12 @@ Click to reveal
   <summary><b>Danjin</b></summary>
 
   ![Danjin](./.readme_assets/themes/danjin.webp)
+  </details>
+
+  <details>
+  <summary><b>Hsin</b></summary>
+
+  ![Hsin](./.readme_assets/themes/hsin.webp)
   </details>
 
   <details>
