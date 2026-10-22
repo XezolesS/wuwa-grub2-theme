@@ -156,6 +156,7 @@ THEMES:
 - Qiuyuan: `qiuyuan`
 - Sanhua: `sanhua`
 - Suisui: `suisui`
+- Suoming: `suoming`
 - Taoqi: `taoqi`
 - Verina: `verina`
 - Xiangli Yao: `xiangli_yao`
@@ -427,6 +428,12 @@ Click to reveal
   <summary><b>Suisui</b></summary>
 
   ![Suisui](./.readme_assets/themes/suisui.webp)
+  </details>
+
+  <details>
+  <summary><b>Suoming</b></summary>
+
+  ![Suoming](./.readme_assets/themes/suoming.webp)
   </details>
 
   <details>
