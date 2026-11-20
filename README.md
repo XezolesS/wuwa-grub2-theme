@@ -237,6 +237,13 @@ THEMES:
 </details>
 
 <details>
+<summary><b>New Federation</b></summary>
+
+- Calcharo: `calcharo`
+
+</details>
+
+<details>
 <summary><b>The Fractsidus</b></summary>
 
 - Phlorova: `phlorova`
@@ -246,7 +253,6 @@ THEMES:
 <details>
 <summary><b>Unknown</b></summary>
 
-- Calcharo: `calcharo`
 - Denia: `denia`
 
 </details>
@@ -773,6 +779,29 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
+        <img src="./.readme_assets/affiliation-icons/new_federation.webp"
+          alt="New Federation" height=100 href="/">
+    </picture>
+  </div>
+  <div align="center">
+    <b>New Federation</b>
+  </div>
+</summary>
+
+  <blockquote>
+
+  <details>
+  <summary><b>Calcharo</b></summary>
+
+  ![Calcharo](./.readme_assets/themes/calcharo.webp)
+  </details>
+
+  </blockquote>
+</details>
+<details>
+<summary>
+  <div align="center">
+    <picture align="center">
         <img src="./.readme_assets/affiliation-icons/the_fractsidus.webp"
           alt="The Fractsidus" height=100 href="/">
     </picture>
@@ -797,7 +826,8 @@ Click to reveal
 <summary>
   <div align="center">
     <picture align="center">
-        <img src="./.readme_assets/affiliation-icons/unknown.webp" alt="Unknown" height=100 href="/">
+        <img src="./.readme_assets/affiliation-icons/unknown.webp"
+          alt="Unknown" height=100 href="/">
     </picture>
   </div>
   <div align="center">
@@ -806,12 +836,6 @@ Click to reveal
 </summary>
 
   <blockquote>
-
-  <details>
-  <summary><b>Calcharo</b></summary>
-
-  ![Calcharo](./.readme_assets/themes/calcharo.webp)
-  </details>
 
   <details>
   <summary><b>Denia</b></summary>
