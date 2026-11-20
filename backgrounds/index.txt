@@ -18,10 +18,13 @@ denia
 encore
 galbrena
 hiyuki
+hsin
 iuno
 jianxin
+jingran
 jinhsi
 jiyan
+lily
 lingyang
 lucilla
 lumi
@@ -41,6 +44,7 @@ sanhua
 shorekeeper
 sigrika
 suisui
+suoming
 taoqi
 verina
 xiangli_yao
