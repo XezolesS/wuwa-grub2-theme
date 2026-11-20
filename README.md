@@ -240,6 +240,7 @@ THEMES:
 <summary><b>New Federation</b></summary>
 
 - Calcharo: `calcharo`
+- Lily: `lily`
 
 </details>
 
@@ -794,6 +795,12 @@ Click to reveal
   <summary><b>Calcharo</b></summary>
 
   ![Calcharo](./.readme_assets/themes/calcharo.webp)
+  </details>
+
+  <details>
+  <summary><b>Lily</b></summary>
+
+  ![Lily](./.readme_assets/themes/lily.webp)
   </details>
 
   </blockquote>
